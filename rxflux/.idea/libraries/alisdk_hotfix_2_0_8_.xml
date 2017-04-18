@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="alisdk-hotfix-2.0.8-">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/7dd23628f63d07a2072ae3ce58fed1f4feef632b/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/7dd23628f63d07a2072ae3ce58fed1f4feef632b/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

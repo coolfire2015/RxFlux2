@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    testCompile "junit:junit:${TEST_VERSION}"
+    compile "com.android.support:support-v4:${SUPPORT_VERSION}"
+    compile "io.reactivex:rxandroid:${RX_ANDROID}"
+    compile "io.reactivex:rxjava:${RX_JAVA}"
+    compile "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
+}
+
+
+
+
+

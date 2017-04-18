@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="alicloud-android-utils-1.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../app/libs/alicloud-android-utils-1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
