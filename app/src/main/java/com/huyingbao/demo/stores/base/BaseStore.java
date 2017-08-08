@@ -7,7 +7,7 @@ import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
 import com.huyingbao.demo.core.actions.BaseActions;
-import com.huyingbao.demo.core.inject.component.ApplicationComponent;
+import com.huyingbao.demo.inject.component.ApplicationComponent;
 
 /**
  * 存在于 BaseApplication 的 mApplicationComponent 中 全局

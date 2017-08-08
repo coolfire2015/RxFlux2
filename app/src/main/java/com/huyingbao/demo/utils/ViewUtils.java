@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.huyingbao.demo.R;
-import com.huyingbao.demo.core.base.application.BaseApplication;
+import com.huyingbao.demo.base.application.BaseApplication;
 import com.yqritc.recyclerviewflexibledivider.FlexibleDividerDecoration;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 

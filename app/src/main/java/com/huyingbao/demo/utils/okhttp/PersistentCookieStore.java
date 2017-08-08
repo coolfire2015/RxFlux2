@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.huyingbao.demo.core.base.application.BaseApplication;
+import com.huyingbao.demo.base.application.BaseApplication;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
