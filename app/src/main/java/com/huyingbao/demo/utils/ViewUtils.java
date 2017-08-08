@@ -34,7 +34,7 @@ public class ViewUtils {
      */
     public static ProgressBar createProgressBar(Activity activity, Drawable customIndeterminateDrawable) {
         // activity根部的ViewGroup，其实是一个FrameLayout
-        FrameLayout rootContainer = (FrameLayout) activity.findViewById(android.R.id.content);
+        FrameLayout rootContainer = activity.findViewById(android.R.id.content);
         // 给progressbar准备一个FrameLayout的LayoutParams
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
