@@ -147,7 +147,6 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
             dispatcher.unsubscribeRxView((RxViewDispatch) activity);
     }
 
-
     @Override
     public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
 

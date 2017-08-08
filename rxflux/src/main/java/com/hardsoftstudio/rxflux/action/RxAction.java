@@ -51,10 +51,7 @@ public class RxAction {
 
     @Override
     public String toString() {
-        return "RxAction{" +
-                "type='" + type + '\'' +
-                ", data=" + data +
-                '}';
+        return "RxAction{" + "type='" + type + '\'' + ", data=" + data + '}';
     }
 
     public static class Builder {
@@ -75,11 +72,10 @@ public class RxAction {
             if (key == null) {
                 throw new IllegalArgumentException("Key may not be null.");
             }
-
-            if (value == null) {
-                throw new IllegalArgumentException("Value may not be null.");
+            //throw new IllegalArgumentException("Value may not be null.");
+            if (value != null) {
+                data.put(key, value);
             }
-            data.put(key, value);
             return this;
         }
 

@@ -9,9 +9,11 @@ import android.support.v4.util.ArrayMap;
  */
 public class RxError extends RxAction {
 
-    public static final String ERROR_TYPE = "RxError_Type";
-    public static final String ERROR_ACTION = "RxError_Action";
-    public static final String ERROR_THROWABLE = "RxError_Throwable";
+    private static final String ERROR_TYPE = "RxError_Type";
+
+    private static final String ERROR_ACTION = "RxError_Action";
+
+    private static final String ERROR_THROWABLE = "RxError_Throwable";
 
     private RxError(String type, ArrayMap<String, Object> data) {
         super(type, data);

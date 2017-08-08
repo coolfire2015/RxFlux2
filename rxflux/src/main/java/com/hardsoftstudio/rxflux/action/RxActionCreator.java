@@ -75,7 +75,7 @@ public abstract class RxActionCreator {
      * @param data     -键值对型的参数pair-value parameters(Key - Object))
      * @return
      */
-    public RxAction newRxAction(@NonNull String actionId, @NonNull Object... data) {
+    protected RxAction newRxAction(@NonNull String actionId, @NonNull Object... data) {
         if (actionId.isEmpty()) throw new IllegalArgumentException("Type must not be empty");
 
         if (data.length % 2 != 0)
@@ -118,7 +118,7 @@ public abstract class RxActionCreator {
      * @param throwable
      */
     protected void postError(@NonNull RxAction action, Throwable throwable) {
-        Logger.e("==错误:" + action.getType() + "\n==错误信息:" + throwable.toString());
+        Logger.e("==错误:" + action.getType() + (throwable == null ? "" : "\n==错误信息:" + throwable.toString()));
         dispatcher.postRxAction(RxError.newRxError(action, throwable));
         removeRxAction(action);
     }

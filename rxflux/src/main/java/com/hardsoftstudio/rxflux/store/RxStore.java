@@ -38,7 +38,6 @@ public abstract class RxStore implements RxActionDispatch {
         this.dispatcher = dispatcher;
     }
 
-
     public Dispatcher getDispatcher() {
         return dispatcher;
     }

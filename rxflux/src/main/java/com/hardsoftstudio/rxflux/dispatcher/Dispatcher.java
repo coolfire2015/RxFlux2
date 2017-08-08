@@ -89,7 +89,6 @@ public class Dispatcher {
         }
     }
 
-
     /**
      * Bus(Subject被监听者)发送一个事件到所有订阅bus(Subject)的监听者Subscription
      * 当该事件是RxStoreChange的实现类的时候,
@@ -142,7 +141,6 @@ public class Dispatcher {
         Subscription subscription = rxStoreMap.get(tag);
         return subscription != null && !subscription.isUnsubscribed();
     }
-
 
     /**
      * 解除rxstore的注册
@@ -224,7 +222,6 @@ public class Dispatcher {
     public void postRxAction(final RxAction action, Func0<Observable<Object>> subscriptionDelay) {
         bus.send(action, subscriptionDelay);
     }
-
 
     /**
      * 2:发送store变化
