@@ -23,7 +23,7 @@ import com.squareup.leakcanary.LeakCanary;
 import javax.inject.Inject;
 
 /**
- * Application multidex分包 依赖注入 初始化注释 Created by Liu Junfeng on 2017/1/1.
+ * Application multidex分包 依赖注入 初始化注释 Created by liujunfeng on 2017/1/1.
  */
 public class BaseApplication extends Application {
     @Inject

@@ -14,7 +14,7 @@ import butterknife.BindView;
 
 /**
  * 带有toolbar的Activity父类
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
 

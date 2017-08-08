@@ -4,7 +4,7 @@ import com.raizlabs.android.dbflow.annotation.Database;
 
 /**
  * DBFlow数据库
- * Created by Liu Junfeng on 2016/9/29.
+ * Created by liujunfeng on 2016/9/29.
  */
 
 @Database(name = AppDatabase.NAME, version = AppDatabase.VERSION)

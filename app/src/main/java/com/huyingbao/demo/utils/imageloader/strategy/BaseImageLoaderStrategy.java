@@ -9,7 +9,7 @@ import com.huyingbao.demo.utils.imageloader.ImageLoader;
 
 
 /**
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public interface BaseImageLoaderStrategy {
     void loadImage(Context context, ImageLoader img);

@@ -6,7 +6,7 @@ import com.bumptech.glide.request.target.Target;
 
 /**
  * 图片加载参数设置
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  *
  * @param <ResourceType>
  */

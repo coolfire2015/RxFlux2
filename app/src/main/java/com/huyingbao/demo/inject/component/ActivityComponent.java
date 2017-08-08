@@ -6,13 +6,14 @@ import android.content.Context;
 import com.huyingbao.demo.inject.module.ActivityModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.inject.scope.PerActivity;
+import com.huyingbao.demo.ui.MainActivity;
 
 import dagger.Component;
 
 /**
  * activity注入器
  * 两个Component间有依赖关系，那么它们不能使用相同的Scope
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class})
@@ -41,4 +42,6 @@ public interface ActivityComponent {
      * @return
      */
     FragmentComponent getFragmentComponent();
+
+    void inject(MainActivity mainActivity);
 }

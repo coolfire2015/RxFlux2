@@ -25,7 +25,7 @@ import okio.Okio;
 import static android.graphics.BitmapFactory.decodeFile;
 
 /**
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class BitmapUtils {
 

@@ -9,7 +9,7 @@ import okhttp3.Cookie;
 
 /**
  * 序列化cooke
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class SerializableOkHttpCookies implements Serializable {
 

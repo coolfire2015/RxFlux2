@@ -10,7 +10,7 @@ import dagger.Component;
 
 /**
  * service注入器
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 @PerService
 @Component(dependencies = ApplicationComponent.class, modules = {ServiceModule.class})

@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * 本地配出存贮类,保存 int,boolean,String,Object,List
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class LocalStorageUtils {
 

@@ -8,7 +8,6 @@ import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.dispatcher.RxBus;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
-import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 
 import java.util.List;
@@ -23,10 +22,6 @@ import java.util.Stack;
  * 这个类会自动跟踪应用程序的生命周期,并且注销每个activity剩余的订阅subscriptions
  */
 public class RxFlux implements Application.ActivityLifecycleCallbacks {
-
-    public static String TAG = "RxFlux";
-    public static LogLevel LOG_LEVEL = LogLevel.NONE;
-
     private static RxFlux instance;
     private final RxBus rxBus;
     private final Dispatcher dispatcher;
@@ -44,7 +39,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
         this.dispatcher = Dispatcher.getInstance(rxBus);
         this.subscriptionManager = SubscriptionManager.getInstance();
         activityCounter = 0;
-        activityStack = new Stack<Activity>();
+        activityStack = new Stack<>();
         application.registerActivityLifecycleCallbacks(this);
     }
 

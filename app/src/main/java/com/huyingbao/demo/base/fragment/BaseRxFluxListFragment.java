@@ -21,7 +21,7 @@ import butterknife.BindView;
 
 /**
  * 带上拉加载,下拉刷新的Fragment,实现RxFlux接口,可以接受store传递过来的数据
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
     @BindView(R.id.rv_content)

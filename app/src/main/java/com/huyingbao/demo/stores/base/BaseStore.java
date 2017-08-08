@@ -11,7 +11,7 @@ import com.huyingbao.demo.inject.component.ApplicationComponent;
 
 /**
  * 存在于 BaseApplication 的 mApplicationComponent 中 全局
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class BaseStore extends RxStore implements BaseActions {
     /**

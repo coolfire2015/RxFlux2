@@ -22,7 +22,7 @@ public abstract class RxActionCreator {
 
     private final Dispatcher dispatcher;
     /**
-     * rxjava 观察者的管理者
+     * RxJava 观察者的管理者
      */
     private final SubscriptionManager manager;
 
@@ -38,9 +38,9 @@ public abstract class RxActionCreator {
     }
 
     /**
-     * 主要是为了和rxjava整合,用在调用网络接口api获取数据之后,被观察者得到数据,发生订阅关系,将返回的数据
+     * 主要是为了和RxJava整合,用在调用网络接口api获取数据之后,被观察者得到数据,发生订阅关系,将返回的数据
      * 或者error封装成action,postAction或者postError出去
-     * 订阅管理,将Rxaction和Subscription添加到SubscriptionManager
+     * 订阅管理,将RxAction和Subscription添加到SubscriptionManager
      *
      * @param rxAction
      * @param subscription

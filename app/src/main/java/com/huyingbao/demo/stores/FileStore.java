@@ -10,7 +10,7 @@ import com.huyingbao.demo.core.api.HttpApi;
 import java.util.List;
 
 /**
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class FileStore extends RxStore {
 

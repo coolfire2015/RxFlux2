@@ -2,26 +2,16 @@ package com.huyingbao.demo.actions;
 
 /**
  * 常量以及intent或者action中传递数据用的key
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public interface ActionsKeys {
-    String PART_NAME_HEAD_IMAGE = "head";
-    String URL_HEAD_IMAGE = "http://7xwebb.com1.z0.glb.clouddn.com/";
-
-    String[] PRODUCT_TYPE = {"上衣", "裤子", "衬衣"};
-    String[] PRODUCT_COLOR = {"白色", "黑色", "红色", "蓝色", "黄色", "卡其色", "灰色", "粉色"};
-
     String SKIP = "skip";
-
-    String USER = "user";
-    String ID = "id";
     String UUID = "uuid";
     String ACCOUNT = "account";//登陆用户名
     String PASSWORD = "password";
     String LOGIN_NAME = "login_name";
     String CHANNEL_ID = "channel_id";
     String STATUS_LOGOUT = "status_logout";
-
 
     String LOCATION = "location";
     String LATITUDE = "latitude";
@@ -59,4 +49,8 @@ public interface ActionsKeys {
 
     String IS_FIRST = "is_first";//是否第一次启动
     String IS_LOGIN = "is_login";//是否已经登录
+
+    String PUBLIC_REPOS = "repos";
+    String USER = "user";
+    String ID = "id";
 }

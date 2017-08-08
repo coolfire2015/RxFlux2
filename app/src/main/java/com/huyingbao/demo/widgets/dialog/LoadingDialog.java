@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 /**
  * 进度提示
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class LoadingDialog extends AppCompatDialog implements OnShowListener {
     private Context mContext;

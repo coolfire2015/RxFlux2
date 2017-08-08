@@ -6,7 +6,7 @@ import android.content.Intent;
 
 /**
  * 开机启动广播接收器
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public class BootReceiver extends BroadcastReceiver {

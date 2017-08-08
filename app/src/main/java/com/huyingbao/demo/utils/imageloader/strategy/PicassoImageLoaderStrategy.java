@@ -9,7 +9,7 @@ import com.huyingbao.demo.utils.imageloader.ImageLoader;
 
 /**
  * Picasso
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class PicassoImageLoaderStrategy implements BaseImageLoaderStrategy {
     @Override

@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 /**
  * 所有服务的父类
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public abstract class BaseService extends Service {

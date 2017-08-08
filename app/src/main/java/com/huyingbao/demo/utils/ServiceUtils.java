@@ -12,7 +12,7 @@ import com.huyingbao.demo.receiver.AlarmReceiver;
 import java.util.ArrayList;
 
 /**
- * Created by Liu Junfeng on 2017/11/21.
+ * Created by liujunfeng on 2017/11/21.
  */
 
 public class ServiceUtils {

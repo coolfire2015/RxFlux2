@@ -18,7 +18,7 @@ import static android.net.wifi.WifiManager.WIFI_STATE_UNKNOWN;
 
 /**
  * 网络连接改变监听器
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public class NetworkReceiver extends BroadcastReceiver {

@@ -1,7 +1,6 @@
 package com.huyingbao.demo.inject.module.application;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.hardsoftstudio.rxflux.util.LogLevel;
 import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.base.application.BaseApplication;
 import com.huyingbao.demo.core.actions.ActionCreator;
@@ -14,7 +13,7 @@ import dagger.Provides;
 /**
  * Flux 依赖
  * Module是一个依赖的制造工厂
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 @Module
 public class FluxActionModule {

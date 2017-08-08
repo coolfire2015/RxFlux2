@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 /**
  * 所有的activity的父类,实现RxFlux接口
  * 通过onRxStoreChanged接收store发送的数据
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public abstract class BaseRxFluxActivity extends AppCompatActivity implements RxViewDispatch {
     @Inject

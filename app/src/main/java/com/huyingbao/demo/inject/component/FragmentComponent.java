@@ -9,7 +9,7 @@ import dagger.Subcomponent;
  * fragment注入器
  * 子Component:
  * 注意子Component的Scope范围小于父Component
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 @PerFragment
 @Subcomponent(modules = FragmentModule.class)

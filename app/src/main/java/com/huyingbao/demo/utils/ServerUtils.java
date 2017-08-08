@@ -4,7 +4,7 @@ import com.huyingbao.demo.BuildConfig;
 
 
 /**
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public class ServerUtils {

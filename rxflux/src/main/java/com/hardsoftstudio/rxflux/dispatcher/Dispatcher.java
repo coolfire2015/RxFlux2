@@ -5,7 +5,6 @@ import android.support.v4.util.ArrayMap;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
-import com.hardsoftstudio.rxflux.util.LoggerManager;
 
 import rx.Observable;
 import rx.Subscription;
@@ -22,7 +21,6 @@ public class Dispatcher {
 
     private static Dispatcher instance;
     private final RxBus bus;
-    private final LoggerManager logger;
     private ArrayMap<String, Subscription> rxActionMap;
     private ArrayMap<String, Subscription> rxStoreMap;
 
@@ -30,7 +28,6 @@ public class Dispatcher {
         this.bus = bus;
         this.rxActionMap = new ArrayMap<>();
         this.rxStoreMap = new ArrayMap<>();
-        this.logger = new LoggerManager();
     }
 
     public static synchronized Dispatcher getInstance(RxBus rxBus) {
@@ -51,7 +48,6 @@ public class Dispatcher {
         Subscription subscription = rxActionMap.get(rxStoreTag);
         //如果订阅不为空或者订阅是取消状态,则进行订阅
         if (subscription == null || subscription.isUnsubscribed()) {
-            logger.logRxStoreRegister(rxStoreTag);
             //filter过滤,传入一个Func1类对象,参数Object,返回boolean,若是object是RxAction的子类实现,则返回true,执行订阅
             rxActionMap.put(rxStoreTag, bus.get()
                     .onBackpressureBuffer()
@@ -59,7 +55,6 @@ public class Dispatcher {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(o ->
                     {
-                        logger.logRxAction(rxStoreTag, (RxAction) o);
                         //Post RxAction
                         //(RxStore extends RxActionDispatch)object调用onRxAction方法
                         rxStore.onRxAction((RxAction) o);
@@ -83,7 +78,6 @@ public class Dispatcher {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(o ->
                     {
-                        logger.logRxError(rxViewErrorTag, (RxError) o);
                         rxView.onRxError((RxError) o);
                     }));
         }
@@ -109,7 +103,6 @@ public class Dispatcher {
         Subscription subscription = rxStoreMap.get(rxViewTag);
         //如果监听者空或者没订阅被监听者,生成一个新的监听者,并将他添加到 storemap中
         if (subscription == null || subscription.isUnsubscribed()) {
-            logger.logViewRegisterToStore(rxViewTag);
             //获取rxbus实例,是一个Observable(被监听者)的子类对象
             //Subject=new SerializedSubject<>(PublishSubject.create())
             //会把在订阅(subscribe())发生的时间点之后来自原始Observable的数据发射给观察者
@@ -119,7 +112,6 @@ public class Dispatcher {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(o ->
                     {
-                        logger.logRxStore(rxViewTag, (RxStoreChange) o);
                         //调用Activity,Fragment,View等所有实现了RxViewDispatch的类对象的onRxStoreChange方法
                         rxView.onRxStoreChanged((RxStoreChange) o);
                     }));
@@ -154,7 +146,6 @@ public class Dispatcher {
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
             rxActionMap.remove(tag);
-            logger.logUnregisterRxAction(tag);
         }
     }
 
@@ -185,7 +176,6 @@ public class Dispatcher {
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
             rxStoreMap.remove(tag);
-            logger.logUnregisterRxStore(tag);
         }
         unsubscribeRxError(object);
     }

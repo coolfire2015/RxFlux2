@@ -10,7 +10,7 @@ import com.huyingbao.demo.utils.imageloader.strategy.GlideImageLoaderStrategy;
 
 /**
  * 图片加载工具类
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class ImageLoaderUtils {
 

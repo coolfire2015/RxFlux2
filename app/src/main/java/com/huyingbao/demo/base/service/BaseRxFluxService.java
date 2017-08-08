@@ -21,7 +21,7 @@ import javax.inject.Inject;
 /**
  * TODO 暂未用到
  * 所有需要接收store的Fragment需要继承该类,实现RxFlux接口
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public abstract class BaseRxFluxService extends Service implements RxViewDispatch {

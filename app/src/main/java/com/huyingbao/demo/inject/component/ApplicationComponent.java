@@ -4,9 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hardsoftstudio.rxflux.RxFlux;
+import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.base.application.BaseApplication;
-import com.huyingbao.demo.core.actions.ActionCreator;
-import com.huyingbao.demo.core.api.HttpApi;
 import com.huyingbao.demo.inject.module.application.ApplicationModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.stores.base.BaseHttpStore;
@@ -21,7 +21,7 @@ import dagger.Component;
  * application注入器
  * Dagger通过Singleton创建出来的单例并不保持在静态域上，
  * 而是保留在Component实例中接口,自动生成实现
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 @Singleton
 @Component(modules = ApplicationModule.class)//指明Component从ApplicationModule中找依赖

@@ -7,29 +7,12 @@ import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 
-import com.huyingbao.demo.core.actions.ActionsKeys;
-
 import java.util.Map;
 
 /**
- * Created by Liu Junfeng on 2017/1/1.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class CommonUtils {
-    /**
-     * 返回完整路径
-     *
-     * @param key
-     * @param partName
-     * @return
-     */
-    public static String getFullPath(String key, String partName) {
-        switch (partName) {
-            case ActionsKeys.PART_NAME_HEAD_IMAGE:
-                return ActionsKeys.URL_HEAD_IMAGE + key;
-            default:
-                return key;
-        }
-    }
 
     /**
      * 得到用时间戳生成的文件名字
