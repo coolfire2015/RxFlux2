@@ -4,17 +4,17 @@ apply plugin: 'me.tatarka.retrolambda'
 /**
  * release apk name
  */
-def releaseName = "demo_v" + VERSION_NAME + "_${releaseTime()}_release.apk"
+def releaseName = "demo_v" + APP_VERSION_NAME + "_${releaseTime()}_release.apk"
 
 /**
  * debug apk name
  */
-def debugName = "demo_v" + VERSION_NAME + "_debug.apk"
+def debugName = "demo_v" + APP_VERSION_NAME + "_debug.apk"
 
 /**
  * 输出目录
  */
-def mOutputs = "$rootDir/outputs/build_" + VERSION_NAME
+def mOutputs = "$rootDir/outputs/build_" + APP_VERSION_NAME
 
 /**
  * release时间
@@ -46,15 +46,15 @@ def getGitVersion() {
  * 输出日志
  */
 def buildLog() {
-    File outputFile = new File("$rootDir/outputs/build_" + VERSION_NAME)
+    File outputFile = new File("$rootDir/outputs/build_" + APP_VERSION_NAME)
     if (!outputFile.exists()) outputFile.mkdirs()
-    FileWriter fw = new FileWriter("$rootDir/outputs/build_" + VERSION_NAME + File.separator + "log.txt")
+    FileWriter fw = new FileWriter("$rootDir/outputs/build_" + APP_VERSION_NAME + File.separator + "log.txt")
     StringBuilder builder = new StringBuilder();
     builder.append("[构建时间]=" + new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone("GMT+08:00")))
     builder.append("\r\n")
-    builder.append("[版本编号]=" + VERSION_CODE)
+    builder.append("[版本编号]=" + APP_VERSION_CODE)
     builder.append("\r\n")
-    builder.append("[版本名称]=" + VERSION_NAME)
+    builder.append("[版本名称]=" + APP_VERSION_NAME)
     builder.append("\r\n")
     builder.append("[提交记录]=" + getGitVersion())
     fw.write(builder.toString())
@@ -91,8 +91,8 @@ android {
         multiDexEnabled true//支持multidex分包
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode VERSION_CODE as int
-        versionName VERSION_NAME
+        versionCode APP_VERSION_CODE as int
+        versionName APP_VERSION_NAME
         signingConfig signingConfigs.debug
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

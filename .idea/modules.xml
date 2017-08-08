@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DemoRxFlux.iml" filepath="$PROJECT_DIR$/DemoRxFlux.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RxFluxDemo.iml" filepath="$PROJECT_DIR$/RxFluxDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxflux/rxflux.iml" filepath="$PROJECT_DIR$/rxflux/rxflux.iml" />
     </modules>

@@ -5,7 +5,8 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:${BUILD_GRADLE}"
-        classpath "me.tatarka:gradle-retrolambda:${RETRO_LAMBDA}"
+        classpath "me.tatarka:gradle-retrolambda:${GRADLE_RETRO_LAMBDA}"
+        classpath "net.orfjackal.retrolambda:retrolambda:${RETRO_LAMBDA}"
     }
 }
 
