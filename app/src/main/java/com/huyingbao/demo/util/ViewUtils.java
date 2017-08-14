@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.huyingbao.demo.R;
@@ -59,8 +62,8 @@ public class ViewUtils {
      * @param icEmpty
      */
     public static void initEmptyView(View emptyView, int icEmpty) {
-        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
-        ivEmpty.setImageResource(icEmpty);
+//        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
+//        ivEmpty.setImageResource(icEmpty);
     }
 
     /**
@@ -71,11 +74,11 @@ public class ViewUtils {
      * @param infoEmpty
      */
     public static void initEmptyView(View emptyView, int icEmpty, String infoEmpty) {
-        TextView tvEmpty = ButterKnife.findById(emptyView, R.id.tv_empty);
-        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
-        tvEmpty.setVisibility(View.VISIBLE);
-        tvEmpty.setText(infoEmpty);
-        ivEmpty.setImageResource(icEmpty);
+//        TextView tvEmpty = ButterKnife.findById(emptyView, R.id.tv_empty);
+//        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
+//        tvEmpty.setVisibility(View.VISIBLE);
+//        tvEmpty.setText(infoEmpty);
+//        ivEmpty.setImageResource(icEmpty);
     }
 
     /**
@@ -139,7 +142,7 @@ public class ViewUtils {
      * @return
      */
     public static RecyclerView.ItemDecoration getItemDecoration(Context mContext) {
-        int margin = mContext.getResources().getDimensionPixelOffset(R.dimen.dp_20);
+        int margin = mContext.getResources().getDimensionPixelOffset(R.dimen.dp_10);
         return new HorizontalDividerItemDecoration.Builder(mContext)
                 .color(mContext.getResources().getColor(R.color.divider))
                 .showLastDivider()
@@ -198,7 +201,7 @@ public class ViewUtils {
     public static RecyclerView.ItemDecoration getItemDotDecoration(Context mContext, int margin, FlexibleDividerDecoration.VisibilityProvider visibilityProvider) {
         Paint paint = new Paint();
         paint.setStrokeWidth(mContext.getResources().getDimension(R.dimen.dp_2));
-        paint.setColor(mContext.getResources().getColor(R.color.divider_point));
+        paint.setColor(mContext.getResources().getColor(R.color.cardview_dark_background));
         paint.setAntiAlias(true);
         paint.setPathEffect(new DashPathEffect(new float[]{mContext.getResources().getDimension(R.dimen.dp_2), mContext.getResources().getDimension(R.dimen.dp_4)}, 0));
         return new HorizontalDividerItemDecoration.Builder(mContext)
