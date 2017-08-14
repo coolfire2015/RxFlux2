@@ -5,8 +5,8 @@ import android.content.Context;
 
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.stores.base.BaseHttpStore;
-import com.huyingbao.demo.stores.base.BaseStore;
+import com.huyingbao.demo.stores.BaseHttpStore;
+import com.huyingbao.demo.stores.BaseStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
 
 import javax.inject.Singleton;

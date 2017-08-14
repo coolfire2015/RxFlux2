@@ -1,7 +1,6 @@
 package com.huyingbao.demo.inject.component;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.demo.actions.ActionCreator;
@@ -9,8 +8,8 @@ import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.base.application.BaseApplication;
 import com.huyingbao.demo.inject.module.application.ApplicationModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.stores.base.BaseHttpStore;
-import com.huyingbao.demo.stores.base.BaseStore;
+import com.huyingbao.demo.stores.BaseHttpStore;
+import com.huyingbao.demo.stores.BaseStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
 
 import javax.inject.Singleton;
@@ -64,22 +63,4 @@ public interface ApplicationComponent {
     void inject(BaseHttpStore baseHttpStore);
 
     void inject(BaseStore baseStore);
-
-    class Instance {
-        private static ApplicationComponent sComponent;
-
-        public static void init(@NonNull ApplicationComponent component) {
-            sComponent = component;
-        }
-
-        /**
-         * 静态方法得到实例化对象,
-         * 依赖注入的时候,得到实例化对象,调用其中的inject()注入到contaner中
-         *
-         * @return
-         */
-        public static ApplicationComponent get() {
-            return sComponent;
-        }
-    }
 }

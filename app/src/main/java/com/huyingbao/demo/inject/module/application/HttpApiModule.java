@@ -78,7 +78,7 @@ public class HttpApiModule {
             if (!BuildConfig.LOG_DEBUG) return response;
             String content = response.body().string();
             long t2 = System.nanoTime();
-            Logger.e(String.format("接收 for %s in %.1fms%n%s", response.request().url(), (t2 - t1) / 1e6d, content));
+            Logger.e(String.format("接收 for %s in %.1fms", response.request().url(), (t2 - t1) / 1e6d));
             Logger.json(content);
             return response.newBuilder().body(ResponseBody.create(response.body().contentType(), content)).build();
         };
@@ -90,7 +90,7 @@ public class HttpApiModule {
      * @return
      */
     @Provides
-    @Singleton//添加@Singleton标明该方法产生只产生一个实例
+    @Singleton // 添加@Singleton标明该方法产生只产生一个实例
     public CookieJar provideCookieJar(PersistentCookieStore cookieStore) {
         CookieJar cookieJar = new CookieJar() {
             @Override
@@ -103,12 +103,28 @@ public class HttpApiModule {
             @Override
             public List<Cookie> loadForRequest(HttpUrl url) {
                 List<Cookie> cookies = cookieStore.get(url);
-                return cookies != null ? cookies : new ArrayList<Cookie>();
+                return cookies != null ? cookies : new ArrayList<>();
             }
         };
         return cookieJar;
     }
 }
+//            Request request = chain.request().newBuilder()
+//                    .addHeader("Content-Type", "application/json;charset=UTF-8")
+//                    .addHeader("Accept", "application/json;charset=UTF-8")
+//                    .addHeader("X-Requested-With", "XMLHttpRequest")
+//                    .build();
+//            long t1 = System.nanoTime();
+//            // Logger.e(String.format("发送请求 %s", response.request().url()));
+//            //调用接口,返回数据
+//            Response response = chain.proceed(request);
+//            //接口session过期,创建新的数据
+//            if ("true".equals(response.header("sessionTimeout"))) {
+//                HttpResponse httpResponse = new HttpResponse(Constants.ERROR_SESSION_TIMEOUT, "登录过期，请重新登录！");
+//                String content = JSONObject.toJSONString(httpResponse);
+//                response = response.newBuilder().body(ResponseBody.create(response.body().contentType(), content)).build();
+//            }
+
 //    Request request = chain.request().newBuilder().addHeader("X-Requested-With", "XMLHttpRequest").build();
 //                .addNetworkInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
 //                .cache(cache)

@@ -9,7 +9,7 @@ import com.huyingbao.demo.inject.component.DaggerServiceComponent;
 import com.huyingbao.demo.inject.component.ServiceComponent;
 import com.huyingbao.demo.inject.module.ServiceModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.stores.base.BaseStore;
+import com.huyingbao.demo.stores.BaseStore;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;
 
