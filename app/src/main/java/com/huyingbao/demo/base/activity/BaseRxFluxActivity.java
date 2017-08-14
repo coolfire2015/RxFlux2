@@ -15,10 +15,8 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.huyingbao.demo.R;
-import com.huyingbao.demo.core.actions.ActionCreator;
-import com.huyingbao.demo.core.actions.BaseActions;
-import com.huyingbao.demo.core.api.HttpApi;
-import com.huyingbao.demo.core.inject.component.DaggerActivityComponent;
+import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.inject.component.ActivityComponent;
 import com.huyingbao.demo.inject.component.ApplicationComponent;
 import com.huyingbao.demo.inject.module.ActivityModule;
@@ -55,8 +53,6 @@ public abstract class BaseRxFluxActivity extends AppCompatActivity implements Rx
     @Inject
     protected BaseHttpStore mBaseHttpStore;
 
-    protected String mAction;
-    protected FragmentManager mFragmentManager;
     protected ActivityComponent mActivityComponent;
 
     public ActivityComponent getActivityComponent() {
@@ -65,10 +61,6 @@ public abstract class BaseRxFluxActivity extends AppCompatActivity implements Rx
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //获取action
-        mAction = getIntent().getStringExtra(BaseActions.BASE_ACTION);
-        //获取mFragmentManager
-        mFragmentManager = getSupportFragmentManager();
         //依赖注入
         inject();
         //需要在onCrate之前先注入对象
@@ -89,8 +81,8 @@ public abstract class BaseRxFluxActivity extends AppCompatActivity implements Rx
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:// 点击返回图标事件
-                if (mFragmentManager.getBackStackEntryCount() > 0) {
-                    mFragmentManager.popBackStack();
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
                     return true;
                 }
                 finish();

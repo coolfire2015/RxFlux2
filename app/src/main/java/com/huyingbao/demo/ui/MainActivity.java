@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.demo.R;
 import com.huyingbao.demo.base.activity.BaseRxFluxActivity;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class MainActivity extends BaseRxFluxActivity {
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_fragment_base;
     }
 
     @Override

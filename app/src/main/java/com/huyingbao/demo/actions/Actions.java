@@ -1,5 +1,7 @@
 package com.huyingbao.demo.actions;
 
+import android.support.annotation.NonNull;
+
 import com.hardsoftstudio.rxflux.action.RxAction;
 
 /**
@@ -7,6 +9,10 @@ import com.hardsoftstudio.rxflux.action.RxAction;
  * Created by liujunfeng on 2017/1/1.
  */
 public interface Actions {
+    boolean retry(RxAction action);
+
+    void postBaseAction(@NonNull String actionId, @NonNull Object... data);
+
     String GET_PUBLIC_REPOS = "get_public_repos";
 
     void getPublicRepositories();
@@ -15,5 +21,4 @@ public interface Actions {
 
     void getUserDetails(String userId);
 
-    boolean retry(RxAction action);
 }

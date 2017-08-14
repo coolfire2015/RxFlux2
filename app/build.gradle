@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 /**
  * release apk name
@@ -43,13 +42,21 @@ def getGitVersion() {
 }
 
 /**
+ * 读取Svn日志
+ * @return
+ */
+def getSvnVersion() {
+    return 'svn log -r HEAD'.execute().text.trim()
+}
+
+/**
  * 输出日志
  */
 def buildLog() {
     File outputFile = new File("$rootDir/outputs/build_" + APP_VERSION_NAME)
     if (!outputFile.exists()) outputFile.mkdirs()
     FileWriter fw = new FileWriter("$rootDir/outputs/build_" + APP_VERSION_NAME + File.separator + "log.txt")
-    StringBuilder builder = new StringBuilder();
+    StringBuilder builder = new StringBuilder()
     builder.append("[构建时间]=" + new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone("GMT+08:00")))
     builder.append("\r\n")
     builder.append("[版本编号]=" + APP_VERSION_CODE)
@@ -58,8 +65,8 @@ def buildLog() {
     builder.append("\r\n")
     builder.append("[提交记录]=" + getGitVersion())
     fw.write(builder.toString())
-    fw.flush();
-    fw.close();
+    fw.flush()
+    fw.close()
 }
 
 android {
@@ -72,6 +79,8 @@ android {
         abortOnError false
         //打Release版本时,不进行检测
         checkReleaseBuilds false
+        //FlowUp
+        //disable 'InvalidPackage'
     }
     //签名配置,自定义,用在defaultConfig中
     signingConfigs {
@@ -95,12 +104,14 @@ android {
         versionName APP_VERSION_NAME
         signingConfig signingConfigs.debug
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+        ndk { abiFilters "arm64-v8a", "armeabi", "armeabi-v7a" }//配置ndk
     }
     //构建过程
     buildTypes {
         //自定义buildType.name
         debug {
-            //不显示Log
+            //显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
             //混淆开关
             minifyEnabled false
@@ -123,6 +134,20 @@ android {
             signingConfig signingConfigs.release
         }
     }
+
+    //gradle 4
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if ("release".equals(variant.buildType.name))
+                outputFileName = "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk'
+        }
+    }
+
+    //数据绑定
+    dataBinding {
+        enabled = true
+    }
+
     //dex分包
     dexOptions {
         jumboMode = true
@@ -133,31 +158,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
 
-    //渠道打包配置
-    //flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-    productFlavors.all {
-        flavor ->
-            ndk {
-                abiFilters "arm64-v8a"
-                abiFilters "armeabi"
-                abiFilters "armeabi-v7a"
-            }
-    }
-    //输出文件配置
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                if ("release".equals(variant.buildType.name)) {
-                    buildLog()
-                    output.outputFile = new File(mOutputs, releaseName)
-                } else {
-                    output.outputFile = new File(outputFile.parent, debugName)
-                }
-            }
-        }
-    }
+//仓库
+repositories {
+    //本地仓库,添加aar支持
+    flatDir { dirs 'libs' }
+    //hotfix 阿里云仓库
+    maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
 }
 
 dependencies {
@@ -180,10 +188,10 @@ dependencies {
     compile "com.android.support:support-annotations:${SUPPORT_VERSION}"
     compile "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
 
-    //multidex分包
+    //Multidex分包
     compile "com.android.support:multidex:${MULTIDEX}"
 
-    //dagger2
+    //Dagger2
     compile "com.google.dagger:dagger:${DAGGER}"
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER}"
 
@@ -201,31 +209,31 @@ dependencies {
     compile "com.snappydb:snappydb-lib:${SNAPPY_DB}"
     compile "com.esotericsoftware.kryo:kryo:${KRYO}"
 
-    //图片加载
+    //图片加载,图片加载使用okhttp
     compile "com.github.bumptech.glide:glide:${GLIDE}"
-    //图片加载使用okhttp
-    compile "com.github.bumptech.glide:okhttp3-integration:${GLIDE_OKHTTP}"
+    compile "com.github.bumptech.glide:okhttp3-integration:${GLIDE}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE}"
 
-    //Butterknife,view注解,string注解,drawable注解
+    //ButterKnife,view注解,string注解,drawable注解
     compile "com.jakewharton:butterknife:${BUTTER_KNIFE}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE}"
 
-    //rxpermissions
+    //RxPermissions
     compile "com.tbruyelle.rxpermissions:rxpermissions:${RX_PERMISSIONS}"
-    //rxbinding
+    //RxBinding
     compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:${RX_BINDING}"
-    //rxlifecycle
+    //RxLifecycle
     compile "com.trello:rxlifecycle:${RX_LIFE_CYCLE}"
     compile "com.trello:rxlifecycle-components:${RX_LIFE_CYCLE}"
 
-    //recycleview adapter
+    //RecyclerView Adapter
     compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:${BASE_RECYCLERVIEW_ADAPTER_HELPER}"
     //分割线
     compile "com.yqritc:recyclerview-flexibledivider:${FLEXIBLE_DIVIDER}"
 
     //Logger
     compile "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
-    //fastjson
+    //Fastjson
     compile "com.alibaba:fastjson:${FAST_JSON}"
     //common lang 常用工具类
     compile "org.apache.commons:commons-lang3:${COMMONS_LANG3}"
