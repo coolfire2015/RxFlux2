@@ -5,16 +5,15 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
-import com.huyingbao.demo.core.actions.ActionCreator;
-import com.huyingbao.demo.core.api.HttpApi;
-import com.huyingbao.demo.core.inject.component.DaggerServiceComponent;
-import com.huyingbao.demo.inject.component.ApplicationComponent;
+import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.api.HttpApi;
+import com.huyingbao.demo.inject.component.DaggerServiceComponent;
 import com.huyingbao.demo.inject.component.ServiceComponent;
 import com.huyingbao.demo.inject.module.ServiceModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
+import com.huyingbao.demo.util.AppUtils;
 
 import javax.inject.Inject;
 
@@ -35,7 +34,7 @@ public abstract class BaseRxFluxService extends Service implements RxViewDispatc
     protected ActionCreator actionCreator;
 
     @Inject
-    protected HttpApi HttpApi;
+    protected HttpApi mHttpApi;
 
     protected ServiceComponent mServiceComponent;
 
@@ -62,24 +61,13 @@ public abstract class BaseRxFluxService extends Service implements RxViewDispatc
     }
 
     /**
-     * Service中快速创建action的方法
-     *
-     * @param actionId
-     * @param data
-     * @return
-     */
-    protected RxAction creatAction(@NonNull String actionId, @NonNull Object... data) {
-        return actionCreator.newRxAction(actionId, data);
-    }
-
-    /**
      * 依赖注入
      */
     protected void inject() {
         //初始化注入器
         mServiceComponent = DaggerServiceComponent.builder()
                 .serviceModule(new ServiceModule(this))
-                .applicationComponent(ApplicationComponent.Instance.get())
+                .applicationComponent(AppUtils.getApplicationComponent())
                 .build();
         //注入Injector
         initInjector();

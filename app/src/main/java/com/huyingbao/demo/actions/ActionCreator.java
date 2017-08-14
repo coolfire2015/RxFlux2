@@ -6,8 +6,8 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 import com.huyingbao.demo.api.HttpApi;
-import com.huyingbao.demo.utils.AppUtils;
-import com.huyingbao.demo.utils.LocalStorageUtils;
+import com.huyingbao.demo.util.AppUtils;
+import com.huyingbao.demo.util.LocalStorageUtils;
 
 import javax.inject.Inject;
 

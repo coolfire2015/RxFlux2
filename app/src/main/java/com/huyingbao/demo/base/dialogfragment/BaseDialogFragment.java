@@ -1,23 +1,23 @@
-package com.huyingbao.demo.base.fragment;
+package com.huyingbao.demo.base.dialogfragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.huyingbao.demo.actions.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.base.activity.BaseRxFluxActivity;
-import com.huyingbao.demo.base.activity.BaseRxFluxToolbarActivity;
 import com.huyingbao.demo.inject.component.FragmentComponent;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.stores.base.BaseHttpStore;
 import com.huyingbao.demo.stores.base.BaseStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
-import com.trello.rxlifecycle.components.support.RxFragment;
+import com.trello.rxlifecycle.components.support.RxAppCompatDialogFragment;
 
 import javax.inject.Inject;
 
@@ -28,32 +28,34 @@ import butterknife.Unbinder;
  * 继承自rxlifecycle
  * Created by liujunfeng on 2017/1/1.
  */
-public abstract class BaseFragment extends RxFragment {
+public abstract class BaseDialogFragment extends RxAppCompatDialogFragment {
     @Inject
     @ContextLife("Activity")
-    protected Context mContext;
+    public Context mContext;
 
     @Inject
     protected ActionCreator mActionCreator;
+
     @Inject
     protected LocalStorageUtils mLocalStorageUtils;
+
     @Inject
     protected HttpApi mHttpApi;
+
     @Inject
     protected BaseStore mBaseStore;
+
     @Inject
     protected BaseHttpStore mBaseHttpStore;
 
     protected FragmentComponent mFragmentComponent;
 
-    private String mTitle;
     private Unbinder mUnbinder;
-    private boolean isVisibleToUser;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //依赖注入
+        // 依赖注入
         inject(context);
         // 注册全局store
         mBaseStore.register();
@@ -62,75 +64,23 @@ public abstract class BaseFragment extends RxFragment {
 
     @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         // 设置布局
-        View rootView = inflater.inflate(getLayoutId(), container, false);
+        View rootView = LayoutInflater.from(mContext).inflate(getLayoutId(), null);
         // 绑定view
         mUnbinder = ButterKnife.bind(this, rootView);
         // view创建之后的操作
         afterCreate(savedInstanceState);
-        return rootView;
+        // 创建AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(rootView);
+        return builder.create();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
-    }
-
-    /**
-     * viewpager中fragment左右滑动,隐藏显示回调方法
-     *
-     * @param isVisibleToUser
-     */
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        this.isVisibleToUser = isVisibleToUser;
-    }
-
-    /**
-     * 隐藏状态改变回调方法
-     *
-     * @param hidden
-     */
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        //从隐藏转为非隐藏的时候调用
-        if (!hidden) initActionBar();
-    }
-
-    /**
-     * 显示actionbar
-     *
-     * @param title    页面标题
-     * @param backAble true:显示返回按钮,false:不显示返回按钮
-     */
-    protected void initActionBar(String title, boolean backAble) {
-        mTitle = title;
-        if (mContext instanceof BaseRxFluxToolbarActivity)
-            ((BaseRxFluxToolbarActivity) mContext).initActionBar(title, backAble);
-    }
-
-    /**
-     * 显示actionbar,显示返回按钮
-     *
-     * @param title 页面标题
-     */
-    protected void initActionBar(String title) {
-        mTitle = title;
-        if (mContext instanceof BaseRxFluxToolbarActivity)
-            ((BaseRxFluxToolbarActivity) mContext).initActionBar(title);
-    }
-
-    /**
-     * 显示actionbar,显示返回按钮,显示页面标题
-     * mTitle:有值显示,无值显示manifest中activity label
-     */
-    protected void initActionBar() {
-        if (mContext instanceof BaseRxFluxToolbarActivity)
-            ((BaseRxFluxToolbarActivity) mContext).initActionBar(mTitle);
     }
 
     /**

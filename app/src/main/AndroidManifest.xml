@@ -2,14 +2,176 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.huyingbao.demo">
 
+    <!-- 允许程序访问有关GSM网络信息,获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- 允许程序改变Wi-Fi连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <!-- 允许使用PowerManager的WakeLocks在进程休眠时能够后台保持 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <!-- 允许程序录制音频 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <!-- 允许应用程序修改全局声音设置的权限 -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <!-- 允许一个程序获取信息有关当前或最近运行的任务，一个缩略的任务状态，是否活动等等 -->
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <!-- 开机自启 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- 操作设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <!-- 富媒体需要声明的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 获取logcat日志 -->
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+
+    <!-- TODO Dangerous Permission 获取当前WiFi接入的状态以及WLAN热点的信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!-- TODO Dangerous Permission 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- TODO Dangerous Permission 外部存储读权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <!--TODO Dangerous Permission 拍照-->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!-- 百度推送适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
+    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.dm"/>
+    <permission
+        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.dm"
+        android:protectionLevel="normal"/>
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <application
+        android:name=".base.application.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <!-- 蒲公英 -->
+        <meta-data
+            android:name="PGYER_APPID"
+            android:value="94776bfa0373d1028996a614872433a9"/>
+        <!-- 百度key -->
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="MPCCC4ORpe6cHbOG7PgUZnNK"/>
+        <!-- Glide使用okhttp3加载 -->
+        <meta-data
+            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+            android:value="GlideModule"/>
+        <!-- 阿里百川hotfix -->
+        <meta-data
+            android:name="com.taobao.android.hotfix.IDSECRET"
+            android:value="24003754-1"/>
+        <meta-data
+            android:name="com.taobao.android.hotfix.APPSECRET"
+            android:value="13ac92ac9f5d3363a9ab416e126231a3"/>
+        <meta-data
+            android:name="com.taobao.android.hotfix.RSASECRET"
+            android:value="MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC6V4b0YlJYBN9LRTf5Kf1Ng8aw83jItSlV0zwmXOH1a38N4S3BDWhPfJ3rdBOGCwKGqOtkJo6yNIGQogWyT6zFhXQPSn3XcnLUzOlJDQAnj6nlZ0vswUi0S4WgZvbgThsSzlhGB2jCPjaLJZZ6dxnoDX2HsBET1p43c/uWgn6OepSJrUhSi3Q+HQ9Ywzd9xxBNkRGuNaPM47Je1Cn+UQgBYvu5pHrRlMC5LrUBxb1GfE6uG1MVafy6a2Qj0kMBeJkFx+tevBhVwjqyKWTQ01R3aYNn9GdojI6ivM7D6ZpGgNFk27NID+dtKYWJdbRFqgve0noUxux0m1LT6fOLNAfvAgMBAAECggEBAICN8+fTkRVyPw5xsXzvL/ZzK/dV8QUenma8dSnOOIEU6TGNIQCnnEgCI/yVNwbpv5NhJAwS4a0ltiEu9hkfCIW4XOpTrN+e8IPI3kRseKfSYBaIngO3EM55r7WKc1Up7VmbC6E8aVRgkUaL5vWUB0ZlUC31FMMH9F0zYeVjH6Zwz9YE4vizHmR7Lhu3TNh1FhaHDANYc8ZIJKiPdIUSIXdGSeIVLSZigclafOnDcrBRf1oQUhB+HHvHfKYvsSnDYLDJDawD3unaHBE/6NbiZh5sYIn9SNznhpSGc4a1nvzBR2l7bzmnsImsaLZUGG7smcdOdVp8BcqIetdzpCk3MnECgYEA/zD0NtpYGITq5vswOuqym2ZrkhfQrpGG3az8z2I4L/PEK0ynobLq7njlwr3T8m1tHtW5JoxWijyEPpP0lbsyB6FkzsGI5xpJBLLxTpYXWaG8kcmRPS0PQNY9JhgVR6kEOtS9doJkoXaOEE8ZWh7uXFvAdBlsxiVsnGD8Bz2OcncCgYEAuu62lSeyUCh1WKnp7jMqHeD5Wos7VF+bKkR7pnqP/nCbPB3WRtNB8wYpfHykggpYxIGAJ2xz/07+IHCMBw5Ae/opg7EmbLm3G/0rZzuAxAPtJX4gM0YO8nJHXbii3bggEwdBRqtBgR/Zp14EGTlZkxmkFxZbsZ8xINcISbYqvEkCgYEAvCKfKQF4CTuU4o01VXpKCv9LNv2Pv+NSBoPOLiY/Pjr82N8+hpudUAqZeSTx6Lx7wkvWoHC+LFPJO0lg/DJyA+Ycp8FO6PIb+vbhqApHVLFEkEaGaQ+bOzW3ByqiJZ6Zm7XTqFchUVhSC/wEuMgs+rI6BF3qL3rPw8pMhBoBtqkCgYBxz3bQdvvEe+1+Du1DPlltGZUXgF+d7huNb2aNJF/Y/Pw2bMASHPsxGFZX2ZdbKSuEcIfy+L/i+FgWrg9DGHVARj3SVR/c4HFQlCJB1uN99BoFUrYOIaBmEhfLQue98CVvEGK4wPm/wQGGOeJq7RTRT7Is8ErhaNfDc8gzALsiKQKBgQDVoJLLe1JNTZzdZt7Om89B5jI8H/CskvRmQQiijrO1U9+IYXkJnUESVyJjs2aJNmb43rcnDTLaxT9PsQRZo/zfJVPPj8muVTEq2oDWlMllxmqVmRt80gq2HmCXMvBP3gLAjxzEtgpVG+PZlemU1zNUrsOCwSVUrkHbMu8Sf3blNA=="/>
+
+        <!--百度推送-->
+        <receiver android:name="com.huyingbao.demo.util.push.BaiduPushReceiver">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE"/>
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW"/>
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK"/>
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD"/>
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1">
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.baidu.android.pushservice.CommandService"
+            android:exported="true"/>
+
+        <provider
+            android:name="com.baidu.android.pushservice.PushInfoProvider"
+            android:authorities="com.huyingbao.dm.bdpush"
+            android:exported="true"
+            android:protectionLevel="signature"
+            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.dm"/>
+
+        <!--蒲公英-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.huyingbao.dm.pugongying"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
+        <!-- Receiver -->
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.huyingbao.dm.receiver.AlarmReceiver"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receiver.BootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

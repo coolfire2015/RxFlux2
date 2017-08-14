@@ -2,9 +2,9 @@ package com.huyingbao.demo.inject.module.application;
 
 import com.google.gson.GsonBuilder;
 import com.huyingbao.demo.BuildConfig;
-import com.huyingbao.demo.core.api.HttpApi;
-import com.huyingbao.demo.utils.ServerUtils;
-import com.huyingbao.demo.utils.okhttp.PersistentCookieStore;
+import com.huyingbao.demo.api.HttpApi;
+import com.huyingbao.demo.util.ServerUtils;
+import com.huyingbao.demo.util.okhttp.PersistentCookieStore;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;

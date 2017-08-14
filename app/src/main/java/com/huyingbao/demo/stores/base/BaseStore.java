@@ -6,14 +6,13 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
-import com.huyingbao.demo.core.actions.BaseActions;
 import com.huyingbao.demo.inject.component.ApplicationComponent;
 
 /**
  * 存在于 BaseApplication 的 mApplicationComponent 中 全局
  * Created by liujunfeng on 2017/1/1.
  */
-public class BaseStore extends RxStore implements BaseActions {
+public class BaseStore extends RxStore {
     /**
      * StoreId,用来在postChange(RxStoreChange change)时,生成RxStoreChange
      * 在接受RxStoreChange的时候,区分是哪个store
@@ -36,9 +35,7 @@ public class BaseStore extends RxStore implements BaseActions {
     @Override
     public void onRxAction(RxAction action) {
         switch (action.getType()) {
-            case TO_LOADING_NEXT:
-            case TO_REGISTER_USER:
-            case TO_REGISTER_SHOP:
+            case "Debug":
                 break;
             default://必须有,接收到非自己处理的action返回
                 return;

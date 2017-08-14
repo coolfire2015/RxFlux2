@@ -3,11 +3,9 @@ package com.huyingbao.demo.inject.module;
 import android.app.Activity;
 import android.content.Context;
 
-import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.inject.scope.PerActivity;
-import com.huyingbao.demo.stores.FileStore;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import dagger.Module;
@@ -57,12 +55,5 @@ public class ActivityModule {
         RxPermissions rxPermissions = new RxPermissions(mActivity);
         rxPermissions.setLogging(BuildConfig.DEBUG);
         return rxPermissions;
-    }
-
-
-    @Provides
-    @PerActivity
-    public FileStore provideFileStore(RxFlux rxFlux) {
-        return new FileStore(rxFlux.getDispatcher());
     }
 }

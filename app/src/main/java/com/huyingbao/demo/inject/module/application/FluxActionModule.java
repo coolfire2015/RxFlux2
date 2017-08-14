@@ -1,9 +1,8 @@
 package com.huyingbao.demo.inject.module.application;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.huyingbao.demo.BuildConfig;
-import com.huyingbao.demo.base.application.BaseApplication;
-import com.huyingbao.demo.core.actions.ActionCreator;
+import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.util.AppUtils;
 
 import javax.inject.Singleton;
 
@@ -20,8 +19,7 @@ public class FluxActionModule {
     @Provides
     @Singleton
     public RxFlux provideRxFlux() {
-        RxFlux.LOG_LEVEL = BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE;
-        return RxFlux.init(BaseApplication.getInstance());
+        return RxFlux.init(AppUtils.getApplication());
     }
 
     /**

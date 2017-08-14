@@ -19,15 +19,23 @@ import butterknife.BindView;
 public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
 
     @BindView(R.id.tv_top_title)
-    TextView mTvTopTitle;
+    protected TextView mTvTopTitle;
+
     @BindView(R.id.tlb_top)
-    protected Toolbar mTlbTop;
+    protected Toolbar mToolbarTop;
+
     @BindView(R.id.abl_top)
-    protected AppBarLayout mAblTop;
+    protected AppBarLayout mAppBarLayoutTop;
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_fragment_base;
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        // 设置标题
+        mTvTopTitle.setText(title == null ? getTitle() : title);
     }
 
     /**
@@ -35,9 +43,9 @@ public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
      *
      * @return
      */
-    protected FragmentTransaction getFragmentTransaction() {
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        Fragment fragment = mFragmentManager.findFragmentById(R.id.fl_content);
+    protected FragmentTransaction getFragmentTransaction(@IdRes int viewId) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Fragment fragment = getSupportFragmentManager().findFragmentById(viewId);
         if (fragment != null)
             fragmentTransaction.addToBackStack(fragment.getClass().getName()).hide(fragment);
         return fragmentTransaction;
@@ -50,7 +58,7 @@ public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
      */
     private void setToolbar(boolean backAble) {
         //设置toobar
-        setSupportActionBar(mTlbTop);
+        setSupportActionBar(mToolbarTop);
         //设置actionbar
         ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) return;
@@ -71,21 +79,22 @@ public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
      */
     public void initActionBar(String title, boolean backAble) {
         //设置标题
-        mTvTopTitle.setText(title == null ? getTitle() : title);
+        setTitle(title);
+        // 设置toolbar
         setToolbar(backAble);
     }
 
     /**
-     * 默认可返回的
+     * 默认有返回按钮
      *
-     * @param title
+     * @param title toolbar的title
      */
     public void initActionBar(String title) {
         this.initActionBar(title, true);
     }
 
     /**
-     * 默认可返回的,使用manifest中默认的title
+     * 默认有返回按钮,默认使用manifest中label作为的title
      */
     public void initActionBar() {
         this.initActionBar(null, true);

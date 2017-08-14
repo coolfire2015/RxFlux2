@@ -2,17 +2,16 @@ package com.huyingbao.demo.base.service;
 
 import android.app.Service;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
-import com.hardsoftstudio.rxflux.RxFlux;
-import com.hardsoftstudio.rxflux.action.RxAction;
-import com.huyingbao.demo.core.actions.ActionCreator;
-import com.huyingbao.demo.core.api.HttpApi;
-import com.huyingbao.demo.core.inject.component.DaggerServiceComponent;
-import com.huyingbao.demo.inject.component.ApplicationComponent;
+import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.api.HttpApi;
+import com.huyingbao.demo.inject.component.DaggerServiceComponent;
 import com.huyingbao.demo.inject.component.ServiceComponent;
 import com.huyingbao.demo.inject.module.ServiceModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
+import com.huyingbao.demo.stores.base.BaseStore;
+import com.huyingbao.demo.util.AppUtils;
+import com.huyingbao.demo.util.LocalStorageUtils;
 
 import javax.inject.Inject;
 
@@ -27,15 +26,18 @@ public abstract class BaseService extends Service {
     protected Context mContext;
 
     @Inject
-    protected RxFlux rxFlux;
-    @Inject
-    protected ActionCreator actionCreator;
+    protected BaseStore mBaseStore;
 
     @Inject
-    protected HttpApi HttpApi;
+    protected ActionCreator mActionCreator;
+
+    @Inject
+    protected LocalStorageUtils mLocalStorageUtils;
+
+    @Inject
+    protected HttpApi mHttpApi;
 
     protected ServiceComponent mServiceComponent;
-
 
     @Override
     public void onCreate() {
@@ -48,21 +50,10 @@ public abstract class BaseService extends Service {
         //初始化注入器
         mServiceComponent = DaggerServiceComponent.builder()
                 .serviceModule(new ServiceModule(this))
-                .applicationComponent(ApplicationComponent.Instance.get())
+                .applicationComponent(AppUtils.getApplicationComponent())
                 .build();
         //注入Injector
         initInjector();
-    }
-
-    /**
-     * Service中快速创建action的方法
-     *
-     * @param actionId
-     * @param data
-     * @return
-     */
-    protected RxAction creatAction(@NonNull String actionId, @NonNull Object... data) {
-        return actionCreator.newRxAction(actionId, data);
     }
 
     /**

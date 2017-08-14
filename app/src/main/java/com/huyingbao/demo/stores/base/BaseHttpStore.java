@@ -4,9 +4,9 @@ import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.store.RxStore;
 import com.hardsoftstudio.rxflux.store.RxStoreChange;
-import com.huyingbao.demo.core.api.HttpApi;
+import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.inject.component.ApplicationComponent;
-import com.huyingbao.demo.utils.LocalStorageUtils;
+import com.huyingbao.demo.util.LocalStorageUtils;
 
 import javax.inject.Inject;
 

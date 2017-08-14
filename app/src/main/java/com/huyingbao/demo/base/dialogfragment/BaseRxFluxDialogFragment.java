@@ -1,9 +1,7 @@
-package com.huyingbao.demo.base.fragment;
+package com.huyingbao.demo.base.dialogfragment;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 
 import com.hardsoftstudio.rxflux.RxFlux;
 import com.hardsoftstudio.rxflux.action.RxError;
@@ -18,28 +16,18 @@ import javax.inject.Inject;
  * 所有需要接收store的Fragment需要继承该类,实现RxFlux接口
  * Created by liujunfeng on 2017/1/1.
  */
-public abstract class BaseRxFluxFragment extends BaseFragment implements RxViewDispatch {
+public abstract class BaseRxFluxDialogFragment extends BaseDialogFragment implements RxViewDispatch {
     @Inject
     protected RxFlux mRxFlux;
 
-    /**
-     * 注册RxStore
-     * 因为fragment不能像activity通过RxFlux根据生命周期在启动的时候,
-     * 调用getRxStoreListToRegister,注册RxStore,只能手动注册
-     */
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onStart() {
+        super.onStart();
         // 注册rxstore
         List<RxStore> rxStoreList = getRxStoreListToRegister();
         if (rxStoreList != null)
             for (RxStore rxStore : rxStoreList)
                 rxStore.register();
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         // 注册view
         mRxFlux.getDispatcher().subscribeRxView(this);
     }
@@ -49,11 +37,6 @@ public abstract class BaseRxFluxFragment extends BaseFragment implements RxViewD
         super.onStop();
         // 解除view注册
         mRxFlux.getDispatcher().unsubscribeRxView(this);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
         // 解除RxStore注册
         List<RxStore> rxStoreList = getRxStoreListToUnRegister();
         if (rxStoreList != null)

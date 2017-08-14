@@ -8,7 +8,7 @@ import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.util.SubscriptionManager;
 import com.huyingbao.demo.api.HttpApi;
-import com.huyingbao.demo.utils.LocalStorageUtils;
+import com.huyingbao.demo.util.LocalStorageUtils;
 import com.huyingbao.demo.widgets.dialog.LoadingDialog;
 
 import java.util.concurrent.TimeUnit;

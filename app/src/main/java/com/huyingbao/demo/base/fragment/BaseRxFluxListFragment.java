@@ -36,7 +36,6 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
 
     protected LinearLayoutManager mLinearLayoutManager;
 
-    protected int mLimit = 10;//初始索引,用于第一次获取数据和刷新获取数据
     protected int mFirstIndex = 0;//初始索引,用于第一次获取数据和刷新获取数据
     protected int mNextIndex;//加载更多数据索引
 
@@ -144,6 +143,10 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
         //返回的没有数据,或者返回的为空
         if (list == null || list.size() == 0) {
             isLoadingMore = false;//停止加载数据
+            if (isRefresh) {
+                mDataList.clear();
+                mAdapter.notifyDataSetChanged();
+            }
             return;
         }
         //返回数据不为空,可以继续加载
@@ -163,7 +166,7 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
      * 更新加载索引
      */
     protected void updateLoadingIndex() {
-        mNextIndex = mNextIndex + mLimit;
+        mNextIndex = mNextIndex + 1;
     }
 
     /**
