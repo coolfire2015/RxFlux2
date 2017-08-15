@@ -41,7 +41,6 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     @Inject
     @ContextLife("Activity")
     protected Context mContext;
-
     @Inject
     protected ActionCreator mActionCreator;
     @Inject
@@ -54,7 +53,6 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     protected BaseHttpStore mBaseHttpStore;
 
     protected ActivityComponent mActivityComponent;
-
     //endregion
 
     //region 复写的方法

@@ -2,6 +2,7 @@ package com.huyingbao.demo.inject.component;
 
 import com.huyingbao.demo.inject.module.FragmentModule;
 import com.huyingbao.demo.inject.scope.PerFragment;
+import com.huyingbao.demo.ui.MainFragment;
 
 import dagger.Subcomponent;
 
@@ -15,4 +16,5 @@ import dagger.Subcomponent;
 @Subcomponent(modules = FragmentModule.class)
 public interface FragmentComponent {
 
+    void inject(MainFragment mainFragment);
 }

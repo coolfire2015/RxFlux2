@@ -98,7 +98,8 @@ public abstract class BaseFragment extends RxFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         //从隐藏转为非隐藏的时候调用
-        if (!hidden) initActionBar();
+        if (!hidden)
+            initActionBar();
     }
 
     /**

@@ -38,7 +38,6 @@ class BaseRxActionCreator extends RxActionCreator {
     //endregion
 
     // region 构造方法
-
     /**
      * 构造方法,传入dispatcher和订阅管理器
      *
@@ -76,7 +75,6 @@ class BaseRxActionCreator extends RxActionCreator {
     // endregion
 
     // region 发送action
-
     /**
      * 发送网络action 不显示进度框,验证返回数据session是否过期(大部分接口调用)
      *

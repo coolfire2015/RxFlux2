@@ -3,9 +3,11 @@ package com.huyingbao.demo.inject.module;
 import android.app.Activity;
 import android.content.Context;
 
+import com.hardsoftstudio.rxflux.RxFlux;
 import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.inject.scope.PerActivity;
+import com.huyingbao.demo.ui.MainStore;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import dagger.Module;
@@ -55,5 +57,11 @@ public class ActivityModule {
         RxPermissions rxPermissions = new RxPermissions(mActivity);
         rxPermissions.setLogging(BuildConfig.DEBUG);
         return rxPermissions;
+    }
+
+    @Provides
+    @PerActivity
+    public MainStore provideMainStore(RxFlux rxFlux) {
+        return new MainStore(rxFlux.getDispatcher());
     }
 }

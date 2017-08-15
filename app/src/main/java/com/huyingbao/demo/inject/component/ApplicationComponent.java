@@ -10,6 +10,7 @@ import com.huyingbao.demo.inject.module.application.ApplicationModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.store.BaseHttpStore;
 import com.huyingbao.demo.store.BaseStore;
+import com.huyingbao.demo.ui.MainStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
 
 import javax.inject.Singleton;
@@ -63,4 +64,6 @@ public interface ApplicationComponent {
     void inject(BaseHttpStore baseHttpStore);
 
     void inject(BaseStore baseStore);
+
+    void inject(MainStore mainStore);
 }

@@ -95,7 +95,6 @@ public abstract class BaseDialogFragment extends RxAppCompatDialogFragment {
         initInjector();
     }
 
-
     /**
      * 显示短暂的Toast
      *

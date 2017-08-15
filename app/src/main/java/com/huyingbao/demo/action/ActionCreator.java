@@ -38,7 +38,8 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
 
     @Override
     public void getPublicRepositories() {
-
+        RxAction action = newRxAction(GET_PUBLIC_REPOS);
+        postHttpAction(action, mHttpApi.getRepositories());
     }
 
     @Override
