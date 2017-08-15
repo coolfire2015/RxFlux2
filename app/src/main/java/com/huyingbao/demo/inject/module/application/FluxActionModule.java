@@ -1,7 +1,7 @@
 package com.huyingbao.demo.inject.module.application;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.util.AppUtils;
 
 import javax.inject.Singleton;

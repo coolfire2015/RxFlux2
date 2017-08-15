@@ -3,13 +3,13 @@ package com.huyingbao.demo.base.service;
 import android.app.Service;
 import android.content.Context;
 
-import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.inject.component.DaggerServiceComponent;
 import com.huyingbao.demo.inject.component.ServiceComponent;
 import com.huyingbao.demo.inject.module.ServiceModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.stores.BaseStore;
+import com.huyingbao.demo.store.BaseStore;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;
 

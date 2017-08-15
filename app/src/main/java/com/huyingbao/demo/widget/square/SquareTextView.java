@@ -1,4 +1,4 @@
-package com.huyingbao.demo.widgets.square;
+package com.huyingbao.demo.widget.square;
 
 import android.content.Context;
 import android.util.AttributeSet;

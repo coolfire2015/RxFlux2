@@ -3,7 +3,7 @@ package com.huyingbao.demo.util.push;
 import android.content.Context;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
-import com.huyingbao.demo.actions.ActionsKeys;
+import com.huyingbao.demo.action.ActionsKeys;
 import com.huyingbao.demo.util.LocalStorageUtils;
 import com.orhanobut.logger.Logger;
 

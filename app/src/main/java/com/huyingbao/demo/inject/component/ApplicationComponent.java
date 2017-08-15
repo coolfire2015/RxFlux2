@@ -3,13 +3,13 @@ package com.huyingbao.demo.inject.component;
 import android.content.Context;
 
 import com.hardsoftstudio.rxflux.RxFlux;
-import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.base.application.BaseApplication;
 import com.huyingbao.demo.inject.module.application.ApplicationModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.stores.BaseHttpStore;
-import com.huyingbao.demo.stores.BaseStore;
+import com.huyingbao.demo.store.BaseHttpStore;
+import com.huyingbao.demo.store.BaseStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
 
 import javax.inject.Singleton;

@@ -1,4 +1,4 @@
-package com.huyingbao.demo.actions;
+package com.huyingbao.demo.action;
 
 import android.support.annotation.NonNull;
 

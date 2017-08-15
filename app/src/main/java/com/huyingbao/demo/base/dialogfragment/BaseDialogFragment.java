@@ -9,13 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.base.activity.BaseRxFluxActivity;
 import com.huyingbao.demo.inject.component.FragmentComponent;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.stores.BaseHttpStore;
-import com.huyingbao.demo.stores.BaseStore;
+import com.huyingbao.demo.store.BaseHttpStore;
+import com.huyingbao.demo.store.BaseStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
 import com.trello.rxlifecycle.components.support.RxAppCompatDialogFragment;
 

@@ -1,4 +1,4 @@
-package com.huyingbao.demo.widgets.dialog;
+package com.huyingbao.demo.widget.dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;

@@ -1,4 +1,4 @@
-package com.huyingbao.demo.actions;
+package com.huyingbao.demo.action;
 
 /**
  * 常量以及intent或者action中传递数据用的key

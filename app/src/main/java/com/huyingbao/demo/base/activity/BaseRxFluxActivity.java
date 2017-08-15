@@ -9,14 +9,14 @@ import android.widget.Toast;
 
 import com.hardsoftstudio.rxflux.action.RxError;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
-import com.huyingbao.demo.actions.ActionCreator;
+import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.inject.component.ActivityComponent;
 import com.huyingbao.demo.inject.component.DaggerActivityComponent;
 import com.huyingbao.demo.inject.module.ActivityModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.stores.BaseHttpStore;
-import com.huyingbao.demo.stores.BaseStore;
+import com.huyingbao.demo.store.BaseHttpStore;
+import com.huyingbao.demo.store.BaseStore;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;

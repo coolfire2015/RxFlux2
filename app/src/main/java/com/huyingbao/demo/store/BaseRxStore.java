@@ -1,4 +1,4 @@
-package com.huyingbao.demo.stores;
+package com.huyingbao.demo.store;
 
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.store.RxStore;
