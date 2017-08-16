@@ -255,9 +255,6 @@ dependencies {
     //Hotfix
     compile "com.aliyun.ams:alicloud-android-hotfix:${HOTFIX}"
 
-    //蒲公英
-    //compile "com.pgyersdk:sdk:${PU_GONG_YING}"
-
     //内存溢出
     debugCompile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY}"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY}"

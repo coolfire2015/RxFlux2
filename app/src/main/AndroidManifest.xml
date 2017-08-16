@@ -43,9 +43,9 @@
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <!-- 百度推送适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
-    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.dm"/>
+    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.demo"/>
     <permission
-        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.dm"
+        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.demo"
         android:protectionLevel="normal"/>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -134,28 +134,28 @@
 
         <provider
             android:name="com.baidu.android.pushservice.PushInfoProvider"
-            android:authorities="com.huyingbao.dm.bdpush"
+            android:authorities="com.huyingbao.demo.bdpush"
             android:exported="true"
             android:protectionLevel="signature"
-            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.dm"/>
+            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.demo"/>
 
         <!--蒲公英-->
-        <!--<provider-->
-        <!--android:name="android.support.v4.content.FileProvider"-->
-        <!--android:authorities="com.huyingbao.dm.pugongying"-->
-        <!--android:exported="false"-->
-        <!--android:grantUriPermissions="true">-->
-        <!--<meta-data-->
-        <!--android:name="android.support.FILE_PROVIDER_PATHS"-->
-        <!--android:resource="@xml/provider_paths"/>-->
-        <!--</provider>-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.huyingbao.demo.pugongying"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
 
         <!-- Receiver -->
         <receiver
             android:name=".receiver.AlarmReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.huyingbao.dm.receiver.AlarmReceiver"/>
+                <action android:name="com.huyingbao.demo.receiver.AlarmReceiver"/>
             </intent-filter>
         </receiver>
         <receiver
