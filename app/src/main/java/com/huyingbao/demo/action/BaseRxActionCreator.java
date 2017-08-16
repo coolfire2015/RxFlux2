@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
-import com.hardsoftstudio.rxflux.util.SubscriptionManager;
+import com.hardsoftstudio.rxflux.util.DisposableManager;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.util.LocalStorageUtils;
 import com.huyingbao.demo.widget.dialog.LoadingDialog;
@@ -15,12 +15,11 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * action创建发送管理类
@@ -38,13 +37,14 @@ class BaseRxActionCreator extends RxActionCreator {
     //endregion
 
     // region 构造方法
+
     /**
      * 构造方法,传入dispatcher和订阅管理器
      *
      * @param dispatcher
      * @param manager
      */
-    public BaseRxActionCreator(Dispatcher dispatcher, SubscriptionManager manager) {
+    public BaseRxActionCreator(Dispatcher dispatcher, DisposableManager manager) {
         super(dispatcher, manager);
     }
     // endregion
@@ -75,6 +75,7 @@ class BaseRxActionCreator extends RxActionCreator {
     // endregion
 
     // region 发送action
+
     /**
      * 发送网络action 不显示进度框,验证返回数据session是否过期(大部分接口调用)
      *
@@ -93,7 +94,7 @@ class BaseRxActionCreator extends RxActionCreator {
      */
     protected <T> void postHttpActionNoCheck(RxAction action, Observable<T> httpObservable) {
         if (hasRxAction(action)) return;
-        addRxAction(action, getSubscribe(action, httpObservable));
+        addRxAction(action, getDisposable(action, httpObservable));
     }
 
     /**
@@ -116,11 +117,11 @@ class BaseRxActionCreator extends RxActionCreator {
      */
     protected <T> void postLoadingHttpActionNoCheck(Context context, RxAction action, Observable<T> httpObservable) {
         if (hasRxAction(action)) return;
-        addRxAction(action, getLoadingSubscribe(context, false, action, httpObservable));
+        addRxAction(action, getLoadingDisposable(context, false, action, httpObservable));
     }
     // endregion
 
-    // region 进行订阅Subscription
+    // region 进行订阅，并获取订阅之后的订阅关系Disposable
 
     /**
      * 调用网络接口,传入接口自己的回调(非RxFlux模式接口,无法发送接口数据,eg:新闻模块获取新闻列表接口)调用接口,发送接口返回数据
@@ -129,13 +130,17 @@ class BaseRxActionCreator extends RxActionCreator {
      * @param httpObservable
      * @return
      */
-    private <T> Subscription getSubscribe(RxAction action, Observable<T> httpObservable) {
+    private <T> Disposable getDisposable(RxAction action, Observable<T> httpObservable) {
         return httpObservable// 1:指定IO线程
                 .subscribeOn(Schedulers.io())// 1:指定IO线程
                 .observeOn(AndroidSchedulers.mainThread())// 2:指定主线程
                 .subscribe(// 2:指定主线程
-                        getHttpResponseAction1(action),
-                        getThrowableAction1(action)
+                        richHttpResponse -> {
+                            dismissLoading();
+                            action.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
+                            postRxAction(action);
+                        },
+                        throwable -> postError(action, throwable)
                 );
     }
 
@@ -148,69 +153,33 @@ class BaseRxActionCreator extends RxActionCreator {
      * @param httpObservable 被观察者,一般是获取网络数据
      * @return
      */
-    private <T> Subscription getLoadingSubscribe(Context context, boolean cancelAble, RxAction action, Observable<T> httpObservable) {
+    private <T> Disposable getLoadingDisposable(Context context, boolean cancelAble, RxAction action, Observable<T> httpObservable) {
         return httpObservable// 1:指定IO线程
                 .subscribeOn(Schedulers.io())// 1:指定IO线程
-                .doOnSubscribe(() -> showLoading(context, cancelAble))// 2:指定主线程
+                .doOnSubscribe(subscription -> showLoading(context, cancelAble))// 2:指定主线程
                 .subscribeOn(AndroidSchedulers.mainThread())// 2:在doOnSubscribe()之后，使用subscribeOn()就可以指定其运行在哪中线程。
                 .observeOn(AndroidSchedulers.mainThread())// 3:指定主线程
                 .subscribe(// 3:指定主线程
-                        getHttpResponseAction1(action),
-                        getThrowableLoadingAction1(action)
+                        richHttpResponse -> {
+                            dismissLoading();
+                            action.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
+                            postRxAction(action);
+                        },
+                        throwable -> {
+                            dismissLoading();
+                            postError(action, throwable);
+                        }
                 );
     }
     // endregion
 
-    // region 回调方法Action1
-
-    /**
-     * 传递数据
-     *
-     * @param action
-     * @return
-     */
-    @NonNull
-    private <T> Action1<T> getHttpResponseAction1(RxAction action) {
-        return richHttpResponse -> {
-            dismissLoading();
-            action.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
-            postRxAction(action);
-        };
-    }
-
-    /**
-     * 传递错误,取消引导框
-     *
-     * @param action
-     * @return
-     */
-    @NonNull
-    private Action1<Throwable> getThrowableLoadingAction1(RxAction action) {
-        return throwable -> {
-            dismissLoading();
-            postError(action, throwable);
-        };
-    }
-
-    /**
-     * 传递错误
-     *
-     * @param action
-     * @return
-     */
-    @NonNull
-    private Action1<Throwable> getThrowableAction1(RxAction action) {
-        return throwable -> postError(action, throwable);
-    }
-    // endregion
-
-    // region 功能方法Func
+    // region 功能方法Function
 
     /**
      * 验证接口返回数据是正常
      */
     @NonNull
-    private <T> Func1<T, Observable<T>> verifyResponse() {
+    private <T> Function<T, Observable<T>> verifyResponse() {
         return response -> {
             //没有数据,返回服务器异常
 //            if (response == null || !(response instanceof HttpResponse))
@@ -227,7 +196,7 @@ class BaseRxActionCreator extends RxActionCreator {
      * 重复三次操作
      */
     @NonNull
-    private Func1<Observable<? extends Throwable>, Observable<?>> retryLogin() {
+    private Function<Observable<? extends Throwable>, Observable<?>> retryLogin() {
         return observable -> observable
 //                .flatMap(throwable -> {
 //                    //不是自定义异常,直接返回异常信息,UI会展示

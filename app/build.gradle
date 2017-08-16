@@ -187,6 +187,8 @@ dependencies {
     compile "com.android.support:gridlayout-v7:${SUPPORT_VERSION}"
     compile "com.android.support:support-annotations:${SUPPORT_VERSION}"
     compile "com.android.support:support-vector-drawable:${SUPPORT_VERSION}"
+    //Constraint
+    compile "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
 
     //Multidex分包
     compile "com.android.support:multidex:${MULTIDEX}"
@@ -197,8 +199,8 @@ dependencies {
 
     //网络Retrofit
     compile "com.squareup.retrofit2:retrofit:${RETROFIT}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${RETROFIT}"
     compile "com.squareup.retrofit2:converter-gson:${RETROFIT}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT}"
 
     //网络Okhttp,Okio
     compile "com.squareup.okio:okio:${OKIO}"
@@ -214,10 +216,17 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE}"
 
     //RxPermissions
-    compile "com.tbruyelle.rxpermissions:rxpermissions:${RX_PERMISSIONS}"
+    compile "com.tbruyelle.rxpermissions2:rxpermissions:${RX_PERMISSIONS_2}"
     //RxLifecycle
-    compile "com.trello:rxlifecycle:${RX_LIFE_CYCLE}"
-    compile "com.trello:rxlifecycle-components:${RX_LIFE_CYCLE}"
+    compile "com.trello.rxlifecycle2:rxlifecycle:${RX_LIFE_CYCLE_2}"
+    compile "com.trello.rxlifecycle2:rxlifecycle-android:${RX_LIFE_CYCLE_2}"
+    compile "com.trello.rxlifecycle2:rxlifecycle-components:${RX_LIFE_CYCLE_2}"
+    //RxBinding
+    compile "com.jakewharton.rxbinding2:rxbinding:${RX_BINDING_2}"
+    compile "com.jakewharton.rxbinding2:rxbinding-support-v4:${RX_BINDING_2}"
+    compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${RX_BINDING_2}"
+    compile "com.jakewharton.rxbinding2:rxbinding-design:${RX_BINDING_2}"
+    compile "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${RX_BINDING_2}"
 
     //RecyclerView Adapter
     compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:${BASE_RECYCLERVIEW_ADAPTER_HELPER}"
@@ -247,22 +256,15 @@ dependencies {
     compile "com.aliyun.ams:alicloud-android-hotfix:${HOTFIX}"
 
     //蒲公英
-    compile "com.pgyersdk:sdk:${PU_GONG_YING}"
+    //compile "com.pgyersdk:sdk:${PU_GONG_YING}"
 
     //内存溢出
     debugCompile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY}"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY}"
 
-    //Constraint
-    compile "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
-
     //二维码扫描
     compile "com.journeyapps:zxing-android-embedded:${ZXING_ANDROID_EMBEDDED}"
-
-    //RxBinding
-    compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:${RX_BINDING}"
 }
-//compile "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
 //gradle 4
 //    android.applicationVariants.all { variant ->
 //        variant.outputs.all {
@@ -494,3 +496,10 @@ dependencies {
 //                abiFilters "armeabi-v7a"
 //            }
 //    }
+
+//RxLifecycle
+//    compile "com.trello:rxlifecycle:${RX_LIFE_CYCLE}"
+//    compile "com.trello:rxlifecycle-components:${RX_LIFE_CYCLE}"
+
+//RxPermissions
+//    compile "com.tbruyelle.rxpermissions:rxpermissions:${RX_PERMISSIONS}"

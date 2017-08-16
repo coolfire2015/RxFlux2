@@ -3,15 +3,15 @@ package com.hardsoftstudio.rxflux.action;
 import android.support.v4.util.ArrayMap;
 
 /**
- * Object class that hold the type of action and the data we want to attach to it
+ * Object class that hold the mType of action and the mData we want to attach to it
  */
 public class RxAction {
-    private final String type;
-    private final ArrayMap<String, Object> data;
+    private final String mType;
+    private final ArrayMap<String, Object> mData;
 
     RxAction(String type, ArrayMap<String, Object> data) {
-        this.type = type;
-        this.data = data;
+        this.mType = type;
+        this.mData = data;
     }
 
     public static Builder type(String type) {
@@ -19,16 +19,16 @@ public class RxAction {
     }
 
     public String getType() {
-        return type;
+        return mType;
     }
 
     public ArrayMap<String, Object> getData() {
-        return data;
+        return mData;
     }
 
     @SuppressWarnings("unchecked")
     public <T> T get(String tag) {
-        return (T) data.get(tag);
+        return (T) mData.get(tag);
     }
 
     @Override
@@ -37,53 +37,45 @@ public class RxAction {
         if (!(o instanceof RxAction)) return false;
 
         RxAction rxAction = (RxAction) o;
-
-        if (!type.equals(rxAction.type)) return false;
-        return !(data != null ? !data.equals(rxAction.data) : rxAction.data != null);
+        if (!mType.equals(rxAction.mType)) return false;
+        return !(mData != null ? !mData.equals(rxAction.mData) : rxAction.mData != null);
     }
 
     @Override
     public int hashCode() {
-        int result = type.hashCode();
-        result = 31 * result + (data != null ? data.hashCode() : 0);
+        int result = mType.hashCode();
+        result = 31 * result + (mData != null ? mData.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "RxAction{" + "type='" + type + '\'' + ", data=" + data + '}';
+        return "RxAction{" + "mType='" + mType + '\'' + ", mData=" + mData + '}';
     }
 
     public static class Builder {
-
-        private String type;
-        private ArrayMap<String, Object> data;
+        private String mType;
+        private ArrayMap<String, Object> mData;
 
         Builder with(String type) {
-            if (type == null) {
+            if (type == null)
                 throw new IllegalArgumentException("Type may not be null.");
-            }
-            this.type = type;
-            this.data = new ArrayMap<>();
+            this.mType = type;
+            this.mData = new ArrayMap<>();
             return this;
         }
 
         public Builder bundle(String key, Object value) {
-            if (key == null) {
+            if (key == null)
                 throw new IllegalArgumentException("Key may not be null.");
-            }
-            //throw new IllegalArgumentException("Value may not be null.");
-            if (value != null) {
-                data.put(key, value);
-            }
+            if (value != null) mData.put(key, value);
             return this;
         }
 
         public RxAction build() {
-            if (type == null || type.isEmpty()) {
+            if (mType == null || mType.isEmpty())
                 throw new IllegalArgumentException("At least one key is required.");
-            }
-            return new RxAction(type, data);
+            return new RxAction(mType, mData);
         }
     }
 }

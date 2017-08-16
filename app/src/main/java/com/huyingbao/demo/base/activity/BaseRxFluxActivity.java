@@ -19,7 +19,7 @@ import com.huyingbao.demo.store.BaseHttpStore;
 import com.huyingbao.demo.store.BaseStore;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;

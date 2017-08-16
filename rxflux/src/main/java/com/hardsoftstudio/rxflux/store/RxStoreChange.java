@@ -7,19 +7,19 @@ import com.hardsoftstudio.rxflux.action.RxAction;
  */
 public class RxStoreChange {
 
-    String storeId;
-    RxAction rxAction;
+    String mStoreId;
+    RxAction mRxAction;
 
     public RxStoreChange(String storeId, RxAction rxAction) {
-        this.storeId = storeId;
-        this.rxAction = rxAction;
+        this.mStoreId = storeId;
+        this.mRxAction = rxAction;
     }
 
     public RxAction getRxAction() {
-        return rxAction;
+        return mRxAction;
     }
 
     public String getStoreId() {
-        return storeId;
+        return mStoreId;
     }
 }

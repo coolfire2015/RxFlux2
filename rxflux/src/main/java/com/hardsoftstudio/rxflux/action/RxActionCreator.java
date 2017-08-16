@@ -3,12 +3,11 @@ package com.hardsoftstudio.rxflux.action;
 import android.support.annotation.NonNull;
 
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
-import com.hardsoftstudio.rxflux.util.SubscriptionManager;
+import com.hardsoftstudio.rxflux.util.DisposableManager;
 import com.orhanobut.logger.Logger;
 
-import rx.Observable;
-import rx.Subscription;
-import rx.functions.Func0;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * This class must be extended in order to give useful functionality to create RxAction.
@@ -20,33 +19,33 @@ import rx.functions.Func0;
  */
 public abstract class RxActionCreator {
 
-    private final Dispatcher dispatcher;
+    private final Dispatcher mDispatcher;
     /**
      * RxJava 观察者的管理者
      */
-    private final SubscriptionManager manager;
+    private final DisposableManager mDisposableManager;
 
     /**
      * 构造方法,传入dispatcher和订阅管理器
      *
      * @param dispatcher
-     * @param manager
+     * @param disposableManager
      */
-    public RxActionCreator(Dispatcher dispatcher, SubscriptionManager manager) {
-        this.dispatcher = dispatcher;
-        this.manager = manager;
+    public RxActionCreator(Dispatcher dispatcher, DisposableManager disposableManager) {
+        this.mDispatcher = dispatcher;
+        this.mDisposableManager = disposableManager;
     }
 
     /**
      * 主要是为了和RxJava整合,用在调用网络接口api获取数据之后,被观察者得到数据,发生订阅关系,将返回的数据
      * 或者error封装成action,postAction或者postError出去
-     * 订阅管理,将RxAction和Subscription添加到SubscriptionManager
+     * 订阅管理,将RxAction和Disposable添加到DisposableManager
      *
      * @param rxAction
-     * @param subscription
+     * @param disposable
      */
-    protected void addRxAction(RxAction rxAction, Subscription subscription) {
-        manager.add(rxAction, subscription);
+    protected void addRxAction(RxAction rxAction, Disposable disposable) {
+        mDisposableManager.add(rxAction, disposable);
     }
 
     /**
@@ -56,7 +55,7 @@ public abstract class RxActionCreator {
      * @return
      */
     protected boolean hasRxAction(RxAction rxAction) {
-        return manager.contains(rxAction);
+        return mDisposableManager.contains(rxAction);
     }
 
     /**
@@ -65,14 +64,14 @@ public abstract class RxActionCreator {
      * @param rxAction
      */
     private void removeRxAction(RxAction rxAction) {
-        manager.remove(rxAction);
+        mDisposableManager.remove(rxAction);
     }
 
     /**
      * 创建新的RxAction
      *
-     * @param actionId -action type对应具体是什么样的方法
-     * @param data     -键值对型的参数pair-value parameters(Key - Object))
+     * @param actionId action type对应具体是什么样的方法
+     * @param data     键值对型的参数pair-value parameters(Key - Object))
      * @return
      */
     protected RxAction newRxAction(@NonNull String actionId, @NonNull Object... data) {
@@ -97,17 +96,7 @@ public abstract class RxActionCreator {
      * @param action
      */
     protected void postRxAction(@NonNull RxAction action) {
-        dispatcher.postRxAction(action);
-        removeRxAction(action);
-    }
-
-    /**
-     * 有条件通过调度器dispatcher将action推出去
-     *
-     * @param action
-     */
-    protected void postRxAction(@NonNull RxAction action, Func0<Observable<Object>> subscriptionDelay) {
-        dispatcher.postRxAction(action, subscriptionDelay);
+        mDispatcher.postRxAction(action);
         removeRxAction(action);
     }
 
@@ -119,7 +108,7 @@ public abstract class RxActionCreator {
      */
     protected void postError(@NonNull RxAction action, Throwable throwable) {
         Logger.e("==错误:" + action.getType() + (throwable == null ? "" : "\n==错误信息:" + throwable.toString()));
-        dispatcher.postRxAction(RxError.newRxError(action, throwable));
+        mDispatcher.postRxAction(RxError.newRxError(action, throwable));
         removeRxAction(action);
     }
 }

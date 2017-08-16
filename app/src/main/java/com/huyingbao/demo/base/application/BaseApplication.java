@@ -17,7 +17,6 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.pgyersdk.crash.PgyCrashManager;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.taobao.sophix.PatchStatus;
@@ -53,7 +52,7 @@ public class BaseApplication extends Application {
         // 保存application实例对象
         AppUtils.setApplication(this);
         //初始化蒲公英异常捕获
-        PgyCrashManager.register(this);
+        //PgyCrashManager.register(this);
         //初始化hotfix
         initHotfix();
         //初始化debug

@@ -4,8 +4,6 @@ import com.hardsoftstudio.rxflux.action.RxActionCreator;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.dispatcher.RxActionDispatch;
 
-import rx.Observable;
-import rx.functions.Func0;
 
 /**
  * RxStore is an abstract class that will handle the subscription with the dispatcher
@@ -53,7 +51,7 @@ public abstract class RxStore implements RxActionDispatch {
      * 从dispatcher中解除注册
      */
     public void unregister() {
-        dispatcher.unsubscribeRxStore(this);
+        dispatcher.unSubscribeRxStore(this);
     }
 
     /**
@@ -64,9 +62,5 @@ public abstract class RxStore implements RxActionDispatch {
      */
     protected void postChange(RxStoreChange change) {
         dispatcher.postRxStoreChange(change);
-    }
-
-    protected void postChange(RxStoreChange change, Func0<Observable<Object>> subscriptionDelay) {
-        dispatcher.postRxStoreChange(change, subscriptionDelay);
     }
 }

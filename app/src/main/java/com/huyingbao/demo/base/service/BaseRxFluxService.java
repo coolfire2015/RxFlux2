@@ -52,7 +52,7 @@ public abstract class BaseRxFluxService extends Service implements RxViewDispatc
     public void onDestroy() {
         super.onDestroy();
         //解除view注册
-        rxFlux.getDispatcher().unsubscribeRxView(this);
+        rxFlux.getDispatcher().unSubscribeRxView(this);
     }
 
     @Override

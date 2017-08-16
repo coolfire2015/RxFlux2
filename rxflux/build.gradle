@@ -26,14 +26,15 @@ android {
 
 dependencies {
     testCompile "junit:junit:${TEST_VERSION}"
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
     })
     compile "com.android.support:support-v4:${SUPPORT_VERSION}"
-    compile "io.reactivex:rxandroid:${RX_ANDROID}"
-    compile "io.reactivex:rxjava:${RX_JAVA}"
     compile "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
+
+    compile "io.reactivex.rxjava2:rxjava:${RX_JAVA_2}"
+    compile "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_2}"
 }
 
 

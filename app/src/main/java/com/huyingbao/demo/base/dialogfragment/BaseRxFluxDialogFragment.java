@@ -36,7 +36,7 @@ public abstract class BaseRxFluxDialogFragment extends BaseDialogFragment implem
     public void onStop() {
         super.onStop();
         // 解除view注册
-        mRxFlux.getDispatcher().unsubscribeRxView(this);
+        mRxFlux.getDispatcher().unSubscribeRxView(this);
         // 解除RxStore注册
         List<RxStore> rxStoreList = getRxStoreListToUnRegister();
         if (rxStoreList != null)

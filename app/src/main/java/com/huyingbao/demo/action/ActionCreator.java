@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.hardsoftstudio.rxflux.action.RxAction;
 import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
-import com.hardsoftstudio.rxflux.util.SubscriptionManager;
+import com.hardsoftstudio.rxflux.util.DisposableManager;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;
@@ -21,7 +21,7 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
     @Inject
     LocalStorageUtils mLocalStorageUtils;
 
-    public ActionCreator(Dispatcher dispatcher, SubscriptionManager manager) {
+    public ActionCreator(Dispatcher dispatcher, DisposableManager manager) {
         super(dispatcher, manager);
         AppUtils.getApplicationComponent().inject(this);
     }

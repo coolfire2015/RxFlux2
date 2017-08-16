@@ -17,7 +17,7 @@ import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.store.BaseHttpStore;
 import com.huyingbao.demo.store.BaseStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
-import com.trello.rxlifecycle.components.support.RxAppCompatDialogFragment;
+import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
 
 import javax.inject.Inject;
 

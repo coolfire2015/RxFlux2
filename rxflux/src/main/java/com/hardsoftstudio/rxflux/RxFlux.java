@@ -8,7 +8,7 @@ import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
 import com.hardsoftstudio.rxflux.dispatcher.RxBus;
 import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
 import com.hardsoftstudio.rxflux.store.RxStore;
-import com.hardsoftstudio.rxflux.util.SubscriptionManager;
+import com.hardsoftstudio.rxflux.util.DisposableManager;
 
 import java.util.List;
 import java.util.Stack;
@@ -25,7 +25,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     private static RxFlux instance;
     private final RxBus rxBus;
     private final Dispatcher dispatcher;
-    private final SubscriptionManager subscriptionManager;
+    private final DisposableManager subscriptionManager;
     private int activityCounter;
     private Stack<Activity> activityStack;
 
@@ -37,7 +37,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     private RxFlux(Application application) {
         this.rxBus = RxBus.getInstance();
         this.dispatcher = Dispatcher.getInstance(rxBus);
-        this.subscriptionManager = SubscriptionManager.getInstance();
+        this.subscriptionManager = DisposableManager.getInstance();
         activityCounter = 0;
         activityStack = new Stack<>();
         application.registerActivityLifecycleCallbacks(this);
@@ -60,7 +60,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     public static void shutdown() {
         if (instance == null) return;
         instance.subscriptionManager.clear();
-        instance.dispatcher.unsubscribeAll();
+        instance.dispatcher.unSubscribeAll();
     }
 
     /**
@@ -80,7 +80,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     /**
      * @return the instance of the subscription manager in case you want to reuse for something else
      */
-    public SubscriptionManager getSubscriptionManager() {
+    public DisposableManager getSubscriptionManager() {
         return subscriptionManager;
     }
 
@@ -139,7 +139,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
         //activity中的fragment自己实现RxViewDispatch,启动的时候注册,不需要该接口
         //((RxViewDispatch) activity).onRxViewUnRegistered();
         if (activity instanceof RxViewDispatch)
-            dispatcher.unsubscribeRxView((RxViewDispatch) activity);
+            dispatcher.unSubscribeRxView((RxViewDispatch) activity);
     }
 
     @Override
