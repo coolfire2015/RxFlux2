@@ -1,8 +1,8 @@
 package com.huyingbao.demo.store;
 
-import com.hardsoftstudio.rxflux.action.RxAction;
-import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
-import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.rxflux2.action.RxAction;
+import com.huyingbao.rxflux2.dispatcher.Dispatcher;
+import com.huyingbao.rxflux2.store.RxStoreChange;
 
 /**
  * 存在于 BaseApplication 的 mApplicationComponent 中 全局

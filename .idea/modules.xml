@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/RxFluxDemo.iml" filepath="$PROJECT_DIR$/RxFluxDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rxflux/rxflux.iml" filepath="$PROJECT_DIR$/rxflux/rxflux.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxflux2/rxflux.iml" filepath="$PROJECT_DIR$/rxflux2/rxflux.iml" />
     </modules>
   </component>
 </project>

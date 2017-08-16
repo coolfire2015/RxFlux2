@@ -2,7 +2,7 @@ package com.huyingbao.demo.inject.component;
 
 import android.content.Context;
 
-import com.hardsoftstudio.rxflux.RxFlux;
+import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.base.application.BaseApplication;

@@ -169,7 +169,7 @@ repositories {
 }
 
 dependencies {
-    compile project(':rxflux')
+    compile project(':rxflux2')
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     testCompile "junit:junit:${TEST_VERSION}"

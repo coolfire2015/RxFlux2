@@ -2,9 +2,9 @@ package com.huyingbao.demo.action;
 
 import android.support.annotation.NonNull;
 
-import com.hardsoftstudio.rxflux.action.RxAction;
-import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
-import com.hardsoftstudio.rxflux.util.DisposableManager;
+import com.huyingbao.rxflux2.action.RxAction;
+import com.huyingbao.rxflux2.dispatcher.Dispatcher;
+import com.huyingbao.rxflux2.util.DisposableManager;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;

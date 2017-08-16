@@ -3,7 +3,7 @@ package com.huyingbao.demo.inject.module;
 import android.app.Activity;
 import android.content.Context;
 
-import com.hardsoftstudio.rxflux.RxFlux;
+import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.inject.scope.PerActivity;

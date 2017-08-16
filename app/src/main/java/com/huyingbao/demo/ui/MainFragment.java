@@ -3,8 +3,8 @@ package com.huyingbao.demo.ui;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.hardsoftstudio.rxflux.store.RxStore;
-import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.rxflux2.store.RxStore;
+import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.demo.action.Actions;
 import com.huyingbao.demo.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.demo.model.GitHubRepo;

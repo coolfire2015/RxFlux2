@@ -3,7 +3,7 @@ package com.huyingbao.demo.inject.module.application;
 import android.app.Application;
 import android.content.Context;
 
-import com.hardsoftstudio.rxflux.RxFlux;
+import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.store.BaseHttpStore;
 import com.huyingbao.demo.store.BaseStore;

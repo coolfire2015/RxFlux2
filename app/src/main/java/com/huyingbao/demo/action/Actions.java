@@ -2,7 +2,7 @@ package com.huyingbao.demo.action;
 
 import android.support.annotation.NonNull;
 
-import com.hardsoftstudio.rxflux.action.RxAction;
+import com.huyingbao.rxflux2.action.RxAction;
 
 /**
  * 本地action,用于fragment跳转等非网络操作

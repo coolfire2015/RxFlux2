@@ -1,8 +1,8 @@
 package com.huyingbao.demo.ui;
 
-import com.hardsoftstudio.rxflux.action.RxAction;
-import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
-import com.hardsoftstudio.rxflux.store.RxStoreChange;
+import com.huyingbao.rxflux2.action.RxAction;
+import com.huyingbao.rxflux2.dispatcher.Dispatcher;
+import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.demo.action.Actions;
 import com.huyingbao.demo.action.ActionsKeys;
 import com.huyingbao.demo.model.GitHubRepo;

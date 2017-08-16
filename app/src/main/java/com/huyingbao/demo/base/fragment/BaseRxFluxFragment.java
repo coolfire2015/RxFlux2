@@ -5,10 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.hardsoftstudio.rxflux.RxFlux;
-import com.hardsoftstudio.rxflux.action.RxError;
-import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
-import com.hardsoftstudio.rxflux.store.RxStore;
+import com.huyingbao.rxflux2.RxFlux;
+import com.huyingbao.rxflux2.action.RxError;
+import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
+import com.huyingbao.rxflux2.store.RxStore;
 
 import java.util.List;
 

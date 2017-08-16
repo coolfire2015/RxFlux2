@@ -1,7 +1,7 @@
 package com.huyingbao.demo.store;
 
-import com.hardsoftstudio.rxflux.dispatcher.Dispatcher;
-import com.hardsoftstudio.rxflux.store.RxStore;
+import com.huyingbao.rxflux2.dispatcher.Dispatcher;
+import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.demo.inject.component.ApplicationComponent;
 import com.huyingbao.demo.util.AppUtils;
 

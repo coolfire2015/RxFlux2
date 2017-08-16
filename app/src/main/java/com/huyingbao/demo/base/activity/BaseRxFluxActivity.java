@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.hardsoftstudio.rxflux.action.RxError;
-import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.huyingbao.rxflux2.action.RxError;
+import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.inject.component.ActivityComponent;

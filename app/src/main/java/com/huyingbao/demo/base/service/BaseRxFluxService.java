@@ -4,9 +4,9 @@ import android.app.Service;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.hardsoftstudio.rxflux.RxFlux;
-import com.hardsoftstudio.rxflux.action.RxError;
-import com.hardsoftstudio.rxflux.dispatcher.RxViewDispatch;
+import com.huyingbao.rxflux2.RxFlux;
+import com.huyingbao.rxflux2.action.RxError;
+import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.inject.component.DaggerServiceComponent;
