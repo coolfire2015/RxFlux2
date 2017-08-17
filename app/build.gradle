@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 /**
  * release apk name
@@ -135,14 +136,6 @@ android {
         }
     }
 
-    //gradle 4
-    applicationVariants.all { variant ->
-        variant.outputs.all {
-            if ("release".equals(variant.buildType.name))
-                outputFileName = "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk'
-        }
-    }
-
     //数据绑定
     dataBinding {
         enabled = true
@@ -262,6 +255,13 @@ dependencies {
     //二维码扫描
     compile "com.journeyapps:zxing-android-embedded:${ZXING_ANDROID_EMBEDDED}"
 }
+//gradle 4
+//    applicationVariants.all { variant ->
+//        variant.outputs.all {
+//            if ("release".equals(variant.buildType.name))
+//                outputFileName = "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk'
+//        }
+//    }
 //gradle 4
 //    android.applicationVariants.all { variant ->
 //        variant.outputs.all {
