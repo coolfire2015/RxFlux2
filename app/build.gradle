@@ -254,6 +254,10 @@ dependencies {
 
     //二维码扫描
     compile "com.journeyapps:zxing-android-embedded:${ZXING_ANDROID_EMBEDDED}"
+
+    //react-native
+    compile "com.facebook.react:react-native:${REACT_NATIVE}"
+    compile "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
 }
 //gradle 4
 //    applicationVariants.all { variant ->
