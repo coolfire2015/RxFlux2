@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/primary</item><!--工具栏颜色 -->
         <item name="colorPrimaryDark">@color/primary</item><!--状态栏颜色 -->
         <item name="colorAccent">@color/accent</item><!--给edittext着色,形成反差色.按钮组件不支持着色-->

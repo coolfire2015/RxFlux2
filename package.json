@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/coolfire2015/RxFlux2#readme",
   "dependencies": {
-    "react": "15.6.1",
+    "react": "16.0.0-alpha.12",
     "react-native": "0.47.1"
   }
 }
