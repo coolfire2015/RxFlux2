@@ -41,6 +41,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <!--TODO Dangerous Permission 拍照-->
     <uses-permission android:name="android.permission.CAMERA"/>
+    <!--TODO Dangerous Permission 用于显示悬浮窗-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <!-- 百度推送适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
     <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.demo"/>
@@ -172,11 +174,24 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.Loading">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:name=".react.ReactMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
     </application>
 
 </manifest>

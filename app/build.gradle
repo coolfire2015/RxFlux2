@@ -106,7 +106,10 @@ android {
         signingConfig signingConfigs.debug
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        ndk { abiFilters "arm64-v8a", "armeabi", "armeabi-v7a" }//配置ndk
+        ndk { abiFilters "armeabi-v7a" }//配置ndk
+        packagingOptions { exclude "lib/arm64-v8a/librealm-jni.so" }
+//        ndk { abiFilters "arm64-v8a", "armeabi", "armeabi-v7a" }//配置ndk
+//        packagingOptions { exclude "lib/arm64-v8a/libimagepipeline.so" }
     }
     //构建过程
     buildTypes {
