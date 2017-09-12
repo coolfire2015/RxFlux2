@@ -139,6 +139,26 @@ android {
         }
     }
 
+    //修改生成的apk名字及输出目录
+    //gradle 4
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if ("release".equals(variant.buildType.name))
+                outputFileName = "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk'
+        }
+    }
+    //gradle 3
+//    applicationVariants.all { variant ->
+//        variant.outputs.each { output ->
+//            def outDirectory = output.outputFile.parent
+//            if ("false".equals(IS_JENKINS) && "release".equals(variant.buildType.name)) {
+//                buildLog()
+//                outDirectory = "$rootDir/outputs/build_" + APP_VERSION_NAME
+//            }
+//            output.outputFile = new File(outDirectory, "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk')
+//        }
+//    }
+
     //数据绑定
     dataBinding {
         enabled = true
@@ -169,7 +189,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     testCompile "junit:junit:${TEST_VERSION}"
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
     })
@@ -186,7 +206,7 @@ dependencies {
     //Constraint
     compile "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
 
-    //Multidex分包
+    //MultiDex分包
     compile "com.android.support:multidex:${MULTIDEX}"
 
     //Dagger2
@@ -262,54 +282,6 @@ dependencies {
     compile "com.facebook.react:react-native:${REACT_NATIVE}"
     compile "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
 }
-//gradle 4
-//    applicationVariants.all { variant ->
-//        variant.outputs.all {
-//            if ("release".equals(variant.buildType.name))
-//                outputFileName = "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk'
-//        }
-//    }
-//gradle 4
-//    android.applicationVariants.all { variant ->
-//        variant.outputs.all {
-//            if ("release".equals(variant.buildType.name))
-//                outputFileName = "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk'
-//        }
-//    }
-
-//修改生成的apk名字及输出目录
-//applicationVariants.all { variant ->
-//    variant.outputs.each { output ->
-//        def outDirectory = output.outputFile.parent
-//        if ("false".equals(IS_JENKINS) && "release".equals(variant.buildType.name)) {
-//            buildLog()
-//            outDirectory = "$rootDir/outputs/build_" + APP_VERSION_NAME
-//        }
-//        output.outputFile = new File(outDirectory, "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk')
-//    }
-//}
-
-///**
-// * release apk name
-// */
-//def releaseName = "dm_v" + APP_VERSION_NAME + "_release.apk"
-//
-///**
-// * debug apk name
-// */
-//def debugName = "dm_v" + APP_VERSION_NAME + "_debug.apk"
-//
-///**
-// * 输出目录
-// */
-//def mOutputs = "$rootDir/outputs/build_" + APP_VERSION_NAME
-//
-///**
-// * release时间
-// * @return
-// */
-//def releaseTime() { return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08:00")) }
-//
 ///**
 // * 获取local本地配置文件
 // * @return
@@ -320,21 +292,6 @@ dependencies {
 //    return buildProps
 //}
 
-//输出文件配置
-//        applicationVariants.all { variant ->
-//            variant.outputs.each { output ->
-//                def outputFile = output.outputFile
-//                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                    if ("release".equals(variant.buildType.name)) {
-//                        buildLog()
-//                        output.outputFile = new File(mOutputs, releaseName)
-//                    } else {
-//                        output.outputFile = new File(outputFile.parent, debugName)
-//                    }
-//                }
-//            }
-//        }
-
 //打包渠道
 //    productFlavors {
 //        xiaomi {}
@@ -344,10 +301,14 @@ dependencies {
 //    }
 
 //渠道打包配置
-//名字 def fileName = "demo_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+//flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
 //    productFlavors.all {
 //        flavor ->
-//            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//            ndk {
+//                abiFilters "arm64-v8a"
+//                abiFilters "armeabi"
+//                abiFilters "armeabi-v7a"
+//            }
 //    }
 
 //环境编译之后
@@ -363,14 +324,6 @@ dependencies {
 //        }
 //    }
 //}
-
-//    //打包渠道
-//    productFlavors {
-//        xiaomi {}
-//        qh360 {}
-//        baidu {}
-//        wandoujia {}
-//    }
 
 //解决RxNetty包重复问题
 //    packagingOptions {
@@ -406,17 +359,6 @@ dependencies {
 //百分比控件
 //    compile "com.android.support:percent:${rootProject.ext.supportVersion}"
 
-//rxbinding
-//    compile "com.jakewharton.rxbinding:rxbinding:${rootProject.ext.rxbinding}"
-//    compile "com.jakewharton.rxbinding:rxbinding-support-v4:${rootProject.ext.rxbinding}"
-//    compile "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${rootProject.ext.rxbinding}"
-//    compile "com.jakewharton.rxbinding:rxbinding-design:${rootProject.ext.rxbinding}"
-//    compile "com.jakewharton.rxbinding:rxbinding-recyclerview-v7:${rootProject.ext.rxbinding}"
-
-//rxlifecycle
-//    compile "com.trello:rxlifecycle:${rootProject.ext.rxlifecycle}"
-//    compile "com.trello:rxlifecycle-components:${rootProject.ext.rxlifecycle}"
-
 //圆角
 //    compile 'com.makeramen:roundedimageview:2.2.1'
 
@@ -440,11 +382,6 @@ dependencies {
 
 //图片裁剪
 //    compile "com.soundcloud.android:android-crop:${rootProject.ext.crop}"
-
-//数据库缓存
-//    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${DBFLOW}"
-//    compile "com.github.Raizlabs.DBFlow:dbflow-core:${DBFLOW}"
-//    compile "com.github.Raizlabs.DBFlow:dbflow:${DBFLOW}"
 
 //图片上传
 //    compile "com.qiniu:qiniu-android-sdk:${QINIU_SDK}"
@@ -477,33 +414,3 @@ dependencies {
 //FlowUp
 //    compile "io.flowup:android-sdk:${FLOW_UP}"
 //    testCompile "io.flowup:android-sdk-no-op:${FLOW_UP}"
-
-//修改生成的apk名字及输出目录
-//    applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            def outDirectory = output.outputFile.parent
-//            if ("false".equals(IS_JENKINS) && "release".equals(variant.buildType.name)) {
-//                buildLog()
-//                outDirectory = "$rootDir/outputs/build_" + APP_VERSION_NAME
-//            }
-//            output.outputFile = new File(outDirectory, "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk')
-//        }
-//    }
-
-//渠道打包配置
-//flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-//    productFlavors.all {
-//        flavor ->
-//            ndk {
-//                abiFilters "arm64-v8a"
-//                abiFilters "armeabi"
-//                abiFilters "armeabi-v7a"
-//            }
-//    }
-
-//RxLifecycle
-//    compile "com.trello:rxlifecycle:${RX_LIFE_CYCLE}"
-//    compile "com.trello:rxlifecycle-components:${RX_LIFE_CYCLE}"
-
-//RxPermissions
-//    compile "com.tbruyelle.rxpermissions:rxpermissions:${RX_PERMISSIONS}"
