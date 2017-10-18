@@ -7,8 +7,8 @@ import com.huyingbao.rxflux2.action.RxAction;
  */
 public class RxStoreChange {
 
-    String mStoreId;
-    RxAction mRxAction;
+    private String mStoreId;
+    private RxAction mRxAction;
 
     public RxStoreChange(String storeId, RxAction rxAction) {
         this.mStoreId = storeId;

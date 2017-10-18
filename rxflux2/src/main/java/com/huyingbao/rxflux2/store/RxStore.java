@@ -8,7 +8,7 @@ import com.huyingbao.rxflux2.dispatcher.RxActionDispatch;
 /**
  * RxStore is an abstract class that will handle the subscription with the dispatcher
  * in order to receive the actions.
- * This class must be extended by each store of the app in order to recieve the actions dispatched
+ * This class must be extended by each store of the app in order to receive the actions dispatched
  * RxStore是一个抽象类,注册到dispatcher中,用来管理订阅,按顺序接收actions.
  * 这个类必须被应用的每个store扩展实现,来接收被调度传递过来的actions
  * 每一个Store仅仅负责一片逻辑相关的UI区域，用来维护这片UI的状态，

@@ -30,7 +30,7 @@ public final class DisposableManager {
     }
 
     /**
-     * Given an action and a disposable, add the new disposable and unsubscribe if there
+     * Given an action and a disposable, add the new disposable and unSubscribe if there
      * was an existing one.
      * 添加一个action和disposable,如果已经有了一个对应action 的订阅,则取消订阅
      */
@@ -40,7 +40,7 @@ public final class DisposableManager {
     }
 
     /**
-     * Remove an rxAction and unsubscribe from it
+     * Remove an rxAction and unSubscribe from it
      * 从管理器中取消订阅
      */
     public void remove(RxAction action) {

@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.util.DisposableManager;
-import com.orhanobut.logger.Logger;
 
 import io.reactivex.disposables.Disposable;
 
@@ -107,7 +106,6 @@ public abstract class RxActionCreator {
      * @param throwable
      */
     protected void postError(@NonNull RxAction action, Throwable throwable) {
-        Logger.e("==错误:" + action.getType() + (throwable == null ? "" : "\n==错误信息:" + throwable.toString()));
         mDispatcher.postRxAction(RxError.newRxError(action, throwable));
         removeRxAction(action);
     }

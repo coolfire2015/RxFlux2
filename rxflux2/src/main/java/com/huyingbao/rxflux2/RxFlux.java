@@ -86,7 +86,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
 
     /**
      * activity创建成功之后调用,
-     * 若acitivity是RxViewDispatch的子类,
+     * 若activity是RxViewDispatch的子类,
      * 获取需要注册的RxStoreList,并进行注册,将其注册到dispatcher
      *
      * @param activity

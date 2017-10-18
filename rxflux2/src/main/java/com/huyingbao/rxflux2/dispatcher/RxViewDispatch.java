@@ -50,7 +50,7 @@ public interface RxViewDispatch {
      * Notice that if the Application is destroyed RxFlux will automatically unregister any store to avoid leaks.
      *
      * @return list of {@link RxStore} to be unregister, can be null
-     * activity onDistroy()
+     * activity onDestroy()
      */
     @Nullable
     List<RxStore> getRxStoreListToUnRegister();

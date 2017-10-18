@@ -92,9 +92,9 @@ public class Dispatcher {
         final String rxViewTag = rxView.getClass().getSimpleName();
         //获取Map中Object名字对应的value 监听者
         Disposable disposable = mRxStoreMap.get(rxViewTag);
-        //如果监听者空或者没订阅被监听者,生成一个新的监听者,并将他添加到 storemap中
+        //如果监听者空或者没订阅被监听者,生成一个新的监听者,并将他添加到 storeMap中
         if (disposable == null || disposable.isDisposed()) {
-            //获取rxbus实例,是一个Observable(被监听者)的子类对象
+            //获取rxBus实例,是一个Observable(被监听者)的子类对象
             //Subject=new SerializedSubject<>(PublishSubject.create())
             //会把在订阅(subscribe())发生的时间点之后来自原始Observable的数据发射给观察者
             mRxStoreMap.put(rxViewTag, mRxBus.get()
@@ -112,7 +112,7 @@ public class Dispatcher {
      *
      * @param object
      * @param <T>
-     * @return {@code true} object对应的Subcription不为空且已经注册, {@code false} otherwise
+     * @return {@code true} object对应的Subscription不为空且已经注册, {@code false} otherwise
      */
     public <T extends RxViewDispatch> boolean isSubscribeRxView(final T object) {
         //获取传入的Object的名字
@@ -123,7 +123,7 @@ public class Dispatcher {
     }
 
     /**
-     * 解除rxstore的注册
+     * 解除rxStore的注册
      *
      * @param object
      * @param <T>

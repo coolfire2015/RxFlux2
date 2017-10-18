@@ -61,7 +61,6 @@ dependencies {
         exclude group: 'com.google.code.findbugs'
     })
     implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
-    implementation "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
 
     implementation "io.reactivex.rxjava2:rxjava:${RX_JAVA_2}"
     implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_2}"
