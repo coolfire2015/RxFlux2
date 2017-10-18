@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.hardsoftstudio.rxflux2">
+          package="com.huyingbao.rxflux2">
 
     <application
         android:allowBackup="true"

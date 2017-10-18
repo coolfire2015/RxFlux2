@@ -1,4 +1,4 @@
-package com.hardsoftstudio.rxflux2;
+package com.huyingbao.rxflux2;
 
 import org.junit.Test;
 
