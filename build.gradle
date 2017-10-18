@@ -19,7 +19,7 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url "$rootDir/node_modules/react-native/android" }
-        maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
+        //maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
     }
 }
 

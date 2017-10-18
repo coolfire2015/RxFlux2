@@ -4,17 +4,17 @@ apply plugin: 'com.android.application'
 /**
  * release apk name
  */
-def releaseName = "demo_v" + APP_VERSION_NAME + "_${releaseTime()}_release.apk"
+def releaseName = "demo_v" + getGitVersionName() + "_${releaseTime()}_release.apk"
 
 /**
  * debug apk name
  */
-def debugName = "demo_v" + APP_VERSION_NAME + "_debug.apk"
+def debugName = "demo_v" + getGitVersionName() + "_debug.apk"
 
 /**
  * 输出目录
  */
-def mOutputs = "$rootDir/outputs/build_" + APP_VERSION_NAME
+def mOutputs = "$rootDir/outputs/build_" + getGitVersionName()
 
 /**
  * release时间
@@ -35,19 +35,53 @@ def getlocalProperty() {
 }
 
 /**
- * 读取Git日志
- * @return
- */
-def getGitVersion() {
-    return 'git rev-parse --short HEAD'.execute().text.trim()
-}
-
-/**
  * 读取Svn日志
  * @return
  */
-def getSvnVersion() {
+def getSvnVersionInfo() {
     return 'svn log -r HEAD'.execute().text.trim()
+}
+
+/**
+ * 读取Svn Revision Number
+ * @return
+ */
+def getSvnRevisionNumber() {
+    return 'svn info --show-item revision'.execute().text.trim()
+}
+
+/**
+ * 读取Git commit number，作为Version Code
+ * @return
+ */
+def gitGitVersionCode() {
+    return 'git rev-list HEAD --first-parent --count'.execute().text.trim().toInteger()
+}
+
+/**
+ * 读取Git Tag，作为Version Name
+ * @return
+ */
+def getGitVersionName() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+    catch (ignored) {
+        return "1.0.0"
+    }
+}
+
+/**
+ * 读取Git日志
+ * @return
+ */
+def getGitVersionInfo() {
+    return 'git rev-parse --short HEAD'.execute().text.trim()
 }
 
 /**
@@ -60,11 +94,11 @@ def buildLog() {
     StringBuilder builder = new StringBuilder()
     builder.append("[构建时间]=" + new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone("GMT+08:00")))
     builder.append("\r\n")
-    builder.append("[版本编号]=" + APP_VERSION_CODE)
+    builder.append("[版本编号]=" + gitGitVersionCode())
     builder.append("\r\n")
-    builder.append("[版本名称]=" + APP_VERSION_NAME)
+    builder.append("[版本名称]=" + getGitVersionName())
     builder.append("\r\n")
-    builder.append("[提交记录]=" + getGitVersion())
+    builder.append("[提交记录]=" + getGitVersionInfo())
     fw.write(builder.toString())
     fw.flush()
     fw.close()
@@ -98,16 +132,16 @@ android {
     //默认配置
     defaultConfig {
         applicationId "com.huyingbao.demo"
-        multiDexEnabled true//支持multidex分包
+        multiDexEnabled true//支持Multidex分包
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode APP_VERSION_CODE as int
-        versionName APP_VERSION_NAME
+        versionCode gitGitVersionCode()
+        versionName getGitVersionName()
         signingConfig signingConfigs.debug
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary = true//使用vector图片
         ndk { abiFilters "armeabi-v7a" }//配置ndk
-        packagingOptions { exclude "lib/arm64-v8a/librealm-jni.so" }
+        packagingOptions { exclude "lib/arm64-v8a/librealm-jni.so" }//ReactNative配置
 //        ndk { abiFilters "arm64-v8a", "armeabi", "armeabi-v7a" }//配置ndk
 //        packagingOptions { exclude "lib/arm64-v8a/libimagepipeline.so" }
     }
@@ -119,10 +153,19 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             //混淆开关
             minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
             //混淆文件
             proguardFile 'proguard-rules.pro'
             //签名配置
             signingConfig signingConfigs.debug
+            //配置ndk
+            ndk {
+                abiFilters "arm64-v8a"
+                abiFilters "armeabi"
+                abiFilters "armeabi-v7a"
+                abiFilters "x86"
+            }
         }
         //自定义buildType.name
         release {
@@ -136,6 +179,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //签名配置
             signingConfig signingConfigs.release
+            //配置ndk
+            ndk {
+                abiFilters "arm64-v8a"
+                abiFilters "armeabi"
+                abiFilters "armeabi-v7a"
+            }
         }
     }
 
@@ -144,7 +193,7 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             if ("release".equals(variant.buildType.name))
-                outputFileName = "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk'
+                outputFileName = "dm_v_" + variant.buildType.name + "_" + getGitVersionName() + '.apk'
         }
     }
     //gradle 3
@@ -164,12 +213,12 @@ android {
         enabled = true
     }
 
-    //dex分包
+    //Dex分包
     dexOptions {
         jumboMode = true
         javaMaxHeapSize "4g"//增加java堆内存大小
     }
-    //retrolambda表达式需要
+    //RetroLambda表达式需要
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -185,102 +234,111 @@ repositories {
 }
 
 dependencies {
-    compile project(':rxflux2')
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    testCompile "junit:junit:${TEST_VERSION}"
-    androidTestCompile("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
+    testImplementation "junit:junit:${TEST_VERSION}"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
     })
 
     //Support Libs
-    compile "com.android.support:cardview-v7:${SUPPORT_VERSION}"
-    compile "com.android.support:support-v4:${SUPPORT_VERSION}"
-    compile "com.android.support:appcompat-v7:${SUPPORT_VERSION}"
-    compile "com.android.support:design:${SUPPORT_VERSION}"
-    compile "com.android.support:recyclerview-v7:${SUPPORT_VERSION}"
-    compile "com.android.support:gridlayout-v7:${SUPPORT_VERSION}"
-    compile "com.android.support:support-annotations:${SUPPORT_VERSION}"
-    compile "com.android.support:support-vector-drawable:${SUPPORT_VERSION}"
+    implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
+    implementation "com.android.support:appcompat-v7:${SUPPORT_VERSION}"
+    implementation "com.android.support:design:${SUPPORT_VERSION}"
+    implementation "com.android.support:recyclerview-v7:${SUPPORT_VERSION}"
+    implementation "com.android.support:gridlayout-v7:${SUPPORT_VERSION}"
+    implementation "com.android.support:cardview-v7:${SUPPORT_VERSION}"
+    implementation "com.android.support:support-annotations:${SUPPORT_VERSION}"
+    implementation "com.android.support:support-vector-drawable:${SUPPORT_VERSION}"
     //Constraint
-    compile "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
+    implementation "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
 
     //MultiDex分包
-    compile "com.android.support:multidex:${MULTIDEX}"
+    implementation "com.android.support:multidex:${MULTIDEX}"
 
     //Dagger2
-    compile "com.google.dagger:dagger:${DAGGER}"
+    implementation "com.google.dagger:dagger:${DAGGER}"
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER}"
 
     //网络Retrofit
-    compile "com.squareup.retrofit2:retrofit:${RETROFIT}"
-    compile "com.squareup.retrofit2:converter-gson:${RETROFIT}"
-    compile "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT}"
+    implementation "com.squareup.retrofit2:retrofit:${RETROFIT}"
+    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT}"
 
-    //网络Okhttp,Okio
-    compile "com.squareup.okio:okio:${OKIO}"
-    compile "com.squareup.okhttp3:okhttp:${OKHTTP}"
+    //网络OkHttp,OkIo
+    implementation "com.squareup.okio:okio:${OKIO}"
+    implementation "com.squareup.okhttp3:okhttp:${OKHTTP}"
 
-    //图片加载,加载使用Okhttp
-    compile "com.github.bumptech.glide:glide:${GLIDE}"
-    compile "com.github.bumptech.glide:okhttp3-integration:${GLIDE}"
+    //图片上传
+    implementation "com.qiniu:qiniu-android-sdk:${QINIU_SDK}"
+
+    //图片加载,加载使用OkHttp
+    implementation "com.github.bumptech.glide:glide:${GLIDE}"
+    implementation "com.github.bumptech.glide:okhttp3-integration:${GLIDE}"
     annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE}"
 
     //ButterKnife,view注解,string注解,drawable注解
-    compile "com.jakewharton:butterknife:${BUTTER_KNIFE}"
+    implementation "com.jakewharton:butterknife:${BUTTER_KNIFE}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE}"
 
     //RxPermissions
-    compile "com.tbruyelle.rxpermissions2:rxpermissions:${RX_PERMISSIONS_2}"
+    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${RX_PERMISSIONS_2}"
     //RxLifecycle
-    compile "com.trello.rxlifecycle2:rxlifecycle:${RX_LIFE_CYCLE_2}"
-    compile "com.trello.rxlifecycle2:rxlifecycle-android:${RX_LIFE_CYCLE_2}"
-    compile "com.trello.rxlifecycle2:rxlifecycle-components:${RX_LIFE_CYCLE_2}"
+    implementation "com.trello.rxlifecycle2:rxlifecycle:${RX_LIFE_CYCLE_2}"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android:${RX_LIFE_CYCLE_2}"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-components:${RX_LIFE_CYCLE_2}"
     //RxBinding
-    compile "com.jakewharton.rxbinding2:rxbinding:${RX_BINDING_2}"
-    compile "com.jakewharton.rxbinding2:rxbinding-support-v4:${RX_BINDING_2}"
-    compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${RX_BINDING_2}"
-    compile "com.jakewharton.rxbinding2:rxbinding-design:${RX_BINDING_2}"
-    compile "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-design:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${RX_BINDING_2}"
 
     //RecyclerView Adapter
-    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:${BASE_RECYCLERVIEW_ADAPTER_HELPER}"
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${BASE_RECYCLERVIEW_ADAPTER_HELPER}"
     //分割线
-    compile "com.yqritc:recyclerview-flexibledivider:${FLEXIBLE_DIVIDER}"
+    implementation "com.yqritc:recyclerview-flexibledivider:${FLEXIBLE_DIVIDER}"
     //图片缩放
-    compile "com.github.chrisbanes:PhotoView:${PHOTO_VIEW}"
+    implementation "com.github.chrisbanes:PhotoView:${PHOTO_VIEW}"
     //FlycoTabLayoutLib
-    compile "com.flyco.tablayout:FlycoTabLayout_Lib:${FLYCO_TAB_LAYOUT}"
+    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:${FLYCO_TAB_LAYOUT}"
 
     //Logger
-    compile "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
+    implementation "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
 
     //Json
-    compile "com.alibaba:fastjson:${FAST_JSON}"
-    compile "com.google.code.gson:gson:${GSON}"
+    implementation "com.alibaba:fastjson:${FAST_JSON}"
+    implementation "com.google.code.gson:gson:${GSON}"
 
     //Common lang 常用工具类
-    compile "org.apache.commons:commons-lang3:${COMMONS_LANG3}"
+    implementation "org.apache.commons:commons-lang3:${COMMONS_LANG3}"
 
     //数据库
     annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${DBFLOW}"
-    compile "com.github.Raizlabs.DBFlow:dbflow-core:${DBFLOW}"
-    compile "com.github.Raizlabs.DBFlow:dbflow:${DBFLOW}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${DBFLOW}"
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${DBFLOW}"
 
-    //Hotfix
-    compile "com.aliyun.ams:alicloud-android-hotfix:${HOTFIX}"
+    //Hotfix Analytics
+    implementation "com.aliyun.ams:alicloud-android-hotfix:${HOTFIX}"
+    implementation("com.aliyun.ams:alicloud-android-man:${ANALYTICS}") {
+        exclude(module: 'utdid4all')
+    }
 
     //内存溢出
-    debugCompile "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY}"
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY}"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY}"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY}"
+    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY}"
 
     //二维码扫描
-    compile "com.journeyapps:zxing-android-embedded:${ZXING_ANDROID_EMBEDDED}"
+    implementation "com.journeyapps:zxing-android-embedded:${ZXING_ANDROID_EMBEDDED}"
 
     //react-native
-    compile "com.facebook.react:react-native:${REACT_NATIVE}"
-    compile "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
+    implementation "com.facebook.react:react-native:${REACT_NATIVE}"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
+
+    //RxFlux2
+    implementation project(':rxflux2')
 }
 ///**
 // * 获取local本地配置文件
@@ -348,51 +406,51 @@ dependencies {
 //    provided "org.glassfish:javax.annotation:${rootProject.ext.annotation}"
 
 //RxNetty
-//    compile "io.reactivex:rxnetty-tcp:${rootProject.ext.rxnetty}"
+//    implementation "io.reactivex:rxnetty-tcp:${rootProject.ext.rxnetty}"
 
 //Apache Commons IO
-//    compile "commons-io:commons-io:${rootProject.ext.commonsIO}"
+//    implementation "commons-io:commons-io:${rootProject.ext.commonsIO}"
 
 //CardView
-//    compile "com.android.support:cardview-v7:${rootProject.ext.supportVersion}"
+//    implementation "com.android.support:cardview-v7:${rootProject.ext.supportVersion}"
 
 //百分比控件
-//    compile "com.android.support:percent:${rootProject.ext.supportVersion}"
+//    implementation "com.android.support:percent:${rootProject.ext.supportVersion}"
 
 //圆角
-//    compile 'com.makeramen:roundedimageview:2.2.1'
+//    implementation 'com.makeramen:roundedimageview:2.2.1'
 
 //通讯录固定recycleview adapter
-//    compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3'
+//    implementation 'com.timehop.stickyheadersrecyclerview:library:0.4.3'
 
 //图片加载
-//    compile 'com.squareup.picasso:picasso:2.5.2'
+//    implementation 'com.squareup.picasso:picasso:2.5.2'
 
 //密码输入框
-//    compile "com.jungly:gridPasswordView:${rootProject.ext.gridPasswordView}"
+//    implementation "com.jungly:gridPasswordView:${rootProject.ext.gridPasswordView}"
 
 //层级expandablerecyclerview
-//    compile "com.bignerdranch.android:expandablerecyclerview:${rootProject.ext.expandablerecyclerview}"
+//    implementation "com.bignerdranch.android:expandablerecyclerview:${rootProject.ext.expandablerecyclerview}"
 
 //Fastjson Converter
-//    compile "org.ligboy.retrofit2:converter-fastjson:${rootProject.ext.fastjsonConverter}"
+//    implementation "org.ligboy.retrofit2:converter-fastjson:${rootProject.ext.fastjsonConverter}"
 
 //拼音
-//    compile "com.belerweb:pinyin4j:${rootProject.ext.pinyin4j}"
+//    implementation "com.belerweb:pinyin4j:${rootProject.ext.pinyin4j}"
 
 //图片裁剪
-//    compile "com.soundcloud.android:android-crop:${rootProject.ext.crop}"
+//    implementation "com.soundcloud.android:android-crop:${rootProject.ext.crop}"
 
 //图片上传
-//    compile "com.qiniu:qiniu-android-sdk:${QINIU_SDK}"
+//    implementation "com.qiniu:qiniu-android-sdk:${QINIU_SDK}"
 
 //weex
-//    compile "com.taobao.android:weex_sdk:${WEEX_SDK}"
+//    implementation "com.taobao.android:weex_sdk:${WEEX_SDK}"
 
 //react-native
-//    compile "com.facebook.react:react-native:${REACT_NATIVE}"
-//    compile "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
-//    compile "com.squareup.okhttp3:okhttp-ws:${OKHTTP_WS}"
+//    implementation "com.facebook.react:react-native:${REACT_NATIVE}"
+//    implementation "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
+//    implementation "com.squareup.okhttp3:okhttp-ws:${OKHTTP_WS}"
 
 //react-native
 //    compile("com.facebook.react:react-native:${REACT_NATIVE}", {
@@ -402,15 +460,17 @@ dependencies {
 //    })
 
 //三态switch
-//    compile 'com.github.BeppiMenozzi:TriStateToggleButton:1.1.4'
+//    implementation 'com.github.BeppiMenozzi:TriStateToggleButton:1.1.4'
 //三态switch
-//    compile 'com.rm:rmswitch:1.2.2'
+//    implementation 'com.rm:rmswitch:1.2.2'
 
 //Json
-//    compile "com.google.code.gson:gson:${GSON}"
-//    compile "com.squareup.retrofit2:converter-gson:${RETROFIT}"
-//    compile "org.ligboy.retrofit2:converter-fastjson-android:${FASTJSON_CONVERTER}"
+//    implementation "com.google.code.gson:gson:${GSON}"
+//    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT}"
+//    implementation "org.ligboy.retrofit2:converter-fastjson-android:${FASTJSON_CONVERTER}"
 
 //FlowUp
-//    compile "io.flowup:android-sdk:${FLOW_UP}"
-//    testCompile "io.flowup:android-sdk-no-op:${FLOW_UP}"
+//    implementation "io.flowup:android-sdk:${FLOW_UP}"
+//    testImplementation "io.flowup:android-sdk-no-op:${FLOW_UP}"
+//蒲公英
+//    implementation "com.pgyersdk:sdk:${PU_GONG_YING}"

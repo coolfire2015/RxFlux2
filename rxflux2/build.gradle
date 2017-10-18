@@ -4,6 +4,32 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.github.coolfire2015"
 
+/**
+ * 读取Git commit number，作为Version Code
+ * @return
+ */
+def gitGitVersionCode() {
+    return 'git rev-list HEAD --first-parent --count'.execute().text.trim().toInteger()
+}
+
+/**
+ * 读取Git Tag，作为Version Name
+ * @return
+ */
+def getGitVersionName() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+    catch (ignored) {
+        return "1.0.0"
+    }
+}
+
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
@@ -11,8 +37,8 @@ android {
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode APP_VERSION_CODE as int
-        versionName APP_VERSION_NAME
+        versionCode gitGitVersionCode()
+        versionName getGitVersionName()
     }
 
     buildTypes {
@@ -29,16 +55,16 @@ android {
 }
 
 dependencies {
-    testCompile "junit:junit:${TEST_VERSION}"
-    androidTestCompile("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
+    testImplementation "junit:junit:${TEST_VERSION}"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
     })
-    compile "com.android.support:support-v4:${SUPPORT_VERSION}"
-    compile "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
+    implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
+    implementation "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
 
-    compile "io.reactivex.rxjava2:rxjava:${RX_JAVA_2}"
-    compile "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_2}"
+    implementation "io.reactivex.rxjava2:rxjava:${RX_JAVA_2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_2}"
 }
 
 
