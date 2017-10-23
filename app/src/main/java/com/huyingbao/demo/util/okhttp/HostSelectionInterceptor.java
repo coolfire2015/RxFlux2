@@ -8,6 +8,7 @@ import com.alibaba.sdk.android.man.network.MANNetworkErrorInfo;
 import com.alibaba.sdk.android.man.network.MANNetworkPerformanceHitBuilder;
 import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.constant.Constants;
+import com.huyingbao.demo.model.RxHttpException;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
@@ -70,8 +71,8 @@ public class HostSelectionInterceptor implements Interceptor {
                 Logger.json(content);
                 return response.newBuilder().body(ResponseBody.create(response.body().contentType(), content)).build();
             }
-            //TODO 接口数据异常，抛出异常
-            throw new IllegalArgumentException(response.body().string());
+            //接口数据异常，抛出异常
+            throw new RxHttpException(response.code(), response.body().string());
         } catch (retrofit2.HttpException e) {
             int code = e.code();
             if (code >= 400 && code < 500) {

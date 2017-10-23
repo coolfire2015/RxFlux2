@@ -1,5 +1,9 @@
 package com.huyingbao.demo.util;
 
+import com.huyingbao.demo.BuildConfig;
+import com.huyingbao.demo.constant.ActionsKeys;
+import com.orhanobut.logger.Logger;
+
 /**
  * 服务器工具类
  * Created by liujunfeng on 2017/1/1.
@@ -24,7 +28,7 @@ public class ServerUtils {
         //修改当前网络状态
         LocalStorageUtils.getInstance().setBoolean(ActionsKeys.SERVER_STATE, serverState);
         //修改api host
-        AppUtils.getApplicationComponent().getHostSelectionInterceptor().setHostUrl(DEBUG_SERVER_API);
+//        AppUtils.getApplicationComponent().getHostSelectionInterceptor().setHostUrl(DEBUG_SERVER_API);
     }
 
 }

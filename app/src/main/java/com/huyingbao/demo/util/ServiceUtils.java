@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 
+import com.huyingbao.demo.constant.Constants;
 import com.huyingbao.demo.receiver.AlarmReceiver;
 
 import java.util.ArrayList;

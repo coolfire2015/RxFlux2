@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 
 import java.util.List;
 

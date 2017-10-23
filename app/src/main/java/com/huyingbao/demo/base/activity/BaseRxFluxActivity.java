@@ -7,21 +7,23 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.huyingbao.rxflux2.action.RxError;
-import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.inject.component.ActivityComponent;
 import com.huyingbao.demo.inject.component.DaggerActivityComponent;
 import com.huyingbao.demo.inject.module.ActivityModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
+import com.huyingbao.demo.model.RxHttpException;
 import com.huyingbao.demo.store.AppStore;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;
+import com.huyingbao.rxflux2.action.RxError;
+import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 import javax.inject.Inject;
 
@@ -125,7 +127,7 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
         Throwable throwable = error.getThrowable();
         // 自定义异常
         if (throwable instanceof RxHttpException) {
-            String message = ((com.huyingbao.hyb.model.RxHttpException) throwable).message();
+            String message = ((RxHttpException) throwable).message();
             showShortToast(message);
         } else if (throwable instanceof retrofit2.HttpException) {
             showShortToast(((retrofit2.HttpException) throwable).code() + ":服务器问题");

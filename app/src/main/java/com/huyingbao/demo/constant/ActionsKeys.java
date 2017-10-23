@@ -53,4 +53,5 @@ public interface ActionsKeys {
     String PUBLIC_REPOS = "repos";
     String USER = "user";
     String ID = "id";
+    String SERVER_STATE = "server_state";
 }
