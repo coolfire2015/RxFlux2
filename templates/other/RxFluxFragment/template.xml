@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="3"
+    name="RxFlux Fragment"
+    minApi="14"
+    minBuildApi="14"
+    description="Creates a new rxflux fragment">
+
+    <category value="Fragment" />
+
+    <parameter
+        id="fragmentClass"
+        name="Fragment Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="RxFluxFragment"
+        help="The name of the fragment class to create" />
+
+    <parameter
+        id="isRxFluxFragment"
+        name="Extends RxFluxFragment"
+        type="boolean"
+        default="true"
+        help="If true, fragment extends RxFluxFragment" />
+
+    <parameter
+        id="storeClass"
+        name="Store Name"
+        type="string"
+        constraints="class|nonempty"
+        default="RxFluxStore"
+        visibility="isRxFluxFragment"
+        help="The name of the store class to create" />
+
+    <parameter
+        id="generateLayout"
+        name="Generate Layout File"
+        type="boolean"
+        default="true"
+        help="If true, a layout file will be generated" />
+
+    <parameter
+        id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique|nonempty"
+        default="fragment_rxflux"
+        visibility="generateLayout"
+	    suggest="fragment_${classToResource(fragmentClass)}"
+        help="The name of the layout to create for the fragment" />
+
+
+    <thumbs>
+        <thumb>template_blank_fragment.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>

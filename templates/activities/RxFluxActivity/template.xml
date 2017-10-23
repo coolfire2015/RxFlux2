@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="5"
+    name="RxFlux Activity"
+    minApi="14"
+    minBuildApi="14"
+    description="Creates a new rxflux activity">
+
+    <category value="Activity" />
+    <formfactor value="Mobile" />
+
+    <parameter
+        id="instantAppActivityHost"
+        name="Instant App URL Host"
+        type="string"
+        suggest="${companyDomain}"
+        default="instantapp.example.com"
+        visibility="isInstantApp!false"
+        help="The domain to use in the Instant App route for this activity"/>
+
+    <parameter
+        id="instantAppActivityRouteType"
+        name="Instant App URL Route Type"
+        type="enum"
+        default="pathPattern"
+        visibility="isInstantApp!false"
+        help="The type of route to use in the Instant App route for this activity" >
+        <option id="path">Path</option>
+        <option id="pathPrefix">Path Prefix</option>
+        <option id="pathPattern">Path Pattern</option>
+    </parameter>
+
+    <parameter
+        id="instantAppActivityRoute"
+        name="Instant App URL Route"
+        type="string"
+        default="/.*"
+        visibility="isInstantApp!false"
+        help="The route to use in the Instant App route for this activity"/>
+
+    <parameter
+        id="activityClass"
+        name="Activity Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="RxFluxActivity"
+        help="The name of the activity class to create" />
+
+    <parameter
+        id="storeClass"
+        name="Store Name"
+        type="string"
+        constraints="class|unique|nonempty"
+        default="RxFluxStore"
+        help="The name of the store class to create" />
+
+    <parameter
+        id="isLauncher"
+        name="Launcher Activity"
+        type="boolean"
+        default="false"
+        help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher" />
+
+    <parameter
+        id="packageName"
+        name="Package name"
+        type="string"
+        constraints="package"
+        default="com.mycompany.myapp" />
+
+    <parameter
+        id="generateFragment"
+        name="Generate Fragment"
+        type="boolean"
+        default="true"
+        help="If true, a fragment file will be generated" />
+
+    <parameter
+        id="fragmentClass"
+        name="Fragment Name"
+        type="string"
+        constraints="class|unique"
+        default="RxFluxFragment"
+        visibility="generateFragment"
+        help="The name of the fragment class to create" />
+	
+	<parameter
+        id="generateLayout"
+        name="Generate Fragment Layout File"
+        type="boolean"
+        default="true"
+        help="If true, a layout file will be generated" />
+
+    <parameter
+        id="layoutName"
+        name="Layout Name"
+        type="string"
+        constraints="layout|unique"
+        default="fragment_rxflux"
+        visibility="generateLayout"
+		suggest="fragment_${classToResource(fragmentClass)}"
+        help="The name of the layout to create for the fragment" />
+
+    <thumbs>
+        <thumb>template_blank_activity.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
