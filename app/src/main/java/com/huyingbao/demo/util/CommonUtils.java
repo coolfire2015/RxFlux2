@@ -18,22 +18,6 @@ import java.util.List;
  */
 public class CommonUtils {
     /**
-     * 返回完整路径
-     *
-     * @param key
-     * @param partName
-     * @return
-     */
-    public static String getFullPath(String key, String partName) {
-        switch (partName) {
-            case ActionsKeys.PART_NAME_HEAD_IMAGE:
-                return ActionsKeys.URL_HEAD_IMAGE + key;
-            default:
-                return key;
-        }
-    }
-
-    /**
      * 得到用时间戳生成的文件名字
      *
      * @param localPath
@@ -41,25 +25,6 @@ public class CommonUtils {
      */
     public static String getFileNameByTime(String localPath) {
         return System.currentTimeMillis() + "." + FileUtils.getExtensionName(localPath);
-    }
-
-    /**
-     * 初始化emptyview
-     *
-     * @param context
-     * @param viewGroup
-     * @param icEmpty
-     * @param infoEmpty
-     * @return
-     */
-    public static View initEmptyView(Context context, ViewGroup viewGroup, int icEmpty, String infoEmpty) {
-        View emptyView = ((Activity) context).getLayoutInflater()
-                .inflate(R.layout.view_empty, viewGroup, false);
-        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
-        TextView tvEmpty = ButterKnife.findById(emptyView, R.id.tv_empty);
-        ivEmpty.setImageResource(icEmpty);
-        tvEmpty.setText(infoEmpty);
-        return emptyView;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.constant;
+package com.huyingbao.demo.constant;
 
 /**
  * Created by liujunfeng on 2017/5/26.

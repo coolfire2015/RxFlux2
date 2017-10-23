@@ -1,4 +1,4 @@
-package com.huyingbao.hyb.util.okhttp;
+package com.huyingbao.demo.util.okhttp;
 
 import android.text.TextUtils;
 
@@ -6,9 +6,8 @@ import com.alibaba.sdk.android.man.MANServiceProvider;
 import com.alibaba.sdk.android.man.network.MANNetworkErrorCodeBuilder;
 import com.alibaba.sdk.android.man.network.MANNetworkErrorInfo;
 import com.alibaba.sdk.android.man.network.MANNetworkPerformanceHitBuilder;
-import com.huyingbao.hyb.BuildConfig;
-import com.huyingbao.hyb.constant.Constants;
-import com.huyingbao.hyb.model.RxHttpException;
+import com.huyingbao.demo.BuildConfig;
+import com.huyingbao.demo.constant.Constants;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
@@ -71,8 +70,8 @@ public class HostSelectionInterceptor implements Interceptor {
                 Logger.json(content);
                 return response.newBuilder().body(ResponseBody.create(response.body().contentType(), content)).build();
             }
-            //接口数据异常，抛出异常
-            throw new RxHttpException(response.code(), response.body().string());
+            //TODO 接口数据异常，抛出异常
+            throw new IllegalArgumentException(response.body().string());
         } catch (retrofit2.HttpException e) {
             int code = e.code();
             if (code >= 400 && code < 500) {
