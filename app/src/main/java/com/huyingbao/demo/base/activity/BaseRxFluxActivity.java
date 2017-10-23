@@ -15,8 +15,7 @@ import com.huyingbao.demo.inject.component.ActivityComponent;
 import com.huyingbao.demo.inject.component.DaggerActivityComponent;
 import com.huyingbao.demo.inject.module.ActivityModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.store.BaseHttpStore;
-import com.huyingbao.demo.store.BaseStore;
+import com.huyingbao.demo.store.AppStore;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -34,7 +33,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements RxViewDispatch {
     //region 参数
-    static {
+    static {//Vector使用
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 
@@ -48,9 +47,7 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     @Inject
     protected HttpApi mHttpApi;
     @Inject
-    protected BaseStore mBaseStore;
-    @Inject
-    protected BaseHttpStore mBaseHttpStore;
+    protected AppStore mAppStore;
 
     protected ActivityComponent mActivityComponent;
     //endregion
@@ -67,8 +64,7 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
         //绑定view
         ButterKnife.bind(this);
         //注册全局store
-        mBaseStore.register();
-        mBaseHttpStore.register();
+        mAppStore.register();
         //创建之后的操作
         afterCreate(savedInstanceState);
     }

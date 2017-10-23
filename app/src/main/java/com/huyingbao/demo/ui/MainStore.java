@@ -1,12 +1,12 @@
 package com.huyingbao.demo.ui;
 
+import com.huyingbao.demo.constant.Actions;
+import com.huyingbao.demo.constant.ActionsKeys;
+import com.huyingbao.demo.model.GitHubRepo;
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
+import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.demo.action.Actions;
-import com.huyingbao.demo.action.ActionsKeys;
-import com.huyingbao.demo.model.GitHubRepo;
-import com.huyingbao.demo.store.BaseRxStore;
 
 import java.util.List;
 
@@ -14,16 +14,11 @@ import java.util.List;
  * Created by liujunfeng on 2017/8/15.
  */
 
-public class MainStore extends BaseRxStore {
+public class MainStore extends RxStore {
     List<GitHubRepo> mGitHubRepoList;
 
     public MainStore(Dispatcher dispatcher) {
         super(dispatcher);
-    }
-
-    @Override
-    public void initInjector() {
-        mApplicationComponent.inject(this);
     }
 
     @Override

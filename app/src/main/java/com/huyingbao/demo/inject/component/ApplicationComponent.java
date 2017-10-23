@@ -2,14 +2,13 @@ package com.huyingbao.demo.inject.component;
 
 import android.content.Context;
 
+import com.huyingbao.demo.store.AppStore;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.base.application.BaseApplication;
 import com.huyingbao.demo.inject.module.application.ApplicationModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.store.BaseHttpStore;
-import com.huyingbao.demo.store.BaseStore;
 import com.huyingbao.demo.ui.MainStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
 
@@ -44,10 +43,7 @@ public interface ApplicationComponent {
 
     HttpApi getHybApi();
 
-    BaseStore getBaseStore();
-
-    BaseHttpStore getHttpStore();
-
+    AppStore getAppStore();
 
     /**
      * 2:添加注入方法,一般使用inject做为方法名，方法参数为对应的Container
@@ -60,10 +56,6 @@ public interface ApplicationComponent {
     void inject(BaseApplication application);
 
     void inject(ActionCreator actionCreator);
-
-    void inject(BaseHttpStore baseHttpStore);
-
-    void inject(BaseStore baseStore);
 
     void inject(MainStore mainStore);
 }

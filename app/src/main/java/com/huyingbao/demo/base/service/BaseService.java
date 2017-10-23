@@ -9,7 +9,7 @@ import com.huyingbao.demo.inject.component.DaggerServiceComponent;
 import com.huyingbao.demo.inject.component.ServiceComponent;
 import com.huyingbao.demo.inject.module.ServiceModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.store.BaseStore;
+import com.huyingbao.demo.store.AppStore;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.LocalStorageUtils;
 
@@ -26,7 +26,7 @@ public abstract class BaseService extends Service {
     protected Context mContext;
 
     @Inject
-    protected BaseStore mBaseStore;
+    protected AppStore mBaseStore;
 
     @Inject
     protected ActionCreator mActionCreator;

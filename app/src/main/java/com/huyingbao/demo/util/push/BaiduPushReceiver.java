@@ -3,7 +3,7 @@ package com.huyingbao.demo.util.push;
 import android.content.Context;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
-import com.huyingbao.demo.action.ActionsKeys;
+import com.huyingbao.demo.constant.ActionsKeys;
 import com.huyingbao.demo.util.LocalStorageUtils;
 import com.orhanobut.logger.Logger;
 
@@ -17,7 +17,7 @@ public class BaiduPushReceiver extends PushMessageReceiver {
     @Override
     public void onBind(Context context, int errorCode, String appid, String userId, String channelId, String requestId) {
         if (errorCode == 0) {
-            LocalStorageUtils.getInstance(context).setString(ActionsKeys.CHANNEL_ID, channelId);
+            LocalStorageUtils.getInstance().setString(ActionsKeys.CHANNEL_ID, channelId);
         }
     }
 
@@ -40,7 +40,7 @@ public class BaiduPushReceiver extends PushMessageReceiver {
     @Override
     public void onMessage(Context context, String message, String customContentString) {
         //如果未登录返回
-        if (!LocalStorageUtils.getInstance(context).getBoolean(ActionsKeys.IS_LOGIN, false)) return;
+        if (!LocalStorageUtils.getInstance().getBoolean(ActionsKeys.IS_LOGIN, false)) return;
         Logger.e("推送消息:\n" + message);
 //        Message messageReceive = JSON.parseObject(message, Message.class);
 //        if (messageReceive != null && messageReceive.save()) {

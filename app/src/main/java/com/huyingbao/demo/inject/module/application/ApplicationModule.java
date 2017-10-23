@@ -3,10 +3,9 @@ package com.huyingbao.demo.inject.module.application;
 import android.app.Application;
 import android.content.Context;
 
+import com.huyingbao.demo.store.AppStore;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.store.BaseHttpStore;
-import com.huyingbao.demo.store.BaseStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
 
 import javax.inject.Singleton;
@@ -41,18 +40,12 @@ public class ApplicationModule {
     @Provides
     @Singleton
     public LocalStorageUtils provideLocalStorageUtils() {
-        return LocalStorageUtils.getInstance(mApplication.getApplicationContext());
+        return LocalStorageUtils.getInstance();
     }
 
     @Provides
     @Singleton
-    public BaseStore provideBaseStore(RxFlux rxFlux) {
-        return new BaseStore(rxFlux.getDispatcher());
-    }
-
-    @Provides
-    @Singleton
-    public BaseHttpStore provideBaseHttpStore(RxFlux rxFlux) {
-        return new BaseHttpStore(rxFlux.getDispatcher());
+    public AppStore provideAppStore(RxFlux rxFlux) {
+        return new AppStore(rxFlux.getDispatcher());
     }
 }

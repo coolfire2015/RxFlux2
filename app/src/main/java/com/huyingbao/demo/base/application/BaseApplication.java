@@ -12,8 +12,7 @@ import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.inject.component.ApplicationComponent;
 import com.huyingbao.demo.inject.component.DaggerApplicationComponent;
 import com.huyingbao.demo.inject.module.application.ApplicationModule;
-import com.huyingbao.demo.store.BaseHttpStore;
-import com.huyingbao.demo.store.BaseStore;
+import com.huyingbao.demo.store.AppStore;
 import com.huyingbao.demo.util.AppUtils;
 import com.huyingbao.demo.util.CommonUtils;
 import com.huyingbao.demo.util.DevUtils;
@@ -38,9 +37,7 @@ import javax.inject.Inject;
  */
 public class BaseApplication extends Application implements ReactApplication {
     @Inject
-    BaseStore mBaseStore;
-    @Inject
-    BaseHttpStore mBaseHttpStore;
+    AppStore mAppStore;
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         /**
@@ -92,9 +89,7 @@ public class BaseApplication extends Application implements ReactApplication {
         // 依赖注入
         AppUtils.getApplicationComponent().inject(this);
         // 注册全局store
-        mBaseStore.register();
-        //注册全局store
-        mBaseHttpStore.register();
+        mAppStore.register();
         //初始化数据库
         FlowManager.init(this);
         //初始化flowup

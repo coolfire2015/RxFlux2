@@ -14,8 +14,7 @@ import com.huyingbao.demo.base.activity.BaseRxFluxActivity;
 import com.huyingbao.demo.base.activity.BaseRxFluxToolbarActivity;
 import com.huyingbao.demo.inject.component.FragmentComponent;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
-import com.huyingbao.demo.store.BaseHttpStore;
-import com.huyingbao.demo.store.BaseStore;
+import com.huyingbao.demo.store.AppStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
@@ -40,9 +39,7 @@ public abstract class BaseFragment extends RxFragment {
     @Inject
     protected HttpApi mHttpApi;
     @Inject
-    protected BaseStore mBaseStore;
-    @Inject
-    protected BaseHttpStore mBaseHttpStore;
+    protected AppStore mAppStore;
 
     protected FragmentComponent mFragmentComponent;
 
@@ -56,8 +53,7 @@ public abstract class BaseFragment extends RxFragment {
         //依赖注入
         inject(context);
         // 注册全局store
-        mBaseStore.register();
-        mBaseHttpStore.register();
+        mAppStore.register();
     }
 
     @NonNull

@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.huyingbao.rxflux2.store.RxStore;
-import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.demo.R;
 import com.huyingbao.demo.base.activity.BaseRxFluxActivity;
+import com.huyingbao.rxflux2.store.RxStore;
+import com.huyingbao.rxflux2.store.RxStoreChange;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -47,13 +47,13 @@ public class MainActivity extends BaseRxFluxActivity {
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToRegister() {
-        return Arrays.asList(mMainStore);
+        return Collections.singletonList(mMainStore);
     }
 
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {
-        return Arrays.asList(mMainStore);
+        return Collections.singletonList(mMainStore);
     }
 
 

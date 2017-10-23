@@ -3,6 +3,7 @@ package com.huyingbao.demo.action;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.huyingbao.demo.constant.ActionsKeys;
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.action.RxActionCreator;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;

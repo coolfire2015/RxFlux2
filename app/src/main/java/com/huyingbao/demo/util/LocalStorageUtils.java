@@ -21,11 +21,11 @@ public class LocalStorageUtils {
         sInstance = this;
     }
 
-    public static LocalStorageUtils getInstance(Context context) {
+    public static LocalStorageUtils getInstance() {
         if (sInstance == null) {
             synchronized (LocalStorageUtils.class) {
                 if (sInstance == null)
-                    sInstance = new LocalStorageUtils(context);
+                    sInstance = new LocalStorageUtils(AppUtils.getApplication());
             }
         }
         return sInstance;

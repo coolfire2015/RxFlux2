@@ -2,6 +2,7 @@ package com.huyingbao.demo.action;
 
 import android.support.annotation.NonNull;
 
+import com.huyingbao.demo.constant.Actions;
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.util.DisposableManager;
@@ -12,7 +13,7 @@ import com.huyingbao.demo.util.LocalStorageUtils;
 import javax.inject.Inject;
 
 /**
- * action创建发送管理类
+ * rxAction创建发送管理类
  * Created by liujunfeng on 2017/1/1.
  */
 public class ActionCreator extends BaseRxActionCreator implements Actions {
