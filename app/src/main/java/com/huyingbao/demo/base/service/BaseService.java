@@ -26,7 +26,7 @@ public abstract class BaseService extends Service {
     protected Context mContext;
 
     @Inject
-    protected AppStore mBaseStore;
+    protected AppStore mAppStore;
 
     @Inject
     protected ActionCreator mActionCreator;

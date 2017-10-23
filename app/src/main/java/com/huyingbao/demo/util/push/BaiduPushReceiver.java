@@ -16,9 +16,8 @@ import java.util.List;
 public class BaiduPushReceiver extends PushMessageReceiver {
     @Override
     public void onBind(Context context, int errorCode, String appid, String userId, String channelId, String requestId) {
-        if (errorCode == 0) {
+        if (errorCode == 0)
             LocalStorageUtils.getInstance().setString(ActionsKeys.CHANNEL_ID, channelId);
-        }
     }
 
     @Override

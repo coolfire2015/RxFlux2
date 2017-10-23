@@ -90,13 +90,10 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
      */
     @Override
     public void onRxError(@NonNull RxError error) {
-        Throwable throwable = error.getThrowable();
-        if (throwable instanceof retrofit2.HttpException) {
-            showShortToast(((retrofit2.HttpException) throwable).code() + ":服务器问题");
-        } else if (throwable instanceof SocketException) {
-            showShortToast("连接网络失败!");
-        } else if (throwable instanceof SocketTimeoutException) {
-            showShortToast("连接超时!");
+        switch (error.getAction().getType()) {
+            default:
+                handleThrowable(error);
+                break;
         }
     }
 
@@ -124,6 +121,24 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     //endregion
 
     //region 私有方法
+    private void handleThrowable(@NonNull RxError error) {
+        Throwable throwable = error.getThrowable();
+        // 自定义异常
+        if (throwable instanceof RxHttpException) {
+            String message = ((com.huyingbao.hyb.model.RxHttpException) throwable).message();
+            showShortToast(message);
+        } else if (throwable instanceof retrofit2.HttpException) {
+            showShortToast(((retrofit2.HttpException) throwable).code() + ":服务器问题");
+        } else if (throwable instanceof SocketException) {
+            showShortToast("网络断开，请网络畅通后重试！");
+        } else if (throwable instanceof SocketTimeoutException) {
+            showShortToast("连接服务器失败，\n请检查网络状态和服务器地址配置！");
+        } else if (throwable instanceof UnknownHostException) {
+            showShortToast("请输入正确的服务器地址！");
+        } else {
+            showShortToast(throwable == null ? "未知错误" : throwable.toString());
+        }
+    }
 
     /**
      * 依赖注入
@@ -137,8 +152,6 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
         // 注入Injector
         initInjector();
     }
-
-
     //endregion
 
     //region 抽象方法

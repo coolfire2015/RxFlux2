@@ -16,8 +16,8 @@ public class LocalStorageUtils {
     private static SharedPreferences sSharedPreferences;
     private static LocalStorageUtils sInstance;
 
-    private LocalStorageUtils(Context context) {
-        sSharedPreferences = context.getSharedPreferences(SETTING_NAME, Context.MODE_PRIVATE);
+    private LocalStorageUtils() {
+        sSharedPreferences = AppUtils.getApplication().getSharedPreferences(SETTING_NAME, Context.MODE_PRIVATE);
         sInstance = this;
     }
 
@@ -25,7 +25,7 @@ public class LocalStorageUtils {
         if (sInstance == null) {
             synchronized (LocalStorageUtils.class) {
                 if (sInstance == null)
-                    sInstance = new LocalStorageUtils(AppUtils.getApplication());
+                    sInstance = new LocalStorageUtils();
             }
         }
         return sInstance;
@@ -82,7 +82,11 @@ public class LocalStorageUtils {
      */
     public <T> T getObject(String key, Class<T> cls) {
         String value = sSharedPreferences.getString(key, null);
-        return JSON.parseObject(value, cls);
+        try {
+            return JSON.parseObject(value, cls);
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
     /**
@@ -92,7 +96,13 @@ public class LocalStorageUtils {
      * @param list
      */
     public <T> void setList(String key, List<T> list) {
-        sSharedPreferences.edit().putString(key, JSON.toJSONString(list)).apply();
+        String value;
+        try {
+            value = JSON.toJSONString(list);
+        } catch (JSONException e) {
+            value = null;
+        }
+        sSharedPreferences.edit().putString(key, value).apply();
     }
 
     /**
@@ -104,14 +114,26 @@ public class LocalStorageUtils {
      */
     public <T> List<T> getList(String key, Class<T> cls) {
         String value = sSharedPreferences.getString(key, null);
-        return JSON.parseArray(value, cls);
+        try {
+            return JSON.parseArray(value, cls);
+        } catch (JSONException e) {
+            return null;
+        }
     }
 
+    /**
+     * 删除key
+     *
+     * @param key
+     */
+    public void removeKey(String key) {
+        sSharedPreferences.edit().remove(key).apply();
+    }
 
     /**
      * 清空
      */
     public void clear() {
-        sSharedPreferences.edit().clear().commit();
+        sSharedPreferences.edit().clear().apply();
     }
 }

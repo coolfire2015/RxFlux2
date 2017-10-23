@@ -63,12 +63,12 @@ public class ServiceUtils {
         startService(context);
         //每隔三分钟发一次广播
         Intent intent = new Intent(context, AlarmReceiver.class);
-//        intent.setAction(Constants.RECEIVER_NAME);
+        intent.setAction(Constants.RECEIVER_NAME);
         //一个 PendingIntent 只能登记一个定时器
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-        long firstTime = SystemClock.elapsedRealtime();//第一次启动时间
+        long firstime = SystemClock.elapsedRealtime();//第一次启动时间
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstime, 3 * 60 * 1000, sender);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstime, 3 * 60 * 1000, sender);
     }
 
     /**
@@ -82,7 +82,7 @@ public class ServiceUtils {
         stopService(context);
         //停止定时器
         Intent intent = new Intent(context, AlarmReceiver.class);
-//        intent.setAction(Constants.RECEIVER_NAME);
+        intent.setAction(Constants.RECEIVER_NAME);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.cancel(sender);
@@ -110,9 +110,9 @@ public class ServiceUtils {
      * @param context
      */
     public static void startService(Context context) {
-//        Intent intentService = new Intent(Constants.SERVICE_NAME);
-//        intentService.setPackage(context.getPackageName());
-//        context.startService(intentService);
+        Intent intentService = new Intent(Constants.SERVICE_NAME);
+        intentService.setPackage(context.getPackageName());
+        context.startService(intentService);
     }
 
     /**
@@ -121,8 +121,8 @@ public class ServiceUtils {
      * @param context
      */
     private static void stopService(Context context) {
-//        Intent intentService = new Intent(Constants.SERVICE_NAME);
-//        intentService.setPackage(context.getPackageName());
-//        context.stopService(intentService);
+        Intent intentService = new Intent(Constants.SERVICE_NAME);
+        intentService.setPackage(context.getPackageName());
+        context.stopService(intentService);
     }
 }

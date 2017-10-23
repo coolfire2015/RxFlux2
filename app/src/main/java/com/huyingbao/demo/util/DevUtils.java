@@ -47,7 +47,7 @@ public class DevUtils {
 
         if (packageName == null || "".equals(packageName))
             return false;
-        ApplicationInfo info = null;
+        ApplicationInfo info;
         try {
             info = context.getPackageManager().getApplicationInfo(packageName, 0);
             return info != null;
@@ -62,7 +62,7 @@ public class DevUtils {
      * @param context
      * @return
      */
-    public static String getAppVerson(Context context) {
+    public static String getAppVersion(Context context) {
         String appVersion;
         try {
             appVersion = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;

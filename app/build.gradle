@@ -324,6 +324,13 @@ dependencies {
     implementation("com.aliyun.ams:alicloud-android-man:${ANALYTICS}") {
         exclude(module: 'utdid4all')
     }
+    
+    //Stetho 调试
+    implementation "com.facebook.stetho:stetho-okhttp3:${STETHO}"
+
+    //FlowUp
+    implementation "io.flowup:android-sdk:${FLOW_UP}"
+    testImplementation "io.flowup:android-sdk-no-op:${FLOW_UP}"
 
     //内存溢出
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY}"
@@ -469,8 +476,5 @@ dependencies {
 //    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT}"
 //    implementation "org.ligboy.retrofit2:converter-fastjson-android:${FASTJSON_CONVERTER}"
 
-//FlowUp
-//    implementation "io.flowup:android-sdk:${FLOW_UP}"
-//    testImplementation "io.flowup:android-sdk-no-op:${FLOW_UP}"
 //蒲公英
 //    implementation "com.pgyersdk:sdk:${PU_GONG_YING}"

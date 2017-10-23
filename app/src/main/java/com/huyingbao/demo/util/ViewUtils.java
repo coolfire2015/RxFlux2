@@ -62,8 +62,8 @@ public class ViewUtils {
      * @param icEmpty
      */
     public static void initEmptyView(View emptyView, int icEmpty) {
-//        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
-//        ivEmpty.setImageResource(icEmpty);
+        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
+        ivEmpty.setImageResource(icEmpty);
     }
 
     /**
@@ -74,11 +74,11 @@ public class ViewUtils {
      * @param infoEmpty
      */
     public static void initEmptyView(View emptyView, int icEmpty, String infoEmpty) {
-//        TextView tvEmpty = ButterKnife.findById(emptyView, R.id.tv_empty);
-//        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
-//        tvEmpty.setVisibility(View.VISIBLE);
-//        tvEmpty.setText(infoEmpty);
-//        ivEmpty.setImageResource(icEmpty);
+        TextView tvEmpty = ButterKnife.findById(emptyView, R.id.tv_empty);
+        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_empty);
+        tvEmpty.setVisibility(View.VISIBLE);
+        tvEmpty.setText(infoEmpty);
+        ivEmpty.setImageResource(icEmpty);
     }
 
     /**

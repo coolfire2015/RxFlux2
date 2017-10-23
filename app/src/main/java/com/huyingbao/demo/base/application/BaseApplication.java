@@ -4,10 +4,13 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.alibaba.sdk.android.man.MANService;
+import com.alibaba.sdk.android.man.MANServiceProvider;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.stetho.Stetho;
 import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.inject.component.ApplicationComponent;
 import com.huyingbao.demo.inject.component.DaggerApplicationComponent;
@@ -31,8 +34,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.flowup.FlowUp;
+
 /**
- * Application multidex分包 依赖注入 初始化注释
+ * Application multidex分包 依赖注入 初始化注释 
  * Created by liujunfeng on 2017/1/1.
  */
 public class BaseApplication extends Application implements ReactApplication {
@@ -64,24 +69,21 @@ public class BaseApplication extends Application implements ReactApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);//multidex分包
+        MultiDex.install(this);// multidex分包
     }
 
-    /**
-     * 内存泄漏检测
-     * LeakCanary.install(this);
-     * 初始化 flowmanager
-     * FlowManager.init(new FlowConfig.Builder(this).build());
-     */
+
     @Override
     public void onCreate() {
         super.onCreate();
+        //初始化hotfix
+        initHotfix();
+        //初始化analytics
+        initAnalytics();
         // 保存application实例对象
         AppUtils.setApplication(this);
         //初始化蒲公英异常捕获
         PgyCrashManager.register(this);
-        //初始化hotfix
-        initHotfix();
         //初始化debug
         initDebug();
         //初始化dagger
@@ -90,10 +92,60 @@ public class BaseApplication extends Application implements ReactApplication {
         AppUtils.getApplicationComponent().inject(this);
         // 注册全局store
         mAppStore.register();
+		//stetho调试
+        Stetho.initializeWithDefaults(this);
         //初始化数据库
         FlowManager.init(this);
         //初始化flowup
-        //initFlowUp();
+        initFlowUp();
+    }
+	
+	@Override
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+    }
+	
+	/**
+     * 初始化hotfix
+     */
+    private void initHotfix() {
+        SophixManager.getInstance().setContext(this)
+                .setAppVersion(DevUtils.getAppVersion(this))
+                .setAesKey(null)
+                .setEnableDebug(BuildConfig.LOG_DEBUG)
+                .setPatchLoadStatusStub((mode, code, info, handlePatchVersion) -> {
+                    //补丁加载回调通知
+                    switch (code) {
+                        case PatchStatus.CODE_LOAD_SUCCESS://表明补丁加载成功
+                            Logger.d("表明补丁加载成功");
+                            break;
+                        case PatchStatus.CODE_LOAD_RELAUNCH://表明新补丁生效需要重启. 开发者可提示用户或者强制重启; 建议: 用户可以监听进入后台事件, 然后应用自杀
+                            Logger.d("表明新补丁生效需要重启");
+                            if (!CommonUtils.isTopActivity(this) || !CommonUtils.isVisible(this))
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                            break;
+                        case PatchStatus.CODE_LOAD_FAIL://内部引擎异常, 推荐此时清空本地补丁, 防止失败补丁重复加载
+                            Logger.d("内部引擎异常");
+                            SophixManager.getInstance().cleanPatches();
+                            break;
+                        default:// 其它错误信息, 查看PatchStatus类说明
+                            Logger.d("hotfix：" + code + "\n" + info);
+                            break;
+                    }
+                })
+                .initialize();
+    }
+
+    /**
+     * 初始化analytics
+     */
+    private void initAnalytics() {
+        // 获取MAN服务
+        MANService manService = MANServiceProvider.getService();
+        // 打开调试日志，线上版本建议关闭
+        if (BuildConfig.DEBUG) manService.getMANAnalytics().turnOnDebug();
+        // MAN初始化方法之一，从AndroidManifest.xml中获取appKey和appSecret初始化
+        manService.getMANAnalytics().init(this, getApplicationContext());
     }
 
     /**
@@ -133,48 +185,12 @@ public class BaseApplication extends Application implements ReactApplication {
     }
 
     /**
-     * 初始化hotfix
-     */
-    private void initHotfix() {
-        SophixManager.getInstance().setContext(this)
-                .setAppVersion(DevUtils.getAppVerson(this))
-                .setAesKey(null)
-                .setEnableDebug(BuildConfig.LOG_DEBUG)
-                .setPatchLoadStatusStub((mode, code, info, handlePatchVersion) -> {
-                    //补丁加载回调通知
-                    switch (code) {
-                        case PatchStatus.CODE_LOAD_SUCCESS://表明补丁加载成功
-                            Logger.d("表明补丁加载成功");
-                            break;
-                        case PatchStatus.CODE_LOAD_RELAUNCH://表明新补丁生效需要重启. 开发者可提示用户或者强制重启; 建议: 用户可以监听进入后台事件, 然后应用自杀
-                            Logger.d("表明新补丁生效需要重启");
-                            if (!CommonUtils.isTopActivity(this) || !CommonUtils.isVisible(this))
-                                android.os.Process.killProcess(android.os.Process.myPid());
-                            break;
-                        case PatchStatus.CODE_LOAD_FAIL://内部引擎异常, 推荐此时清空本地补丁, 防止失败补丁重复加载
-                            Logger.d("内部引擎异常");
-                            SophixManager.getInstance().cleanPatches();
-                            break;
-                        default:// 其它错误信息, 查看PatchStatus类说明
-                            Logger.d("hotfix：" + code + "\n" + info);
-                            break;
-                    }
-                })
-                .initialize();
-    }
-
-    @Override
-    public ReactNativeHost getReactNativeHost() {
-        return mReactNativeHost;
-    }
-
-    /**
      * 初始化FlowUp
      */
-//    private void initFlowUp() {
-//        FlowUp.Builder.with(this)
-//                .apiKey("09f13da11053459580446728cfca2f06")
-//                .forceReports(true)
-//                .start();
-//    }
+    private void initFlowUp() {
+        FlowUp.Builder.with(this)
+                .apiKey("09f13da11053459580446728cfca2f06")
+                .forceReports(true)
+                .start();
+    }
 }

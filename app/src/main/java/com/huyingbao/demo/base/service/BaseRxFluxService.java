@@ -29,9 +29,9 @@ public abstract class BaseRxFluxService extends Service implements RxViewDispatc
     protected Context mContext;
 
     @Inject
-    protected RxFlux rxFlux;
+    protected RxFlux mRxFlux;
     @Inject
-    protected ActionCreator actionCreator;
+    protected ActionCreator mActionCreator;
 
     @Inject
     protected HttpApi mHttpApi;
@@ -44,7 +44,7 @@ public abstract class BaseRxFluxService extends Service implements RxViewDispatc
         //依赖注入
         inject();
         //注册view
-        rxFlux.getDispatcher().subscribeRxView(this);
+        mRxFlux.getDispatcher().subscribeRxView(this);
         super.onCreate();
     }
 
@@ -52,7 +52,7 @@ public abstract class BaseRxFluxService extends Service implements RxViewDispatc
     public void onDestroy() {
         super.onDestroy();
         //解除view注册
-        rxFlux.getDispatcher().unSubscribeRxView(this);
+        mRxFlux.getDispatcher().unSubscribeRxView(this);
     }
 
     @Override
