@@ -74,7 +74,6 @@ class BaseRxActionCreator extends RxActionCreator {
     // endregion
 
     // region 发送action
-
     /**
      * 发送网络action 不显示进度框,验证返回数据session是否过期(大部分接口调用)
      *
@@ -121,7 +120,6 @@ class BaseRxActionCreator extends RxActionCreator {
     // endregion
 
     // region 进行订阅，并获取订阅之后的订阅关系Disposable
-
     /**
      * 调用网络接口,传入接口自己的回调(非RxFlux模式接口,无法发送接口数据,eg:新闻模块获取新闻列表接口)调用接口,发送接口返回数据
      *
@@ -173,7 +171,6 @@ class BaseRxActionCreator extends RxActionCreator {
     // endregion
 
     // region 功能方法Function
-
     /**
      * 验证接口返回数据是正常
      */
