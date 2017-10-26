@@ -38,6 +38,7 @@ public class CommonUtils {
             inputMethodManager.hideSoftInputFromWindow(currentFocus.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     /**
      * 从 Fragment 隐藏键盘
      *

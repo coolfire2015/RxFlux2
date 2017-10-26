@@ -8,6 +8,8 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Parcelable;
 
+import com.huyingbao.demo.constant.Actions;
+import com.huyingbao.demo.util.AppUtils;
 import com.orhanobut.logger.Logger;
 
 import static android.net.wifi.WifiManager.WIFI_STATE_DISABLED;
@@ -22,16 +24,6 @@ import static android.net.wifi.WifiManager.WIFI_STATE_UNKNOWN;
  */
 
 public class NetworkReceiver extends BroadcastReceiver {
-    private String getConnectionType(int type) {
-        String connType = "";
-        if (type == ConnectivityManager.TYPE_MOBILE) {
-            connType = "手机网络数据";
-        } else if (type == ConnectivityManager.TYPE_WIFI) {
-            connType = "WIFI网络";
-        }
-        return connType;
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
         //监听wifi的开启关闭状态
@@ -81,13 +73,28 @@ public class NetworkReceiver extends BroadcastReceiver {
             if (NetworkInfo.State.CONNECTED == info.getState() && info.isAvailable()) {
                 if (info.getType() == ConnectivityManager.TYPE_WIFI || info.getType() == ConnectivityManager.TYPE_MOBILE) {
                     Logger.v(getConnectionType(info.getType()) + "连上");
-                    //当前是学生,或者老师在上课
-//                    if (CommonUtils.isStudent() || RxNettyUtils.getInstance().isTeacherInNetty())
-//                        RxNettyUtils.getInstance().getNettyPort(context);
+                    AppUtils.getApplicationComponent().getActionCreator().postBaseAction(Actions.NET_CONNECTED);
                 }
             } else {
                 Logger.v(getConnectionType(info.getType()) + "断开");
+                AppUtils.getApplicationComponent().getActionCreator().postBaseAction(Actions.NET_DISCONNECTED);
             }
         }
+    }
+
+    /**
+     * 获取网络类型
+     *
+     * @param type
+     * @return
+     */
+    private String getConnectionType(int type) {
+        String connType = "";
+        if (type == ConnectivityManager.TYPE_MOBILE) {
+            connType = "手机网络数据";
+        } else if (type == ConnectivityManager.TYPE_WIFI) {
+            connType = "WIFI网络";
+        }
+        return connType;
     }
 }

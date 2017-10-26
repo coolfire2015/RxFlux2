@@ -3,11 +3,11 @@ package com.huyingbao.demo.inject.module;
 import android.app.Activity;
 import android.content.Context;
 
-import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
 import com.huyingbao.demo.inject.scope.PerActivity;
 import com.huyingbao.demo.ui.MainStore;
+import com.huyingbao.rxflux2.RxFlux;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import dagger.Module;

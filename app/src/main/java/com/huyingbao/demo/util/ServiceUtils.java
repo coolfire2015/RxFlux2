@@ -67,9 +67,9 @@ public class ServiceUtils {
         intent.setAction(Constants.RECEIVER_NAME);
         //一个 PendingIntent 只能登记一个定时器
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-        long firstime = SystemClock.elapsedRealtime();//第一次启动时间
+        long firstTime = SystemClock.elapsedRealtime();//第一次启动时间
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstime, 3 * 60 * 1000, sender);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime, 60 * 1000, sender);
     }
 
     /**

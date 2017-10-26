@@ -23,8 +23,6 @@ import com.huyingbao.demo.R;
 import com.yqritc.recyclerviewflexibledivider.FlexibleDividerDecoration;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by liujunfeng on 2017/1/1.
  */
@@ -66,7 +64,7 @@ public class ViewUtils {
      * @param icEmpty
      */
     public static void initEmptyView(View emptyView, int icEmpty) {
-        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.icon_only);
+        ImageView ivEmpty = emptyView.findViewById(R.id.icon_only);
         ivEmpty.setImageResource(icEmpty);
     }
 
@@ -78,8 +76,8 @@ public class ViewUtils {
      * @param infoEmpty
      */
     public static void initEmptyView(View emptyView, int icEmpty, String infoEmpty) {
-        TextView tvEmpty = ButterKnife.findById(emptyView, R.id.iv_tab_icon);
-        ImageView ivEmpty = ButterKnife.findById(emptyView, R.id.iv_tab_icon);
+        TextView tvEmpty = emptyView.findViewById(R.id.iv_tab_icon);
+        ImageView ivEmpty = emptyView.findViewById(R.id.iv_tab_icon);
         tvEmpty.setVisibility(View.VISIBLE);
         tvEmpty.setText(infoEmpty);
         ivEmpty.setImageResource(icEmpty);

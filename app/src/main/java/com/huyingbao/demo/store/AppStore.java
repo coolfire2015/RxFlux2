@@ -10,9 +10,15 @@ import com.huyingbao.rxflux2.store.RxStoreChange;
  * Created by liujunfeng on 2017/1/1.
  */
 public class AppStore extends RxStore {
+    private static AppStore sInstance;
 
-    public AppStore(Dispatcher dispatcher) {
+    private AppStore(Dispatcher dispatcher) {
         super(dispatcher);
+    }
+
+    public static AppStore getInstance(Dispatcher dispatcher) {
+        if (sInstance == null) sInstance = new AppStore(dispatcher);
+        return sInstance;
     }
 
     /**

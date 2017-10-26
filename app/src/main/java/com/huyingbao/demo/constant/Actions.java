@@ -22,6 +22,9 @@ public interface Actions {
     String TO_LOADING_NEXT = "to_loading_next";//到首页引导页面的下一页
     String TO_REGISTER_USER = "to_register_user";//到注册用户页面
     String TO_REGISTER_SHOP = "to_register_shop";//到注册店铺页面
+    String NET_DISCONNECTED = "net_disconnected";
+    String NET_CONNECTED = "net_connected";
+
     //endregion
     boolean retry(RxAction action);
 

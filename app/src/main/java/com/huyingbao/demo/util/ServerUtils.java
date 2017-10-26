@@ -10,7 +10,7 @@ import com.orhanobut.logger.Logger;
  */
 
 public class ServerUtils {
-	private static String DEBUG_SERVER_API = "http://160.6.80.151:1337";
+    private static String DEBUG_SERVER_API = "http://160.6.80.151:1337";
     private static String SERVER_API = "https://api.github.com";
 
     /**

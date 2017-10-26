@@ -28,7 +28,7 @@ public class LoadingDialog extends AppCompatDialog implements OnShowListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.dialog_loading);
-//        tvTip = (TextView) findViewById(R.id.tv_loading_notice);
+//        tvTip =findViewById(R.id.tv_loading_notice);
         setOnShowListener(this);
     }
 

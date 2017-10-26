@@ -31,7 +31,6 @@ public class DevUtils {
                 apiKey = metaData.getString(metaKey);
             }
         } catch (PackageManager.NameNotFoundException e) {
-
         }
         return apiKey;
     }

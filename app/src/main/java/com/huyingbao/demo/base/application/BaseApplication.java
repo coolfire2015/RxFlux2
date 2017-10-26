@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import io.flowup.FlowUp;
 
 /**
- * Application multidex分包 依赖注入 初始化注释 
+ * Application multidex分包 依赖注入 初始化注释
  * Created by liujunfeng on 2017/1/1.
  */
 public class BaseApplication extends Application implements ReactApplication {
@@ -92,20 +92,20 @@ public class BaseApplication extends Application implements ReactApplication {
         AppUtils.getApplicationComponent().inject(this);
         // 注册全局store
         mAppStore.register();
-		//stetho调试
+        //stetho调试
         Stetho.initializeWithDefaults(this);
         //初始化数据库
         FlowManager.init(this);
         //初始化flowup
         initFlowUp();
     }
-	
-	@Override
+
+    @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
     }
-	
-	/**
+
+    /**
      * 初始化hotfix
      */
     private void initHotfix() {

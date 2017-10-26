@@ -2,15 +2,16 @@ package com.huyingbao.demo.inject.component;
 
 import android.content.Context;
 
-import com.huyingbao.demo.store.AppStore;
-import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.demo.action.ActionCreator;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.base.application.BaseApplication;
 import com.huyingbao.demo.inject.module.application.ApplicationModule;
 import com.huyingbao.demo.inject.qualifier.ContextLife;
+import com.huyingbao.demo.store.AppStore;
 import com.huyingbao.demo.ui.MainStore;
 import com.huyingbao.demo.util.LocalStorageUtils;
+import com.huyingbao.demo.util.okhttp.HostSelectionInterceptor;
+import com.huyingbao.rxflux2.RxFlux;
 
 import javax.inject.Singleton;
 
@@ -44,6 +45,8 @@ public interface ApplicationComponent {
     HttpApi getHybApi();
 
     AppStore getAppStore();
+
+    HostSelectionInterceptor getHostSelectionInterceptor();
 
     /**
      * 2:添加注入方法,一般使用inject做为方法名，方法参数为对应的Container

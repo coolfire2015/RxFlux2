@@ -3,14 +3,14 @@ package com.huyingbao.demo.action;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.constant.ActionsKeys;
+import com.huyingbao.demo.util.LocalStorageUtils;
+import com.huyingbao.demo.widget.dialog.LoadingDialog;
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.action.RxActionCreator;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.util.DisposableManager;
-import com.huyingbao.demo.api.HttpApi;
-import com.huyingbao.demo.util.LocalStorageUtils;
-import com.huyingbao.demo.widget.dialog.LoadingDialog;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,14 +31,12 @@ class BaseRxActionCreator extends RxActionCreator {
     @Inject
     protected LocalStorageUtils mLocalStorageUtils;
     @Inject
-    protected
-    HttpApi mHttpApi;
+    protected HttpApi mHttpApi;
 
     private LoadingDialog mLoadingDialog;
     //endregion
 
     // region 构造方法
-
     /**
      * 构造方法,传入dispatcher和订阅管理器
      *
@@ -200,6 +198,12 @@ class BaseRxActionCreator extends RxActionCreator {
     private Function<Observable<? extends Throwable>, Observable<?>> retryLogin() {
         return observable -> observable
 //                .flatMap(throwable -> {
+//                    //网络连接失败，切换网络
+//                    if (throwable instanceof SocketException || throwable instanceof SocketTimeoutException) {
+//                        //切换另一个网络，并重试!
+//                        ServerUtils.setServerState(!ServerUtils.getServerState());
+//                        return mHttpApi.connectServer();
+//                    }
 //                    //不是自定义异常,直接返回异常信息,UI会展示
 //                    if (!(throwable instanceof RxHttpException))
 //                        return Observable.error(throwable);
@@ -217,10 +221,9 @@ class BaseRxActionCreator extends RxActionCreator {
 //                            ActionsKeys.PWD, pwd,
 //                            ActionsKeys.CHANNEL_ID, mLocalStorageUtils.getString(ActionsKeys.CHANNEL_ID, ""));
 //                    return mHttpApi.login(rxAction.getData()).flatMap(loginHttpResponse -> {
-//                        if (loginHttpResponse.getReturnCode() != Constants.SUCCESS_CODE)
-//                            return Observable.error(throwable);
-//                        return Observable.just(loginHttpResponse);
-//                    });
+//                        if (TextUtils.equals(loginHttpResponse.getReturnCode(), Constants.SUCCESS_CODE))
+//                            return Observable.just(loginHttpResponse);
+//                        return Observable.error(throwable);
 //                })
                 .zipWith(Observable.range(1, 3), (throwable, i) -> i)
                 .flatMap(retryCount -> Observable.timer((long) Math.pow(1, retryCount), TimeUnit.SECONDS));

@@ -132,7 +132,6 @@ public class PersistentCookieStore {
             Logger.d("IOException in encodeCookie", e);
             return null;
         }
-
         return byteArrayToHexString(os.toByteArray());
     }
 

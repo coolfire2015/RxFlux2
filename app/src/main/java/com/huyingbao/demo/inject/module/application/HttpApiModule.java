@@ -1,11 +1,10 @@
 package com.huyingbao.demo.inject.module.application;
 
 import com.google.gson.GsonBuilder;
-import com.huyingbao.demo.BuildConfig;
 import com.huyingbao.demo.api.HttpApi;
 import com.huyingbao.demo.util.ServerUtils;
+import com.huyingbao.demo.util.okhttp.HostSelectionInterceptor;
 import com.huyingbao.demo.util.okhttp.PersistentCookieStore;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +17,7 @@ import dagger.Provides;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -58,8 +54,8 @@ public class HttpApiModule {
      * @return OkHttpClient
      */
     @Provides
-    @Singleton//添加@Singleton标明该方法产生只产生一个实例
-    public OkHttpClient provideClient(CookieJar cookieJar, Interceptor interceptor) {
+    @Singleton // 添加@Singleton标明该方法产生只产生一个实例
+    public OkHttpClient provideClient(CookieJar cookieJar, HostSelectionInterceptor interceptor) {
         return new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
@@ -68,20 +64,9 @@ public class HttpApiModule {
     }
 
     @Provides
-    @Singleton//添加@Singleton标明该方法产生只产生一个实例
-    public Interceptor provideLoggingInterceptor() {
-        return chain -> {
-            long t1 = System.nanoTime();
-            //Logger.e(String.format("发送请求 %s", response.request().url()));
-            Response response = chain.proceed(chain.request());
-            //不打印日志并且数据正常直接返回
-            if (!BuildConfig.LOG_DEBUG) return response;
-            String content = response.body().string();
-            long t2 = System.nanoTime();
-            Logger.e(String.format("接收 for %s in %.1fms", response.request().url(), (t2 - t1) / 1e6d));
-            Logger.json(content);
-            return response.newBuilder().body(ResponseBody.create(response.body().contentType(), content)).build();
-        };
+    @Singleton // 添加@Singleton标明该方法产生只产生一个实例
+    public HostSelectionInterceptor provideHostSelectionInterceptor() {
+        return new HostSelectionInterceptor();
     }
 
     /**

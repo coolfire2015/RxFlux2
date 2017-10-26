@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.MalformedJsonException;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -132,11 +133,13 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
         } else if (throwable instanceof retrofit2.HttpException) {
             showShortToast(((retrofit2.HttpException) throwable).code() + ":服务器问题");
         } else if (throwable instanceof SocketException) {
-            showShortToast("网络断开，请网络畅通后重试！");
+            showShortToast("连接服务器失败，请检查网络状态和服务器地址配置！");
         } else if (throwable instanceof SocketTimeoutException) {
-            showShortToast("连接服务器失败，\n请检查网络状态和服务器地址配置！");
+            showShortToast("连接服务器超时，请检查网络状态和服务器地址配置！");
         } else if (throwable instanceof UnknownHostException) {
             showShortToast("请输入正确的服务器地址！");
+        } else if (throwable instanceof MalformedJsonException) {
+            showShortToast("请检查网络状态！");
         } else {
             showShortToast(throwable == null ? "未知错误" : throwable.toString());
         }

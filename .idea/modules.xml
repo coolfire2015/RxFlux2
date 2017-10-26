@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/RxFlux2.iml" filepath="$PROJECT_DIR$/.idea/RxFlux2.iml" />
-      <module fileurl="file://E:\AndroidHyb\RxFlux2\RxFlux2.iml" filepath="E:\AndroidHyb\RxFlux2\RxFlux2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RxFlux2.iml" filepath="$PROJECT_DIR$/RxFlux2.iml" />
+      <module fileurl="file://E:\AndroidHyb\RxFlux2\.idea\RxFlux2.iml" filepath="E:\AndroidHyb\RxFlux2\.idea\RxFlux2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxflux2/rxflux2.iml" filepath="$PROJECT_DIR$/rxflux2/rxflux2.iml" />
     </modules>

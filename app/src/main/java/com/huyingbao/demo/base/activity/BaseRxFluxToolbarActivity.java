@@ -1,5 +1,6 @@
 package com.huyingbao.demo.base.activity;
 
+import android.graphics.Color;
 import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
@@ -58,7 +59,7 @@ public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
      * @param backAble 是否有回退按钮
      */
     private void setToolbar(boolean backAble) {
-        //设置toobar
+        //取代原本的actionbar
         setSupportActionBar(mToolbarTop);
         //设置actionbar
         ActionBar actionBar = getSupportActionBar();
@@ -72,6 +73,24 @@ public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         //不显示标题
         actionBar.setDisplayShowTitleEnabled(false);
+    }
+
+    /**
+     * 初始化Toolbar
+     */
+    private void initToolbar() {
+        //App Logo
+        mToolbarTop.setLogo(R.mipmap.ic_launcher);
+        //主标题,默认为app_label的名字
+        mToolbarTop.setTitle(null);
+        //设置颜色
+        mToolbarTop.setTitleTextColor(Color.YELLOW);
+        //副标题
+        mToolbarTop.setSubtitle(null);
+        //设置颜色
+        mToolbarTop.setSubtitleTextColor(Color.parseColor("#80FF0000"));
+        //侧边栏的按钮
+        mToolbarTop.setNavigationIcon(R.drawable.ic_action_refresh);
     }
 
     /**
