@@ -1,0 +1,132 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = "com.github.coolfire2015"
+
+/**
+ * 读取Git commit number，作为Version Code
+ * @return
+ */
+def gitGitVersionCode() {
+    return 'git rev-list HEAD --first-parent --count'.execute().text.trim().toInteger()
+}
+
+/**
+ * 读取Git Tag，作为Version Name
+ * @return
+ */
+def getGitVersionName() {
+    try {
+        def stdout = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'describe', '--tags'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+    catch (ignored) {
+        return "1.0.0"
+    }
+}
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode gitGitVersionCode()
+        versionName getGitVersionName()
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    testImplementation "junit:junit:${TEST_VERSION}"
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
+    })
+
+    //Support Libs
+    implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
+    implementation "com.android.support:appcompat-v7:${SUPPORT_VERSION}"
+    implementation "com.android.support:design:${SUPPORT_VERSION}"
+    implementation "com.android.support:recyclerview-v7:${SUPPORT_VERSION}"
+    implementation "com.android.support:gridlayout-v7:${SUPPORT_VERSION}"
+    implementation "com.android.support:cardview-v7:${SUPPORT_VERSION}"
+    implementation "com.android.support:support-annotations:${SUPPORT_VERSION}"
+    implementation "com.android.support:support-vector-drawable:${SUPPORT_VERSION}"
+    //Constraint
+    implementation "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
+
+    //MultiDex分包
+    implementation "com.android.support:multidex:${MULTIDEX}"
+
+    //Dagger2
+    implementation "com.google.dagger:dagger:${DAGGER}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER}"
+
+    //网络Retrofit
+    implementation "com.squareup.retrofit2:retrofit:${RETROFIT}"
+    implementation "com.squareup.retrofit2:converter-gson:${RETROFIT}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${RETROFIT}"
+
+    //网络OkHttp,OkIo
+    implementation "com.squareup.okio:okio:${OKIO}"
+    implementation "com.squareup.okhttp3:okhttp:${OKHTTP}"
+
+    //图片加载,加载使用OkHttp
+    implementation "com.github.bumptech.glide:glide:${GLIDE}"
+    implementation "com.github.bumptech.glide:okhttp3-integration:${GLIDE}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE}"
+
+    //ButterKnife,view注解,string注解,drawable注解
+    implementation "com.jakewharton:butterknife:${BUTTER_KNIFE}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE}"
+
+    //RxPermissions
+    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${RX_PERMISSIONS_2}"
+    //RxLifecycle
+    implementation "com.trello.rxlifecycle2:rxlifecycle:${RX_LIFE_CYCLE_2}"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android:${RX_LIFE_CYCLE_2}"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-components:${RX_LIFE_CYCLE_2}"
+    //RxBinding
+    implementation "com.jakewharton.rxbinding2:rxbinding:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-design:${RX_BINDING_2}"
+    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${RX_BINDING_2}"
+
+    //Logger
+    implementation "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
+
+    //Json
+    implementation "com.alibaba:fastjson:${FAST_JSON}"
+    implementation "com.google.code.gson:gson:${GSON}"
+
+    //Common lang 常用工具类
+    implementation "org.apache.commons:commons-lang3:${COMMONS_LANG3}"
+
+    //RxFlux2
+    implementation project(':rxflux2')
+}
+
+
+
+
+
