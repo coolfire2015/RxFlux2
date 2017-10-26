@@ -103,7 +103,6 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     //endregion
 
     //region 子类和外部可以调用的方法
-
     /**
      * 获取对应的activityComponent
      *
@@ -160,7 +159,6 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     //endregion
 
     //region 抽象方法
-
     /**
      * 注入Injector
      */

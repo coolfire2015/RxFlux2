@@ -29,7 +29,7 @@ public abstract class BaseRxFluxFragment extends BaseFragment implements RxViewD
      */
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        // 注册rxstore
+        // 注册RxStore
         List<RxStore> rxStoreList = getRxStoreListToRegister();
         if (rxStoreList != null)
             for (RxStore rxStore : rxStoreList)
