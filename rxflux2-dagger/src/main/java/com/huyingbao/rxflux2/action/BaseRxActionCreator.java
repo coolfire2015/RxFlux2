@@ -17,7 +17,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * action创建发送管理类
+ * rxAction创建发送管理类
  * Created by liujunfeng on 2017/1/1.
  */
 class BaseRxActionCreator extends RxActionCreator {
@@ -26,7 +26,6 @@ class BaseRxActionCreator extends RxActionCreator {
     protected LocalStorageUtils mLocalStorageUtils;
     @Inject
     protected HttpApi mHttpApi;
-
     private LoadingDialog mLoadingDialog;
     //endregion
 

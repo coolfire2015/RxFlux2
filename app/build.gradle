@@ -346,5 +346,5 @@ dependencies {
 
     //RxFlux2
     implementation project(':rxflux2')
-    implementation project(':rxflux2dagger')
+    implementation project(':rxflux2-dagger')
 }

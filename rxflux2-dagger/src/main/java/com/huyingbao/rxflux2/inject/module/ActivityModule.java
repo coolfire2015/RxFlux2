@@ -12,9 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * activity中的依赖制造类
- * Module是一个依赖的制造工厂
- * 保存在ActivityComponent
+ * activity中的依赖制造类，Module是一个依赖的制造工厂，保存在ActivityComponent
  * Created by liujunfeng on 2017/1/1.
  */
 @Module
