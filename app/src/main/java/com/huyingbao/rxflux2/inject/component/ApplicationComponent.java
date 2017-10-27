@@ -2,16 +2,16 @@ package com.huyingbao.rxflux2.inject.component;
 
 import android.content.Context;
 
+import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.action.ActionCreator;
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.base.application.BaseApplication;
 import com.huyingbao.rxflux2.inject.module.application.ApplicationModule;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.store.AppStore;
-import com.huyingbao.simple.ui.store.MainStore;
 import com.huyingbao.rxflux2.util.LocalStorageUtils;
 import com.huyingbao.rxflux2.util.okhttp.HostSelectionInterceptor;
-import com.huyingbao.rxflux2.RxFlux;
+import com.huyingbao.simple.ui.store.MainStore;
 
 import javax.inject.Singleton;
 

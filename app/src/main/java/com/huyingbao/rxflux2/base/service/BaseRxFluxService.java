@@ -4,16 +4,16 @@ import android.app.Service;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.action.ActionCreator;
+import com.huyingbao.rxflux2.action.RxError;
 import com.huyingbao.rxflux2.api.HttpApi;
+import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.huyingbao.rxflux2.inject.component.DaggerServiceComponent;
 import com.huyingbao.rxflux2.inject.component.ServiceComponent;
 import com.huyingbao.rxflux2.inject.module.ServiceModule;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.util.AppUtils;
-import com.huyingbao.rxflux2.RxFlux;
-import com.huyingbao.rxflux2.action.RxError;
-import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 
 import javax.inject.Inject;
 

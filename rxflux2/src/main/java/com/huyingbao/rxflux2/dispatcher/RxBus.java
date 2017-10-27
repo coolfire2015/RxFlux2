@@ -42,6 +42,7 @@ public class RxBus {
 
     /**
      * 是否已有观察者订阅
+     *
      * @return
      */
     public boolean hasSubscribers() {

@@ -3,10 +3,10 @@ package com.huyingbao.rxflux2.inject.module.application;
 import android.app.Application;
 import android.content.Context;
 
+import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.store.AppStore;
 import com.huyingbao.rxflux2.util.LocalStorageUtils;
-import com.huyingbao.rxflux2.RxFlux;
 
 import javax.inject.Singleton;
 

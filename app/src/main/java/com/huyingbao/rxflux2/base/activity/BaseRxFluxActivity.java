@@ -9,7 +9,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.huyingbao.rxflux2.action.ActionCreator;
+import com.huyingbao.rxflux2.action.RxError;
 import com.huyingbao.rxflux2.api.HttpApi;
+import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.huyingbao.rxflux2.inject.component.ActivityComponent;
 import com.huyingbao.rxflux2.inject.component.DaggerActivityComponent;
 import com.huyingbao.rxflux2.inject.module.ActivityModule;
@@ -18,8 +20,6 @@ import com.huyingbao.rxflux2.model.RxHttpException;
 import com.huyingbao.rxflux2.store.AppStore;
 import com.huyingbao.rxflux2.util.AppUtils;
 import com.huyingbao.rxflux2.util.LocalStorageUtils;
-import com.huyingbao.rxflux2.action.RxError;
-import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.net.SocketException;

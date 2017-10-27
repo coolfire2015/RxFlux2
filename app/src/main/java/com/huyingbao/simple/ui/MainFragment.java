@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
-import com.huyingbao.simple.ui.adapter.GithubAdapter;
-import com.huyingbao.simple.ui.model.GitHubRepo;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
+import com.huyingbao.simple.ui.adapter.GithubAdapter;
+import com.huyingbao.simple.ui.model.GitHubRepo;
 import com.huyingbao.simple.ui.store.MainStore;
 
 import java.util.Collections;

@@ -1,8 +1,8 @@
 package com.huyingbao.rxflux2.inject.module.application;
 
+import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.action.ActionCreator;
 import com.huyingbao.rxflux2.util.AppUtils;
-import com.huyingbao.rxflux2.RxFlux;
 
 import javax.inject.Singleton;
 
