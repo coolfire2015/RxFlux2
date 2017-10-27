@@ -1,0 +1,77 @@
+package com.huyingbao.rxflux2.util.imageloader.strategy;
+
+import android.app.Activity;
+import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.ObjectKey;
+import com.huyingbao.rxflux2.util.imageloader.GlideCircleTransform;
+import com.huyingbao.rxflux2.util.imageloader.ImageLoader;
+
+public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
+    private Context mContext;
+
+    @Override
+    public void loadImage(Context context, ImageLoader img) {
+        this.mContext = context;
+        load(img, Glide.with(context).load(img.getResource()));
+    }
+
+    @Override
+    public void loadImage(Activity activity, ImageLoader img) {
+        this.mContext = activity;
+        load(img, Glide.with(activity).load(img.getResource()));
+    }
+
+    @Override
+    public void loadImage(FragmentActivity fragmentActivity, ImageLoader img) {
+        this.mContext = fragmentActivity;
+        load(img, Glide.with(fragmentActivity).load(img.getResource()));
+    }
+
+    @Override
+    public void loadImage(Fragment fragment, ImageLoader img) {
+        this.mContext = fragment.getContext();
+        load(img, Glide.with(fragment).load(img.getResource()));
+    }
+
+    private void load(ImageLoader imageLoader, RequestBuilder requestBuilder) {
+        RequestOptions requestOptions = new RequestOptions();
+        if (imageLoader.isFitCenter()) {// 图像居中,缩放到都能看到
+            requestOptions.fitCenter();
+        } else {// 图像居中,缩放到没有空白
+            requestOptions.centerCrop();
+        }
+        if (imageLoader.getWidth() != 0 && imageLoader.getHeight() != 0)
+            requestOptions.override(imageLoader.getWidth(), imageLoader.getHeight());
+
+        if (imageLoader.getPlaceHolder() != 0)
+            requestOptions.placeholder(imageLoader.getPlaceHolder());
+
+        if (imageLoader.getErrorHolder() != 0)
+            requestOptions.error(imageLoader.getErrorHolder());
+
+        if (imageLoader.isNetImage()) {// 网络图片全部缓存
+            requestOptions.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
+        } else {// 本地图片,不需要缓存
+            requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
+            //增加签名,每次图片更改就不用修改url了，
+            //直接修改version，相当于修改版本号了，版本号一改，那么glide就会去重新加载现在的图片！
+            requestOptions.signature(new ObjectKey(System.currentTimeMillis() + ""));
+        }
+        if (imageLoader.isCircle())
+            requestOptions.transform(new GlideCircleTransform());
+        requestBuilder.apply(requestOptions);
+
+        if (imageLoader.getSizeMultiplier() != 0)
+            requestBuilder.thumbnail(imageLoader.getSizeMultiplier());
+        if (imageLoader.getRequestListener() != null)
+            requestBuilder.listener(imageLoader.getRequestListener());
+        requestBuilder.into(imageLoader.getImgView());
+    }
+}

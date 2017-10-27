@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/RxFlux2.iml" filepath="$PROJECT_DIR$/RxFlux2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxflux2/rxflux2.iml" filepath="$PROJECT_DIR$/rxflux2/rxflux2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rxflux2-dagger/rxflux2-dagger.iml" filepath="$PROJECT_DIR$/rxflux2-dagger/rxflux2-dagger.iml" />
     </modules>
   </component>
 </project>

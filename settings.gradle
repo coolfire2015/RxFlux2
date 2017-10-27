@@ -1,1 +1,1 @@
-include ':app', ':rxflux2', ':rxflux2-dagger'
+include ':app', ':rxflux2'
