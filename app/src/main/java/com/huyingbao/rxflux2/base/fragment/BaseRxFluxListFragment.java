@@ -10,8 +10,8 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.huyingbao.rxflux2.R;
 import com.huyingbao.rxflux2.action.RxError;
+import com.huyingbao.simple.R;
 
 import java.util.ArrayList;
 import java.util.List;

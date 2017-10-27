@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.huyingbao.rxflux2">
+          package="com.huyingbao.simple">
 
     <!-- 允许程序访问有关GSM网络信息,获取运营商信息，用于支持提供运营商信息相关的接口 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -45,7 +45,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
     <!-- 百度推送适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
-    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.demo"/>
+    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.simple"/>
     <permission
         android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.rxflux2"
         android:protectionLevel="normal"/>
@@ -139,7 +139,7 @@
             android:authorities="com.huyingbao.rxflux2.bdpush"
             android:exported="true"
             android:protectionLevel="signature"
-            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.demo"/>
+            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.simple"/>
 
         <!--蒲公英-->
         <provider
@@ -154,14 +154,14 @@
 
         <!-- Receiver -->
         <receiver
-            android:name=".receiver.AlarmReceiver"
+            android:name="com.huyingbao.rxflux2.receiver.AlarmReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.huyingbao.demo.receiver.AlarmReceiver"/>
+                <action android:name="com.huyingbao.simple.receiver.AlarmReceiver"/>
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".receiver.BootReceiver"
+            android:name="com.huyingbao.rxflux2.receiver.BootReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -169,7 +169,7 @@
         </receiver>
 
         <activity
-            android:name="com.huyingbao.rxflux2.com.huyingbao.simple.ui.MainActivity"
+            android:name="com.huyingbao.simple.ui.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -181,15 +181,11 @@
         </activity>
 
         <activity
-            android:name="com.huyingbao.rxflux2.com.huyingbao.simple.react.ReactMainActivity"
+            android:name="com.huyingbao.simple.react.ReactMainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN"/>-->
-            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
         </activity>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
     </application>

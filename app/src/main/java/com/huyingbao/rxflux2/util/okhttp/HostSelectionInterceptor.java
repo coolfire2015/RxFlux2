@@ -6,9 +6,9 @@ import com.alibaba.sdk.android.man.MANServiceProvider;
 import com.alibaba.sdk.android.man.network.MANNetworkErrorCodeBuilder;
 import com.alibaba.sdk.android.man.network.MANNetworkErrorInfo;
 import com.alibaba.sdk.android.man.network.MANNetworkPerformanceHitBuilder;
-import com.huyingbao.rxflux2.BuildConfig;
 import com.huyingbao.rxflux2.constant.Constants;
 import com.huyingbao.rxflux2.model.RxHttpException;
+import com.huyingbao.simple.BuildConfig;
 import com.orhanobut.logger.Logger;
 
 import java.io.IOException;

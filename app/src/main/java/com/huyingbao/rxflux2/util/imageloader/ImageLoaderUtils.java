@@ -5,9 +5,9 @@ import android.support.annotation.DrawableRes;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
-import com.huyingbao.rxflux2.R;
 import com.huyingbao.rxflux2.util.imageloader.strategy.BaseImageLoaderStrategy;
 import com.huyingbao.rxflux2.util.imageloader.strategy.GlideImageLoaderStrategy;
+import com.huyingbao.simple.R;
 
 /**
  * 图片加载工具类

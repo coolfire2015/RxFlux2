@@ -9,7 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.huyingbao.rxflux2.R;
+import com.huyingbao.simple.R;
 
 import butterknife.BindView;
 

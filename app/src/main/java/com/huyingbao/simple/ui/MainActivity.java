@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.huyingbao.rxflux2.R;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxActivity;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
+import com.huyingbao.simple.R;
 import com.huyingbao.simple.ui.store.MainStore;
 
 import java.util.Collections;

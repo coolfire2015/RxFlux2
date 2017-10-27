@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.huyingbao.rxflux2.R;
+import com.huyingbao.simple.R;
 import com.huyingbao.simple.ui.model.GitHubRepo;
 
 import java.util.List;

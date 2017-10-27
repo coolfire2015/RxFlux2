@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
-import com.huyingbao.rxflux2.R;
+import com.huyingbao.simple.R;
 
 /**
  * Created by liujunfeng on 2017/1/1.
@@ -19,11 +19,12 @@ public class NotificationUtils {
      * 聊天推送消息显示提醒
      *
      * @param context
-     * @param notice
+     * @param title
+     * @param content
      * @param clazz
      */
     public static void showNotification(Context context, String title, String content, Class<?> clazz) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, title);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle(title);
         builder.setContentText(content);

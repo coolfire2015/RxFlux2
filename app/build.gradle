@@ -131,7 +131,7 @@ android {
     }
     //默认配置
     defaultConfig {
-        applicationId "com.huyingbao.demo"
+        applicationId "com.huyingbao.simple"
         multiDexEnabled true//支持Multidex分包
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
@@ -324,7 +324,7 @@ dependencies {
     implementation("com.aliyun.ams:alicloud-android-man:${ANALYTICS}") {
         exclude(module: 'utdid4all')
     }
-    
+
     //Stetho 调试
     implementation "com.facebook.stetho:stetho-okhttp3:${STETHO}"
 
