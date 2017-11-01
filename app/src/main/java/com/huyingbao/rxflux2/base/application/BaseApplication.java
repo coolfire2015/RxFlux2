@@ -65,6 +65,11 @@ public class BaseApplication extends Application implements ReactApplication {
             return Arrays.asList(new MainReactPackage());
         }
     };
+	
+	@Override
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+    }
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -98,11 +103,6 @@ public class BaseApplication extends Application implements ReactApplication {
         FlowManager.init(this);
         //初始化flowup
         initFlowUp();
-    }
-
-    @Override
-    public ReactNativeHost getReactNativeHost() {
-        return mReactNativeHost;
     }
 
     /**

@@ -59,6 +59,8 @@ public abstract class BaseFragment extends RxFragment {
     @NonNull
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // fragment中创建菜单
+        setHasOptionsMenu(true);
         // 设置布局
         View rootView = inflater.inflate(getLayoutId(), container, false);
         // 绑定view
