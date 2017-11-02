@@ -65,8 +65,8 @@ public class BaseApplication extends Application implements ReactApplication {
             return Arrays.asList(new MainReactPackage());
         }
     };
-	
-	@Override
+
+    @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
     }
