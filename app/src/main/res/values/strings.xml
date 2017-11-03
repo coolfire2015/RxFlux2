@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RxFluxDemo</string>
+    <string name="title_activity_rx_flux">activity_rx_flux</string>
 </resources>
