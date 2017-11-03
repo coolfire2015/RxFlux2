@@ -1,4 +1,4 @@
-package com.huyingbao.simple.ui.model;
+package com.huyingbao.simple.ui.main.model;
 
 import com.google.gson.annotations.SerializedName;
 

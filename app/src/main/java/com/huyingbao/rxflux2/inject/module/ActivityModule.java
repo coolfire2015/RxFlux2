@@ -7,7 +7,7 @@ import com.huyingbao.rxflux2.BuildConfig;
 import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
-import com.huyingbao.simple.ui.store.MainStore;
+import com.huyingbao.simple.ui.main.store.MainStore;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import dagger.Module;

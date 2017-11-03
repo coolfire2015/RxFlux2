@@ -11,7 +11,7 @@ import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.store.AppStore;
 import com.huyingbao.rxflux2.util.LocalStorageUtils;
 import com.huyingbao.rxflux2.util.okhttp.HostSelectionInterceptor;
-import com.huyingbao.simple.ui.store.MainStore;
+import com.huyingbao.simple.ui.main.store.MainStore;
 
 import javax.inject.Singleton;
 

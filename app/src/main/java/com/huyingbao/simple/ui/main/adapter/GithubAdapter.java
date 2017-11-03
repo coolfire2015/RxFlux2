@@ -1,11 +1,11 @@
-package com.huyingbao.simple.ui.adapter;
+package com.huyingbao.simple.ui.main.adapter;
 
 import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.huyingbao.simple.R;
-import com.huyingbao.simple.ui.model.GitHubRepo;
+import com.huyingbao.simple.ui.main.model.GitHubRepo;
 
 import java.util.List;
 

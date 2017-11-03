@@ -1,4 +1,4 @@
-package com.huyingbao.simple.ui;
+package com.huyingbao.simple.ui.main;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,9 +7,9 @@ import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.simple.ui.adapter.GithubAdapter;
-import com.huyingbao.simple.ui.model.GitHubRepo;
-import com.huyingbao.simple.ui.store.MainStore;
+import com.huyingbao.simple.ui.main.adapter.GithubAdapter;
+import com.huyingbao.simple.ui.main.model.GitHubRepo;
+import com.huyingbao.simple.ui.main.store.MainStore;
 
 import java.util.Collections;
 import java.util.List;

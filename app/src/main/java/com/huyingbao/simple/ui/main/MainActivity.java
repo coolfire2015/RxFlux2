@@ -1,4 +1,4 @@
-package com.huyingbao.simple.ui;
+package com.huyingbao.simple.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +8,7 @@ import com.huyingbao.rxflux2.base.activity.BaseRxFluxActivity;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.simple.R;
-import com.huyingbao.simple.ui.store.MainStore;
+import com.huyingbao.simple.ui.main.store.MainStore;
 
 import java.util.Collections;
 import java.util.List;

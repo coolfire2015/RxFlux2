@@ -2,7 +2,7 @@ package com.huyingbao.rxflux2.inject.component;
 
 import com.huyingbao.rxflux2.inject.module.FragmentModule;
 import com.huyingbao.rxflux2.inject.scope.PerFragment;
-import com.huyingbao.simple.ui.MainFragment;
+import com.huyingbao.simple.ui.main.MainFragment;
 
 import dagger.Subcomponent;
 

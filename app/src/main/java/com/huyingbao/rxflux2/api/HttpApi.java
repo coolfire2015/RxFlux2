@@ -1,7 +1,7 @@
 package com.huyingbao.rxflux2.api;
 
-import com.huyingbao.simple.ui.model.GitHubRepo;
-import com.huyingbao.simple.ui.model.GitUser;
+import com.huyingbao.simple.ui.main.model.GitHubRepo;
+import com.huyingbao.simple.ui.main.model.GitUser;
 
 import java.util.ArrayList;
 
