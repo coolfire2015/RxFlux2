@@ -7,8 +7,8 @@
     minBuildApi="14"
     description="Creates a new rxflux activity">
 
-    <category value="Activity"/>
-    <formfactor value="Mobile"/>
+    <category value="Activity" />
+    <formfactor value="Mobile" />
 
     <parameter
         id="instantAppActivityHost"
@@ -25,7 +25,7 @@
         type="enum"
         default="pathPattern"
         visibility="isInstantApp!false"
-        help="The type of route to use in the Instant App route for this activity">
+        help="The type of route to use in the Instant App route for this activity" >
         <option id="path">Path</option>
         <option id="pathPrefix">Path Prefix</option>
         <option id="pathPattern">Path Pattern</option>
@@ -45,7 +45,7 @@
         type="string"
         constraints="class|unique|nonempty"
         default="RxFluxActivity"
-        help="The name of the activity class to create"/>
+        help="The name of the activity class to create" />
 
     <parameter
         id="storeClass"
@@ -53,28 +53,28 @@
         type="string"
         constraints="class|unique|nonempty"
         default="RxFluxStore"
-        help="The name of the store class to create"/>
+        help="The name of the store class to create" />
 
     <parameter
         id="isLauncher"
         name="Launcher Activity"
         type="boolean"
         default="false"
-        help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher"/>
+        help="If true, this activity will have a CATEGORY_LAUNCHER intent filter, making it visible in the launcher" />
 
     <parameter
         id="packageName"
         name="Package name"
         type="string"
         constraints="package"
-        default="com.mycompany.myapp"/>
+        default="com.mycompany.myapp" />
 
     <parameter
         id="generateFragment"
         name="Generate Fragment"
         type="boolean"
         default="true"
-        help="If true, a fragment file will be generated"/>
+        help="If true, a fragment file will be generated" />
 
     <parameter
         id="fragmentClass"
@@ -83,14 +83,23 @@
         constraints="class|unique"
         default="RxFluxFragment"
         visibility="generateFragment"
-        help="The name of the fragment class to create"/>
+        help="The name of the fragment class to create" />
 
     <parameter
+        id="isRxFluxFragment"
+        name="Extends RxFluxFragment"
+        type="boolean"
+        default="true"
+        visibility="generateFragment"
+        help="If true, fragment extends RxFluxFragment" />
+	
+	<parameter
         id="generateLayout"
         name="Generate Fragment Layout File"
         type="boolean"
         default="true"
-        help="If true, a layout file will be generated"/>
+        visibility="generateFragment"
+        help="If true, a layout file will be generated" />
 
     <parameter
         id="layoutName"
@@ -99,14 +108,14 @@
         constraints="layout|unique"
         default="fragment_rxflux"
         visibility="generateLayout"
-        suggest="fragment_${classToResource(fragmentClass)}"
-        help="The name of the layout to create for the fragment"/>
+		suggest="fragment_${classToResource(fragmentClass)}"
+        help="The name of the layout to create for the fragment" />
 
     <thumbs>
         <thumb>template_blank_activity.png</thumb>
     </thumbs>
 
-    <globals file="globals.xml.ftl"/>
-    <execute file="recipe.xml.ftl"/>
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
 
 </template>

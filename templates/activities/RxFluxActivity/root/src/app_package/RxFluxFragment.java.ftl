@@ -7,10 +7,8 @@ import android.support.annotation.Nullable;
 <#if applicationPackage??>
 import ${applicationPackage}.R;
 </#if>
-<#if applicationPackage??>
-import ${applicationPackage}.base.fragment.BaseRxFluxFragment;
-</#if>
 import ${packageName}.store.${storeClass};
+import com.huyingbao.rxflux2.base.fragment.BaseRxFluxFragment;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 
@@ -40,7 +38,7 @@ public class ${fragmentClass} extends BaseRxFluxFragment {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
+    	initActionBar();
     }
 
     @Override
