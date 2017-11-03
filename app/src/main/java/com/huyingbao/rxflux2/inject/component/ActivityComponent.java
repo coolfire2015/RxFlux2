@@ -7,6 +7,7 @@ import com.huyingbao.rxflux2.inject.module.ActivityModule;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
 import com.huyingbao.simple.ui.main.MainActivity;
+import com.huyingbao.simple.ui.templete.RxFluxActivity;
 
 import dagger.Component;
 
@@ -44,4 +45,6 @@ public interface ActivityComponent {
     FragmentComponent getFragmentComponent();
 
     void inject(MainActivity mainActivity);
+
+    void inject(RxFluxActivity mainActivity);
 }

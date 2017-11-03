@@ -8,6 +8,7 @@ import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
 import com.huyingbao.simple.ui.main.store.MainStore;
+import com.huyingbao.simple.ui.templete.store.RxFluxStore;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import dagger.Module;
@@ -63,5 +64,11 @@ public class ActivityModule {
     @PerActivity
     public MainStore provideMainStore(RxFlux rxFlux) {
         return new MainStore(rxFlux.getDispatcher());
+    }
+
+    @Provides
+    @PerActivity
+    public RxFluxStore provideRxFluxStore(RxFlux rxFlux) {
+        return new RxFluxStore(rxFlux.getDispatcher());
     }
 }

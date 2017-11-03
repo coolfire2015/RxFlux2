@@ -3,6 +3,7 @@ package com.huyingbao.rxflux2.inject.component;
 import com.huyingbao.rxflux2.inject.module.FragmentModule;
 import com.huyingbao.rxflux2.inject.scope.PerFragment;
 import com.huyingbao.simple.ui.main.MainFragment;
+import com.huyingbao.simple.ui.templete.RxFluxFragment;
 
 import dagger.Subcomponent;
 
@@ -17,4 +18,6 @@ import dagger.Subcomponent;
 public interface FragmentComponent {
 
     void inject(MainFragment mainFragment);
+
+    void inject(RxFluxFragment rxFluxFragment);
 }
