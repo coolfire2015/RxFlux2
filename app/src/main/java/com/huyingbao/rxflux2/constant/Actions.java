@@ -22,15 +22,16 @@ public interface Actions {
     //endregion
 
     //region 网络
+    String GET_PUBLIC_REPOS = "get_public_repos";
+    String GET_USER = "get_user";
+    //endregion
+
+    //region 网络
     boolean retry(RxAction action);
 
     void postBaseAction(@NonNull String actionId, @NonNull Object... data);
 
-    String GET_PUBLIC_REPOS = "get_public_repos";
-
     void getPublicRepositories();
-
-    String GET_USER = "get_user";
 
     void getUserDetails(String userId);
     //endregion

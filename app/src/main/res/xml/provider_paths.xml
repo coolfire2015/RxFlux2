@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
     <external-path
-        path="Android/data/com/test"
-        name="test"/>
+        name="test"
+        path="Android/data/com/test" />
     <external-path
-        path="."
-        name="external_storage_root"/>
+        name="external_storage_root"
+        path="." />
 </paths>

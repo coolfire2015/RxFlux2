@@ -1,6 +1,7 @@
 package com.huyingbao.rxflux2.action;
 
 import android.support.v4.util.ArrayMap;
+import android.text.TextUtils;
 
 /**
  * Object class that hold the mType of action and the mData we want to attach to it
@@ -12,10 +13,6 @@ public class RxAction {
     RxAction(String type, ArrayMap<String, Object> data) {
         this.mType = type;
         this.mData = data;
-    }
-
-    public static Builder type(String type) {
-        return new Builder().with(type);
     }
 
     public String getType() {
@@ -32,11 +29,10 @@ public class RxAction {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RxAction)) return false;
-
-        RxAction rxAction = (RxAction) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof RxAction)) return false;
+        RxAction rxAction = (RxAction) obj;
         if (!mType.equals(rxAction.mType)) return false;
         return !(mData != null ? !mData.equals(rxAction.mData) : rxAction.mData != null);
     }
@@ -57,23 +53,34 @@ public class RxAction {
         private String mType;
         private ArrayMap<String, Object> mData;
 
-        Builder with(String type) {
-            if (type == null)
-                throw new IllegalArgumentException("Type may not be null.");
+
+        public Builder(String type) {
+            if (type == null) throw new IllegalArgumentException("Type may not be null.");
             this.mType = type;
             this.mData = new ArrayMap<>();
-            return this;
         }
 
-        public Builder bundle(String key, Object value) {
-            if (key == null)
-                throw new IllegalArgumentException("Key may not be null.");
+
+        /**
+         * 向RxAction中添加key-value
+         *
+         * @param key   不能为空
+         * @param value 为空时，key和value都不添加到action中
+         * @return
+         */
+        public Builder put(String key, Object value) {
+            if (key == null) throw new IllegalArgumentException("Key may not be null.");
             if (value != null) mData.put(key, value);
             return this;
         }
 
+        /**
+         * 生成RxAction对象
+         *
+         * @return
+         */
         public RxAction build() {
-            if (mType == null || mType.isEmpty())
+            if (TextUtils.isEmpty(mType))
                 throw new IllegalArgumentException("At least one key is required.");
             return new RxAction(mType, mData);
         }

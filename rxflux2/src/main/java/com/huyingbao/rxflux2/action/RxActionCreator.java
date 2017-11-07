@@ -79,12 +79,12 @@ public abstract class RxActionCreator {
         if (data.length % 2 != 0)
             throw new IllegalArgumentException("Data must be a valid list of key,value pairs");
 
-        RxAction.Builder actionBuilder = RxAction.type(actionId);
+        RxAction.Builder actionBuilder = new RxAction.Builder(actionId);
         int i = 0;
         while (i < data.length) {
             String key = (String) data[i++];
             Object value = data[i++];
-            actionBuilder.bundle(key, value);
+            actionBuilder.put(key, value);
         }
         return actionBuilder.build();
     }

@@ -1,8 +1,8 @@
-package com.huyingbao.rxflux2.store;
+package com.huyingbao.rxflux2.store
 
-import com.huyingbao.rxflux2.action.RxActionCreator;
-import com.huyingbao.rxflux2.dispatcher.Dispatcher;
-import com.huyingbao.rxflux2.dispatcher.RxActionDispatch;
+import com.huyingbao.rxflux2.action.RxActionCreator
+import com.huyingbao.rxflux2.dispatcher.Dispatcher
+import com.huyingbao.rxflux2.dispatcher.RxActionDispatch
 
 
 /**
@@ -21,37 +21,28 @@ import com.huyingbao.rxflux2.dispatcher.RxActionDispatch;
  * 把Action发送到所有注册的Store。
  * 在Store的回调方法内，Store可以处理任何和自身状态有关联的Action。
  * Store接着会触发一个 change 事件来告知Controller-View数据层发生变化。
- * by the {@link RxActionCreator}
+ * by the [RxActionCreator]
  */
-public abstract class RxStore implements RxActionDispatch {
-
-    private final Dispatcher dispatcher;
-
-    /**
-     * 构造方法,传入dispatcher
-     *
-     * @param dispatcher
-     */
-    public RxStore(Dispatcher dispatcher) {
-        this.dispatcher = dispatcher;
-    }
-
-    public Dispatcher getDispatcher() {
-        return dispatcher;
-    }
+abstract class RxStore
+/**
+ * 构造方法,传入dispatcher
+ *
+ * @param dispatcher
+ */
+(val dispatcher: Dispatcher) : RxActionDispatch {
 
     /**
      * 需要将store注册到dispatcher中
      */
-    public void register() {
-        dispatcher.subscribeRxStore(this);
+    fun register() {
+        dispatcher.subscribeRxStore(this)
     }
 
     /**
      * 从dispatcher中解除注册
      */
-    public void unregister() {
-        dispatcher.unSubscribeRxStore(this);
+    fun unregister() {
+        dispatcher.unSubscribeRxStore(this)
     }
 
     /**
@@ -60,7 +51,7 @@ public abstract class RxStore implements RxActionDispatch {
      *
      * @param change
      */
-    protected void postChange(RxStoreChange change) {
-        dispatcher.postRxStoreChange(change);
+    protected fun postChange(change: RxStoreChange) {
+        dispatcher.postRxStoreChange(change)
     }
 }

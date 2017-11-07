@@ -41,9 +41,6 @@ import io.flowup.FlowUp;
  * Created by liujunfeng on 2017/1/1.
  */
 public class BaseApplication extends Application implements ReactApplication {
-    @Inject
-    AppStore mAppStore;
-
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         /**
          * 表示是否启动开发者模式。
@@ -65,6 +62,8 @@ public class BaseApplication extends Application implements ReactApplication {
             return Arrays.asList(new MainReactPackage());
         }
     };
+    @Inject
+    AppStore mAppStore;
 
     @Override
     public ReactNativeHost getReactNativeHost() {

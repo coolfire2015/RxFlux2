@@ -5,8 +5,8 @@ import io.reactivex.processors.FlowableProcessor;
 import io.reactivex.processors.PublishProcessor;
 
 public class RxBus {
-    private final FlowableProcessor<Object> mBus;
     private static RxBus sInstance;
+    private final FlowableProcessor<Object> mBus;
 
     private RxBus() {
         mBus = PublishProcessor.create().toSerialized();

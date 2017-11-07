@@ -17,11 +17,7 @@ import java.security.MessageDigest;
 public class GlideCircleTransform extends BitmapTransformation {
 
     @Override
-    protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
-        return circleCrop(pool, toTransform);
-    }
-
-    private static Bitmap circleCrop(BitmapPool pool, Bitmap source) {
+    protected Bitmap transform(BitmapPool pool, Bitmap source, int outWidth, int outHeight) {
         if (source == null) return null;
 
         int size = Math.min(source.getWidth(), source.getHeight());
