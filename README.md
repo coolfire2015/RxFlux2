@@ -6,16 +6,22 @@
 #### 减少不同层级之间的耦合：
 每一层级负责接收数据、发出数据，不关心谁来响应数据变化。RxFlux2 封装的 Dispatcher 来通知谁（View，Store）来响应数据变化。
 1. View 只负责用户交互并调用 ActionCreator 中的方法创建RxAction，不关心 RxAction 如何执行（调用接口，操作数据库）。
+
 2. ActionCreator 负责创建 RxAction，操作 RxAction。
 操作正确时，发送封装了result data 的 RxAction，不关心哪个 Store 来接收。
 操作失败时，发送 RxError，不关心哪个 View 来接收。
+
 3. Store 负责接收 RxAction，处理 RxAction 携带的 result data，发送 RxStoreChange，不关心哪个 View 来接收。
  
 ####  减少业务模块之间的耦合（View 层级）：
 1. Activity 和 Fragment 解耦，Fragment 与 Activity 之间互不调用。
+
 2. Fragment 之间完全解耦，不同 Fragment 之间互不调用。
+
 3. Activity 主要作为 Fragment 容器，负责响应 Fragment 发送的RxAction（经过Store转为RxStoreChange），控制 Fragment 之间的跳转。
+
 4. 不在前端显示的 Activity 和 Fragment 对应的 Store 不会响应 RxAction。
+
 5. 不在前端显示的 Activity 和 Fragment 不会响应 RxStoreChange。
 
 ## RxFlux2 与 RxFlux 的区别
