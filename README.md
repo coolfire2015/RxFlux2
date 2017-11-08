@@ -1,7 +1,7 @@
-# 简介
+## [简介](http://www.jianshu.com/p/e11712b9b3f7)
 [RxFlux2](https://github.com/coolfire2015/RxFlux2) 是在 [RxFlux](https://github.com/skimarxall/RxFlux) 基础上，使用 [RxJava2](https://github.com/ReactiveX/RxJava) 和 [Dagger2](https://github.com/google/dagger) 实现 [Flux模式](https://facebook.github.io/flux/docs/overview.html) 的轻量级框架。
-# 优点：
-###### 减少不同层级之间的耦合：
+## Why
+#### 减少不同层级之间的耦合：
 每一层级负责接收数据、发出数据，不关心谁来响应数据变化。RxFlux2封装的Dispatcher来通知谁（View，Store）来响应数据变化。
 1. View 只负责用户交互并调用 ActionCreator 中的方法创建RxAction，不关心 RxAction 如何执行（调用接口，操作数据库）。
 2. ActionCreator 负责创建 RxAction，操作 RxAction。
@@ -9,14 +9,14 @@
 操作失败时，发送 RxError，不关心哪个 View 来接收。
 3. Store 负责接收 RxAction，处理 RxAction 携带的 result data，发送 RxStoreChange，不关心哪个 View 来接收。
  
-######  减少业务模块之间的耦合（View 层级）：
+####  减少业务模块之间的耦合（View 层级）：
 1. Activity 和 Fragment 解耦，Fragment 与 Activity 之间互不调用。
 2. Fragment 之间完全解耦，不同 Fragment 之间互不调用。
 3. Activity 主要作为 Fragment 容器，负责响应 Fragment 发送的RxAction（经过Store转为RxStoreChange），控制 Fragment 之间的跳转。
 4. 不在前端显示的 Activity 和 Fragment 对应的 Store 不会响应 RxAction。
 5. 不在前端显示的 Activity 和 Fragment 不会响应RxStoreChange。
 
-#RxFlux2 与 RxFlux 的区别
+## RxFlux2 与 RxFlux 的区别
 1. 使用 RxJava2 替换 RxJava1，修改 RxBus 实现方式。
 
 2. 修改 RxAction，向创建的 RxAction 实例中添加 key-value 时，当 value 为空时，当前 key-value 不添加到 RxAction 实例中。
@@ -27,7 +27,7 @@
 
 5. 其他 views (fragment、dialogfragment，service)由自己负责注册 store、注册 view、解除 view 注册、解除 store 注册，activity 不再负责其中的 fragments的注册解除操作。views 中的相关操作已被集成到 base 类中。
 
-# RxFlux2 架构图
+## RxFlux2 架构图
 使用 RxFlux2 最好了解 RxJava2 和 Flux，记住 Flux 的架构图能更好的理解 RxFlux2。
 
 ![Flux 架构图](http://upload-images.jianshu.io/upload_images/2118953-b5fe1f790ccd11ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
