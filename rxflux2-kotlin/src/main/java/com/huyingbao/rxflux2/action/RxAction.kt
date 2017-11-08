@@ -11,11 +11,10 @@ open class RxAction internal constructor(val type: String, val data: ArrayMap<St
         return data!![tag] as T
     }
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o !is RxAction) return false
-
-        val rxAction = o as RxAction?
+    override fun equals(obj: Any?): Boolean {
+        if (this === obj) return true
+        if (obj !is RxAction) return false
+        val rxAction = obj as RxAction?
         return if (type != rxAction!!.type) false else !if (data != null) data != rxAction.data else rxAction.data != null
     }
 
@@ -29,35 +28,34 @@ open class RxAction internal constructor(val type: String, val data: ArrayMap<St
         return "RxAction{mType='$type', mData=$data}"
     }
 
-    class Builder {
-        private var mType: String? = null
-        private var mData: ArrayMap<String, Any>? = null
+    class Builder(private val mType: String) {
+        private val mData: ArrayMap<String, Any>
 
-        internal fun with(type: String?): Builder {
-            if (type == null)
-                throw IllegalArgumentException("Type may not be null.")
-            this.mType = type
+
+        init {
             this.mData = ArrayMap()
+        }
+
+
+        /**
+         * 向RxAction中添加key-value
+         *
+         * @param key   不能为空
+         * @param value 为空时，key和value都不添加到action中
+         * @return
+         */
+        fun put(key: String, value: Any?): Builder {
+            if (value != null) mData.put(key, value)
             return this
         }
 
-        fun bundle(key: String?, value: Any?): Builder {
-            if (key == null)
-                throw IllegalArgumentException("Key may not be null.")
-            if (value != null) mData!!.put(key, value)
-            return this
-        }
-
+        /**
+         * 生成RxAction对象
+         *
+         * @return
+         */
         fun build(): RxAction {
-            if (mType == null || mType!!.isEmpty())
-                throw IllegalArgumentException("At least one key is required.")
             return RxAction(mType, mData)
-        }
-    }
-
-    companion object {
-        fun type(type: String): Builder {
-            return Builder().with(type)
         }
     }
 }

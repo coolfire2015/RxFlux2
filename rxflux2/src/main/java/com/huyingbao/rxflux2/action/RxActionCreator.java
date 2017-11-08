@@ -73,12 +73,11 @@ public abstract class RxActionCreator {
      * @param data     键值对型的参数pair-value parameters(Key - Object))
      * @return
      */
-    protected RxAction newRxAction(@NonNull String actionId, @NonNull Object... data) {
-        if (actionId.isEmpty()) throw new IllegalArgumentException("Type must not be empty");
-
-        if (data.length % 2 != 0)
-            throw new IllegalArgumentException("Data must be a valid list of key,value pairs");
-
+    protected RxAction newRxAction(@NonNull String actionId, Object... data) {
+        if (data != null) {
+            if (data.length % 2 != 0)
+                throw new IllegalArgumentException("Data must be a valid list of key,value pairs");
+        }
         RxAction.Builder actionBuilder = new RxAction.Builder(actionId);
         int i = 0;
         while (i < data.length) {

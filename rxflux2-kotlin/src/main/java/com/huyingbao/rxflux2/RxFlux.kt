@@ -3,11 +3,13 @@ package com.huyingbao.rxflux2
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+
 import com.huyingbao.rxflux2.dispatcher.Dispatcher
 import com.huyingbao.rxflux2.dispatcher.RxBus
 import com.huyingbao.rxflux2.dispatcher.RxViewDispatch
+import com.huyingbao.rxflux2.store.RxStore
 import com.huyingbao.rxflux2.util.DisposableManager
-import java.util.*
+import java.util.Stack
 
 /**
  * Created by marcel on 09/09/15.
@@ -28,7 +30,6 @@ private constructor(application: Application) : Application.ActivityLifecycleCal
      * @return the instance of the RxBus in case you want to reused for something else
      */
     val rxBus: RxBus
-
     /**
      * @return the instance of the dispatcher
      */

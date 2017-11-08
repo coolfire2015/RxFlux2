@@ -1,7 +1,7 @@
 package com.huyingbao.rxflux2.action;
 
+import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
-import android.text.TextUtils;
 
 /**
  * Object class that hold the mType of action and the mData we want to attach to it
@@ -10,7 +10,7 @@ public class RxAction {
     private final String mType;
     private final ArrayMap<String, Object> mData;
 
-    RxAction(String type, ArrayMap<String, Object> data) {
+    RxAction(@NonNull String type, ArrayMap<String, Object> data) {
         this.mType = type;
         this.mData = data;
     }
@@ -54,8 +54,7 @@ public class RxAction {
         private ArrayMap<String, Object> mData;
 
 
-        public Builder(String type) {
-            if (type == null) throw new IllegalArgumentException("Type may not be null.");
+        public Builder(@NonNull String type) {
             this.mType = type;
             this.mData = new ArrayMap<>();
         }
@@ -68,8 +67,7 @@ public class RxAction {
          * @param value 为空时，key和value都不添加到action中
          * @return
          */
-        public Builder put(String key, Object value) {
-            if (key == null) throw new IllegalArgumentException("Key may not be null.");
+        public Builder put(@NonNull String key, Object value) {
             if (value != null) mData.put(key, value);
             return this;
         }
@@ -80,8 +78,6 @@ public class RxAction {
          * @return
          */
         public RxAction build() {
-            if (TextUtils.isEmpty(mType))
-                throw new IllegalArgumentException("At least one key is required.");
             return new RxAction(mType, mData);
         }
     }

@@ -66,17 +66,16 @@ abstract class RxActionCreator
      * @return
      */
     protected fun newRxAction(actionId: String, vararg data: Any): RxAction {
-        if (actionId.isEmpty()) throw IllegalArgumentException("Type must not be empty")
-
-        if (data.size % 2 != 0)
-            throw IllegalArgumentException("Data must be a valid list of key,value pairs")
-
-        val actionBuilder = RxAction.type(actionId)
+        if (data != null) {
+            if (data.size % 2 != 0)
+                throw IllegalArgumentException("Data must be a valid list of key,value pairs")
+        }
+        val actionBuilder = RxAction.Builder(actionId)
         var i = 0
         while (i < data.size) {
             val key = data[i++] as String
             val value = data[i++]
-            actionBuilder.bundle(key, value)
+            actionBuilder.put(key, value)
         }
         return actionBuilder.build()
     }
