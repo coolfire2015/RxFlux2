@@ -6,10 +6,10 @@ import io.reactivex.processors.PublishProcessor;
 
 public class RxBus {
     private static RxBus sInstance;
-    private final FlowableProcessor<Object> mBus;
+    private final FlowableProcessor<Object> mFlowableProcessor;
 
     private RxBus() {
-        mBus = PublishProcessor.create().toSerialized();
+        mFlowableProcessor = PublishProcessor.create().toSerialized();
     }
 
     public synchronized static RxBus getInstance() {
@@ -18,11 +18,11 @@ public class RxBus {
     }
 
     public FlowableProcessor<Object> get() {
-        return mBus;
+        return mFlowableProcessor;
     }
 
     public void send(Object o) {
-        mBus.onNext(o);
+        mFlowableProcessor.onNext(o);
     }
 
     /**
@@ -33,11 +33,11 @@ public class RxBus {
      * @return
      */
     public <T> Flowable<T> toFlowable(Class<T> tClass) {
-        return mBus.ofType(tClass);
+        return mFlowableProcessor.ofType(tClass);
     }
 
     public void unregisterAll() {
-        mBus.onComplete();
+        mFlowableProcessor.onComplete();
     }
 
     /**
@@ -46,6 +46,6 @@ public class RxBus {
      * @return
      */
     public boolean hasSubscribers() {
-        return mBus.hasSubscribers();
+        return mFlowableProcessor.hasSubscribers();
     }
 }

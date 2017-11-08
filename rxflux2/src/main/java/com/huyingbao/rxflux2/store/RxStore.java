@@ -25,7 +25,7 @@ import com.huyingbao.rxflux2.dispatcher.RxActionDispatch;
  */
 public abstract class RxStore implements RxActionDispatch {
 
-    private final Dispatcher dispatcher;
+    private final Dispatcher mDispatcher;
 
     /**
      * 构造方法,传入dispatcher
@@ -33,25 +33,25 @@ public abstract class RxStore implements RxActionDispatch {
      * @param dispatcher
      */
     public RxStore(Dispatcher dispatcher) {
-        this.dispatcher = dispatcher;
+        this.mDispatcher = dispatcher;
     }
 
     public Dispatcher getDispatcher() {
-        return dispatcher;
+        return mDispatcher;
     }
 
     /**
      * 需要将store注册到dispatcher中
      */
     public void register() {
-        dispatcher.subscribeRxStore(this);
+        mDispatcher.subscribeRxStore(this);
     }
 
     /**
      * 从dispatcher中解除注册
      */
     public void unregister() {
-        dispatcher.unSubscribeRxStore(this);
+        mDispatcher.unSubscribeRxStore(this);
     }
 
     /**
@@ -61,6 +61,6 @@ public abstract class RxStore implements RxActionDispatch {
      * @param change
      */
     protected void postChange(RxStoreChange change) {
-        dispatcher.postRxStoreChange(change);
+        mDispatcher.postRxStoreChange(change);
     }
 }

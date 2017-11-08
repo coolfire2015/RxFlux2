@@ -1,6 +1,11 @@
 package com.huyingbao.rxflux2.database;
 
 import com.raizlabs.android.dbflow.annotation.Database;
+import com.raizlabs.android.dbflow.annotation.Migration;
+import com.raizlabs.android.dbflow.sql.SQLiteType;
+import com.raizlabs.android.dbflow.sql.migration.AlterTableMigration;
+
+import org.w3c.dom.Comment;
 
 /**
  * DBFlow数据库
@@ -13,33 +18,33 @@ public class AppDatabase {
 
     public static final int VERSION = 5;
 
-//    /**
-//     * 版本4,向表MessageItem中增加toVoipAccount
-//     */
-//    @Migration(version = 4, database = AppDatabase.class)
-//    public static class AddToVoipAccountToMessageItemMigration extends AlterTableMigration<Comment> {
-//        public AddToVoipAccountToMessageItemMigration(Class<Comment> table) {
-//            super(table);
-//        }
-//
-//        @Override
-//        public void onPreMigrate() {
-//            addColumn(SQLiteType.TEXT, "toVoipAccount");
-//        }
-//    }
-//
-//    /**
-//     * 版本5,向表MessageItem中增加fromVoipAccount
-//     */
-//    @Migration(version = 5, database = AppDatabase.class)
-//    public static class AddFromVoipAccountToMessageItemMigration extends AlterTableMigration<Comment> {
-//        public AddFromVoipAccountToMessageItemMigration(Class<Comment> table) {
-//            super(table);
-//        }
-//
-//        @Override
-//        public void onPreMigrate() {
-//            addColumn(SQLiteType.TEXT, "fromVoipAccount");
-//        }
-//    }
+    /**
+     * 版本4,向表MessageItem中增加toVoipAccount
+     */
+    @Migration(version = 4, database = AppDatabase.class)
+    public static class AddToVoipAccountToMessageItemMigration extends AlterTableMigration<Comment> {
+        public AddToVoipAccountToMessageItemMigration(Class<Comment> table) {
+            super(table);
+        }
+
+        @Override
+        public void onPreMigrate() {
+            addColumn(SQLiteType.TEXT, "toVoipAccount");
+        }
+    }
+
+    /**
+     * 版本5,向表MessageItem中增加fromVoipAccount
+     */
+    @Migration(version = 5, database = AppDatabase.class)
+    public static class AddFromVoipAccountToMessageItemMigration extends AlterTableMigration<Comment> {
+        public AddFromVoipAccountToMessageItemMigration(Class<Comment> table) {
+            super(table);
+        }
+
+        @Override
+        public void onPreMigrate() {
+            addColumn(SQLiteType.TEXT, "fromVoipAccount");
+        }
+    }
 }

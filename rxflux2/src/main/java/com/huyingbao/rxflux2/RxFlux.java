@@ -22,12 +22,12 @@ import java.util.Stack;
  * 这个类会自动跟踪应用程序的生命周期,并且注销每个activity剩余的订阅subscriptions
  */
 public class RxFlux implements Application.ActivityLifecycleCallbacks {
-    private static RxFlux instance;
-    private final RxBus rxBus;
-    private final Dispatcher dispatcher;
-    private final DisposableManager subscriptionManager;
-    private int activityCounter;
-    private Stack<Activity> activityStack;
+    private static RxFlux sInstance;
+    private final RxBus mRxBus;
+    private final Dispatcher mDispatcher;
+    private final DisposableManager mDisposableManager;
+    private int mActivityCounter;
+    private Stack<Activity> mActivityStack;
 
     /**
      * 私有构造方法
@@ -35,11 +35,11 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
      * @param application
      */
     private RxFlux(Application application) {
-        this.rxBus = RxBus.getInstance();
-        this.dispatcher = Dispatcher.getInstance(rxBus);
-        this.subscriptionManager = DisposableManager.getInstance();
-        activityCounter = 0;
-        activityStack = new Stack<>();
+        this.mRxBus = RxBus.getInstance();
+        this.mDispatcher = Dispatcher.getInstance(mRxBus);
+        this.mDisposableManager = DisposableManager.getInstance();
+        mActivityCounter = 0;
+        mActivityStack = new Stack<>();
         application.registerActivityLifecycleCallbacks(this);
     }
 
@@ -50,38 +50,38 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
      * @return
      */
     public static RxFlux init(Application application) {
-        if (instance != null) return instance;
-        return instance = new RxFlux(application);
+        if (sInstance != null) return sInstance;
+        return sInstance = new RxFlux(application);
     }
 
     /**
      * 关闭
      */
     public static void shutdown() {
-        if (instance == null) return;
-        instance.subscriptionManager.clear();
-        instance.dispatcher.unSubscribeAll();
+        if (sInstance == null) return;
+        sInstance.mDisposableManager.clear();
+        sInstance.mDispatcher.unSubscribeAll();
     }
 
     /**
-     * @return the instance of the RxBus in case you want to reused for something else
+     * @return the sInstance of the RxBus in case you want to reused for something else
      */
     public RxBus getRxBus() {
-        return rxBus;
+        return mRxBus;
     }
 
     /**
-     * @return the instance of the dispatcher
+     * @return the sInstance of the mDispatcher
      */
     public Dispatcher getDispatcher() {
-        return dispatcher;
+        return mDispatcher;
     }
 
     /**
-     * @return the instance of the subscription manager in case you want to reuse for something else
+     * @return the sInstance of the subscription manager in case you want to reuse for something else
      */
-    public DisposableManager getSubscriptionManager() {
-        return subscriptionManager;
+    public DisposableManager getDisposableManager() {
+        return mDisposableManager;
     }
 
     /**
@@ -94,8 +94,8 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
-        activityCounter++;
-        activityStack.add(activity);
+        mActivityCounter++;
+        mActivityStack.add(activity);
         if (activity instanceof RxViewDispatch) {
             List<RxStore> rxStoreList = ((RxViewDispatch) activity).getRxStoreListToRegister();
             if (rxStoreList != null)
@@ -105,18 +105,15 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * 当activity start的时候,如果当前activity是RxViewDispatch,
-     * 将该activity添加到dispatcher的订阅中,
-     * 并调用onRxViewRegistered方法
+     * 当activity start的时候,如果当前activity实现RxViewDispatch接口,
+     * 将该activity添加到dispatcher的订阅中.
      *
      * @param activity
      */
     @Override
     public void onActivityStarted(Activity activity) {
-        //activity中的fragment自己实现RxViewDispatch,启动的时候注册,不需要该接口
-        //((RxViewDispatch) activity).onRxViewRegistered();
         if (activity instanceof RxViewDispatch)
-            dispatcher.subscribeRxView((RxViewDispatch) activity);
+            mDispatcher.subscribeRxView((RxViewDispatch) activity);
     }
 
     @Override
@@ -128,18 +125,15 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     }
 
     /**
-     * 在activity stop时,如果当前activity是RxViewDispatch,
+     * 在activity stop时,如果当前activity实现RxViewDispatch,
      * 从dispatcher中取消当前view的注册
-     * 并调用onRxViewUnRegistered方法
      *
      * @param activity
      */
     @Override
     public void onActivityStopped(Activity activity) {
-        //activity中的fragment自己实现RxViewDispatch,启动的时候注册,不需要该接口
-        //((RxViewDispatch) activity).onRxViewUnRegistered();
         if (activity instanceof RxViewDispatch)
-            dispatcher.unSubscribeRxView((RxViewDispatch) activity);
+            mDispatcher.unSubscribeRxView((RxViewDispatch) activity);
     }
 
     @Override
@@ -154,27 +148,27 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
      */
     @Override
     public void onActivityDestroyed(Activity activity) {
-        activityCounter--;
-        activityStack.remove(activity);
+        mActivityCounter--;
+        mActivityStack.remove(activity);
         if (activity instanceof RxViewDispatch) {
             List<RxStore> rxStoreList = ((RxViewDispatch) activity).getRxStoreListToUnRegister();
             if (rxStoreList != null)
                 for (RxStore rxStore : rxStoreList)
                     rxStore.unregister();
         }
-        if (activityCounter == 0 || activityStack.size() == 0)
+        if (mActivityCounter == 0 || mActivityStack.size() == 0)
             RxFlux.shutdown();
     }
 
     private void finishActivity(Activity activity) {
         if (activity != null) {
-            activityStack.remove(activity);
+            mActivityStack.remove(activity);
             activity.finish();
         }
     }
 
     private Activity getActivity(Class<?> cls) {
-        for (Activity activity : activityStack)
+        for (Activity activity : mActivityStack)
             if (activity.getClass().equals(cls))
                 return activity;
         return null;
@@ -184,8 +178,8 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
      * 结束所有Activity
      */
     public void finishAllActivity() {
-        while (!activityStack.empty())
-            activityStack.pop().finish();
+        while (!mActivityStack.empty())
+            mActivityStack.pop().finish();
     }
 
     /**

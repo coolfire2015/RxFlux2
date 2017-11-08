@@ -29,6 +29,6 @@ public class FluxActionModule {
     @Provides
     @Singleton
     public ActionCreator provideActionCreator(RxFlux rxFlux) {
-        return new ActionCreator(rxFlux.getDispatcher(), rxFlux.getSubscriptionManager());
+        return new ActionCreator(rxFlux.getDispatcher(), rxFlux.getDisposableManager());
     }
 }
