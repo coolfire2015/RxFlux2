@@ -1,5 +1,7 @@
+[![](https://jitpack.io/v/coolfire2015/RxFlux2.svg)](https://jitpack.io/#coolfire2015/RxFlux2)
 ## [简介](http://www.jianshu.com/p/e11712b9b3f7)
 [RxFlux2](https://github.com/coolfire2015/RxFlux2) 是在 [RxFlux](https://github.com/skimarxall/RxFlux) 基础上，使用 [RxJava2](https://github.com/ReactiveX/RxJava) 和 [Dagger2](https://github.com/google/dagger) 实现 [Flux模式](https://facebook.github.io/flux/docs/overview.html) 的轻量级框架。
+**RxJava2+Retrofit2+Dagger2**
 ## Why
 #### 减少不同层级之间的耦合：
 每一层级负责接收数据、发出数据，不关心谁来响应数据变化。RxFlux2封装的Dispatcher来通知谁（View，Store）来响应数据变化。
