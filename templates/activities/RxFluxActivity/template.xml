@@ -107,7 +107,7 @@
         type="string"
         constraints="layout|unique"
         default="fragment_rxflux"
-        visibility="generateLayout"
+        visibility="generateLayout  &amp;&amp; generateFragment"
 		suggest="fragment_${classToResource(fragmentClass)}"
         help="The name of the layout to create for the fragment" />
 

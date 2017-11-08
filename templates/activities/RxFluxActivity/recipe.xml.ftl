@@ -26,12 +26,11 @@
                   to="${escapeXmlAttribute(srcOut)}/${fragmentClass}.java" />
     <open file="${escapeXmlAttribute(srcOut)}/${fragmentClass}.java" />
   </#if>
-</#if>
-
-<#if generateLayout>
-    <instantiate from="root/res/layout/fragment.xml.ftl"
-                  to="${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml" />
-    <open file="${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml" />
+  <#if generateLayout>
+      <instantiate from="root/res/layout/fragment.xml.ftl"
+                    to="${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml" />
+      <open file="${escapeXmlAttribute(resOut)}/layout/${layoutName}.xml" />
+  </#if>
 </#if>
 
 </recipe>

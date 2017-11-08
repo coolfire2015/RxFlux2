@@ -46,7 +46,7 @@ public class Dispatcher {
         Disposable disposable = mRxActionMap.get(rxStoreTag);
         //如果订阅不为空或者订阅是取消状态,则进行订阅
         if (disposable == null || disposable.isDisposed()) {
-            //filter过滤,传入一个Func1类对象,参数Object,返回boolean,若是object是RxAction的子类实现,则返回true,执行订阅
+            //filter过滤,传入一个Predicate类对象,参数Object,返回boolean,若是object是RxAction的子类实现,则返回true,执行订阅
             mRxActionMap.put(rxStoreTag, mRxBus.get()
                     .onBackpressureBuffer()
                     .filter(o -> o instanceof RxAction)
