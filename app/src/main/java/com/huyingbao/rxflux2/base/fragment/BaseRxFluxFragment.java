@@ -48,7 +48,7 @@ public abstract class BaseRxFluxFragment extends BaseFragment implements RxViewD
     public void onStop() {
         super.onStop();
         // 解除view注册
-        mRxFlux.getDispatcher().unSubscribeRxView(this);
+        mRxFlux.getDispatcher().unsubscribeRxView(this);
     }
 
     @Override

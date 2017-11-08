@@ -78,8 +78,7 @@ public class Dispatcher {
      * Bus(Subject被监听者)发送一个事件到所有订阅bus(Subject)的监听者Subscription
      * 当该事件是RxStoreChange的实现类的时候,
      * 调用监听者Subscription的方法回调方法call
-     * 添加RxViewDispatch到dispatch的订阅中,
-     * <p>
+     * 添加RxViewDispatch到dispatch的订阅中.
      * view 对应的类名 当作 key
      * mRxBus 进行订阅,订阅事件当作 value
      * view 添加到rxStoreMap中之后,bus发送数据,在观察者中会回调rxViewDispatch的回调方法
@@ -128,7 +127,7 @@ public class Dispatcher {
      * @param object
      * @param <T>
      */
-    public <T extends RxActionDispatch> void unSubscribeRxStore(final T object) {
+    public <T extends RxActionDispatch> void unsubscribeRxStore(final T object) {
         String tag = object.getClass().getSimpleName();
         Disposable disposable = mRxActionMap.get(tag);
         if (disposable != null && !disposable.isDisposed()) {
@@ -143,7 +142,7 @@ public class Dispatcher {
      * @param object
      * @param <T>
      */
-    public <T extends RxViewDispatch> void unSubscribeRxError(final T object) {
+    public <T extends RxViewDispatch> void unsubscribeRxError(final T object) {
         String tag = object.getClass().getSimpleName() + "_error";
         Disposable disposable = mRxActionMap.get(tag);
         if (disposable != null && !disposable.isDisposed()) {
@@ -158,20 +157,20 @@ public class Dispatcher {
      * @param object
      * @param <T>
      */
-    public <T extends RxViewDispatch> void unSubscribeRxView(final T object) {
+    public <T extends RxViewDispatch> void unsubscribeRxView(final T object) {
         String tag = object.getClass().getSimpleName();
         Disposable disposable = mRxStoreMap.get(tag);
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
             mRxStoreMap.remove(tag);
         }
-        unSubscribeRxError(object);
+        unsubscribeRxError(object);
     }
 
     /**
      * 解除所有的注册
      */
-    public synchronized void unSubscribeAll() {
+    public synchronized void unsubscribeAll() {
         for (Disposable disposable : mRxActionMap.values())
             disposable.dispose();
         for (Disposable disposable : mRxStoreMap.values())

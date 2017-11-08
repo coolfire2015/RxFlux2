@@ -60,7 +60,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     public static void shutdown() {
         if (sInstance == null) return;
         sInstance.mDisposableManager.clear();
-        sInstance.mDispatcher.unSubscribeAll();
+        sInstance.mDispatcher.unsubscribeAll();
     }
 
     /**
@@ -133,7 +133,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
     @Override
     public void onActivityStopped(Activity activity) {
         if (activity instanceof RxViewDispatch)
-            mDispatcher.unSubscribeRxView((RxViewDispatch) activity);
+            mDispatcher.unsubscribeRxView((RxViewDispatch) activity);
     }
 
     @Override

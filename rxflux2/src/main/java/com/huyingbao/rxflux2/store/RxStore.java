@@ -51,7 +51,7 @@ public abstract class RxStore implements RxActionDispatch {
      * 从dispatcher中解除注册
      */
     public void unregister() {
-        mDispatcher.unSubscribeRxStore(this);
+        mDispatcher.unsubscribeRxStore(this);
     }
 
     /**
