@@ -2,7 +2,6 @@ package com.huyingbao.rxflux2.base.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,8 +27,6 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
     protected RecyclerView mRvContent;
     @BindView(R.id.srl_content)
     protected SwipeRefreshLayout mSrlContent;
-    @BindView(R.id.cl_content)
-    protected CoordinatorLayout mClContent;
 
     protected BaseQuickAdapter mAdapter;
     protected List<T> mDataList = new ArrayList();
@@ -167,7 +164,7 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
      * 更新加载索引
      */
     protected void updateLoadingIndex() {
-		//mNextIndex = mNextIndex + mLimit;
+        //mNextIndex = mNextIndex + mLimit;
         mNextIndex = mNextIndex + 1;
     }
 

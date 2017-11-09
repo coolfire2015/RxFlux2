@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.github.coolfire2015"
@@ -63,5 +62,4 @@ dependencies {
     implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
     implementation "io.reactivex.rxjava2:rxjava:${RX_JAVA_2}"
     implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_2}"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${KOTLIN_VERSION}"
 }

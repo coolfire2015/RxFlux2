@@ -1,8 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
-
-group = "com.github.coolfire2015"
 
 /**
  * 读取Git commit number，作为Version Code

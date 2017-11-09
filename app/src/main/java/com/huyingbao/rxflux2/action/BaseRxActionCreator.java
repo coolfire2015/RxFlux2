@@ -9,6 +9,7 @@ import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.util.DisposableManager;
 import com.huyingbao.rxflux2.util.LocalStorageUtils;
 import com.huyingbao.rxflux2.widget.dialog.LoadingDialog;
+import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.TimeUnit;
 
@@ -210,27 +211,27 @@ class BaseRxActionCreator extends RxActionCreator {
     @NonNull
     private Function<Observable<? extends Throwable>, Observable<?>> retryLogin() {
         return observable -> observable
-                .flatMap(throwable -> {
-                    //不是自定义异常,直接返回异常信息,UI会展示
-                    if (!(throwable instanceof RxHttpException))
-                        return Observable.error(throwable);
-                    //不是自定义异常中的session过期,直接返回异常信息,UI会展示
-                    if (((RxHttpException) throwable).code() != Constants.ERROR_SESSION_TIMEOUT)
-                        return Observable.error(throwable);
-                    //Session失效，进行重新登录
-                    String phone = mLocalStorageUtils.getString(ActionsKeys.PHONE, null);
-                    String password = mLocalStorageUtils.getString(ActionsKeys.PASSWORD, null);
-                    //没有登录账号或者密码无法重新登录,直接返回异常信息,UI会展示
-                    if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(password))
-                        return Observable.error(throwable);
-                    //重新登录
-                    RxAction rxAction = newRxAction(Actions.LOGIN,
-                            ActionsKeys.PHONE, phone,
-                            ActionsKeys.PASSWORD, password,
-                            ActionsKeys.CHANNEL_TYPE, 3,
-                            ActionsKeys.CHANNEL_ID, mLocalStorageUtils.getString(ActionsKeys.CHANNEL_ID, ""));
-                    return mHttpApi.login(rxAction.getData());
-                })
+//                .flatMap(throwable -> {
+//                    //不是自定义异常,直接返回异常信息,UI会展示
+//                    if (!(throwable instanceof RxHttpException))
+//                        return Observable.error(throwable);
+//                    //不是自定义异常中的session过期,直接返回异常信息,UI会展示
+//                    if (((RxHttpException) throwable).code() != Constants.ERROR_SESSION_TIMEOUT)
+//                        return Observable.error(throwable);
+//                    //Session失效，进行重新登录
+//                    String phone = mLocalStorageUtils.getString(ActionsKeys.PHONE, null);
+//                    String password = mLocalStorageUtils.getString(ActionsKeys.PASSWORD, null);
+//                    //没有登录账号或者密码无法重新登录,直接返回异常信息,UI会展示
+//                    if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(password))
+//                        return Observable.error(throwable);
+//                    //重新登录
+//                    RxAction rxAction = newRxAction(Actions.LOGIN,
+//                            ActionsKeys.PHONE, phone,
+//                            ActionsKeys.PASSWORD, password,
+//                            ActionsKeys.CHANNEL_TYPE, 3,
+//                            ActionsKeys.CHANNEL_ID, mLocalStorageUtils.getString(ActionsKeys.CHANNEL_ID, ""));
+//                    return mHttpApi.login(rxAction.getData());
+//                })
                 .zipWith(Observable.range(1, 3), (throwable, i) -> i)
                 .flatMap(retryCount -> Observable.timer((long) Math.pow(1, retryCount), TimeUnit.SECONDS));
     }

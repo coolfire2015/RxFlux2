@@ -4,7 +4,7 @@
         <item name="colorPrimary">@color/primary</item><!--工具栏颜色 -->
         <item name="colorPrimaryDark">@color/primary</item><!--状态栏颜色 -->
         <item name="colorAccent">@color/accent</item><!--给edittext着色,形成反差色.按钮组件不支持着色-->
-        <item name="tabBackground">@color/secondary_text</item><!-- tab背景颜色 -->
+        <item name="tabBackground">@color/text_secondary</item><!-- tab背景颜色 -->
 
         <!-- 弹出框样式 -->
         <item name="actionOverflowMenuStyle">@style/CustomActionOverflowMenuStyle</item>
@@ -19,10 +19,10 @@
         <item name="android:windowBackground">@color/primary_background</item><!-- 窗口的背景颜色 -->
         <item name="android:colorBackground">@color/primary_background</item><!-- 窗口的背景颜色 -->
         <!-- 所有字体颜色 该字体颜色会覆盖textAppearanceSmallPopupMenu中颜色 -->
-        <item name="android:textColor">@color/primary_text</item>
-        <item name="android:textColorPrimary">@color/primary_text</item><!--toolbar左侧标题字体颜色 -->
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorPrimary">@color/text_primary</item><!--toolbar左侧标题字体颜色 -->
         <!--toolbar右侧菜单字体字体颜色 -->
-        <item name="android:textColorSecondary">@color/secondary_text</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
         <item name="android:actionMenuTextColor">@color/accent</item><!--菜单的文字按钮颜色-->
         <item name="android:homeAsUpIndicator">@android:drawable/ic_menu_delete</item><!--返回按钮-->
 
@@ -36,13 +36,6 @@
         <item name="windowNoTitle">true</item><!-- 设置没有标题 -->
         <item name="android:windowDisablePreview">true</item><!--不显示预览页面-->
     </style>
-    <!--引导页-->
-    <style name="AppTheme.NoActionBar.Loading">
-        <item name="android:windowBackground">@null</item><!-- 设置透明 -->
-        <item name="android:windowIsTranslucent">true</item><!-- 设置透明 -->
-    </style>
-    <!--主页-->
-    <style name="AppTheme.NoActionBar.StatusBarTransprent" />
     <!--默认的AppBarLayout样式-->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <!--默认的弹出框样式-->
@@ -57,12 +50,12 @@
     </style>
     <!-- 弹出框字体样式 会被 android:textColor 颜色 覆盖-->
     <style name="CustomTextAppearanceLargePopupMenu" parent="TextAppearance.AppCompat.Widget.PopupMenu.Large">
-        <item name="android:textColor">@color/primary_dark</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/sp_14</item>
     </style>
     <!--弹出框字体样式-->
     <style name="CustomTextAppearanceSmallPopupMenu" parent="TextAppearance.AppCompat.Widget.PopupMenu.Small">
-        <item name="android:textColor">@color/primary_dark</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/sp_14</item>
     </style>
     <!--menu 弹出框-->
@@ -90,6 +83,7 @@
     </style>
     <!--按钮样式-->
     <style name="CustomButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/ic_action_refresh</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/sp_18</item>
     </style>

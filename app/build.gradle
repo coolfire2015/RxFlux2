@@ -348,6 +348,7 @@ dependencies {
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${KOTLIN_VERSION}"
+
     //RxFlux2
     implementation project(':rxflux2')
 }

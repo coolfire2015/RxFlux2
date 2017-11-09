@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestListener;
  */
 public class ImageLoader<ResourceType> {
     private float rotate;//旋转角度
-	
+
     private ResourceType resource;
 
     private ImageView imgView;

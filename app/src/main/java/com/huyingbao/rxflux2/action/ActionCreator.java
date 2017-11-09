@@ -1,7 +1,5 @@
 package com.huyingbao.rxflux2.action;
 
-import android.support.annotation.NonNull;
-
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;

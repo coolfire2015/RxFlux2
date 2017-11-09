@@ -1,7 +1,5 @@
 package com.huyingbao.rxflux2.constant;
 
-import android.support.annotation.NonNull;
-
 import com.huyingbao.rxflux2.action.RxAction;
 
 /**
@@ -28,8 +26,6 @@ public interface Actions {
 
     //region 网络
     boolean retry(RxAction action);
-
-    void postBaseAction(@NonNull String actionId, @NonNull Object... data);
 
     void getPublicRepositories();
 

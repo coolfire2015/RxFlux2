@@ -92,7 +92,7 @@
         default="true"
         visibility="generateFragment"
         help="If true, fragment extends RxFluxFragment" />
-	
+
 	<parameter
         id="generateLayout"
         name="Generate Fragment Layout File"
