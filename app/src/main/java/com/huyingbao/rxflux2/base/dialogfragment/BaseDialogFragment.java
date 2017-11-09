@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.huyingbao.rxflux2.action.ActionCreator;
-import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxActivity;
 import com.huyingbao.rxflux2.inject.component.FragmentComponent;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
@@ -31,21 +30,14 @@ public abstract class BaseDialogFragment extends RxAppCompatDialogFragment {
     @Inject
     @ContextLife("Activity")
     public Context mContext;
-
     @Inject
     protected ActionCreator mActionCreator;
-
     @Inject
     protected LocalStorageUtils mLocalStorageUtils;
-
-    @Inject
-    protected HttpApi mHttpApi;
-
     @Inject
     protected AppStore mAppStore;
 
     protected FragmentComponent mFragmentComponent;
-
     private Unbinder mUnbinder;
 
     @Override

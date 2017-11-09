@@ -1,7 +1,7 @@
 package com.huyingbao.rxflux2.api;
 
-import com.huyingbao.simple.ui.main.model.GitHubRepo;
-import com.huyingbao.simple.ui.main.model.GitUser;
+import com.huyingbao.simple.main.model.GitRepo;
+import com.huyingbao.simple.main.model.GitUser;
 
 import java.util.ArrayList;
 
@@ -22,8 +22,8 @@ import retrofit2.http.Path;
  */
 public interface HttpApi {
     @GET("/repositories")
-    Observable<ArrayList<GitHubRepo>> getRepositories();
+    Observable<ArrayList<GitRepo>> getRepositories();
 
     @GET("/users/{id}")
-    Observable<GitUser> getUser(@Path("id") String userId);
+    Observable<GitUser> getUser(@Path("id") int userId);
 }

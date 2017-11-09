@@ -6,4 +6,9 @@
     android:orientation="vertical"
     tools:context="com.huyingbao.simple.main.MainFragment">
 
+    <Button
+        android:id="@+id/btn_main_to_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取列表数据" />
 </LinearLayout>

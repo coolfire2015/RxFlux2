@@ -45,16 +45,11 @@
     <!-- TODO Dangerous Permission 用于显示悬浮窗 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
-    <!-- 进行网络定位 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 访问GPS定位 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- endregion -->
-
 
     <!-- region 百度推送 -->
     <!-- 百度推送适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
@@ -65,7 +60,6 @@
         android:protectionLevel="normal" />
     <!-- endregion -->
 
-    <!-- endregion -->
     <application
         android:name="com.huyingbao.rxflux2.base.application.BaseApplication"
         android:allowBackup="true"
@@ -76,10 +70,6 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <!-- region meta-data -->
-        <!-- 友盟渠道统计,暂未用 -->
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="${UMENG_CHANNEL_VALUE}" />
         <!-- 蒲公英 -->
         <meta-data
             android:name="PGYER_APPID"
@@ -103,7 +93,6 @@
             android:name="com.taobao.android.hotfix.RSASECRET"
             android:value="MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCL+o2+Bsd0duIJMWD/+UhQx5QINflyi+G4LZ20IjUZD0soA/uLNSlwd09/VK8+uEBS0upLh6zreD2wlrB4fTNXta13HUNX+qZARDd2vfX8Tp+ZS2p5xginEadc2BONSOz3HYAbsWVxlWHzpm3rCDRzFgjEUYVArBGGlwK7UxIZfMgCBgAUeZh+dh5l3UDoXlNdLZPUb9TPeeHMibscxhCzVKVT2CNMlL7S56+xlLGnLjMq/6BRsOyNOXtYUBp5OaApuDt9qILLqTVtEx1jZr8rCc0UfGQW3klt5NtnDE6ifkciWvV7YRHy++wMci106XYvDiFgYVzy6EPm3tE+WI1NAgMBAAECggEAYY5WuQhqe+3a7QNAEkY/MyVVMz/CwSViRAVusrtgfD2faJ0V89gyMFLG0fxIQpMRKWgbqFY/msBrZiYviVngrZFN+wUnCSsEMSgZ66TKynRVYPYhmAr/vshb9yYUwlP/6t3hiethwv6UjMYCN1q5izfhFkmmcAM8F6wpWDq2E5JDzN3KRHXs7p2fYJQpXYxDVg8uMcjwYW5fh1jvKYhwIpNlimq/H6xYVAj7SaARff7qsV84K8Zk6HvjFojZkHJixJuFCoboP2KW0ApcKZFpnpBEW2jA13k/8Nn8xylNlg7prNN6sgVLs+wIP5zQM14IlhAWJ+DiSU/LbGgNmeyXdQKBgQD8YKGsN03jrrw//J9Mq7iCVYeWE1tdV4S0CdxWliW8+yoIspPYgDHFSVMmB9swSgzwy+cGf8AUN4TOOlnCKwM3qFqa5wDB8Ido6uof0+5TwvQrcqTwXlhdSO4gJyRb4uEpwiVbmBrI8iRxs7PjPahD4yTVNSUxa2gZBIhELXQSowKBgQCN/OjemqsinMOSHgFqr2RAhOKYPW7qkSiKoNPFiAvp0Pna2Z2xC3Gb4mjDJ18VCJWmj8HyhZ3pkI63m11jkc0huk2u/hv54LRB2Ov1X0hVtHH1wEffPgjzE7T7wS+w+VRPRucbvMT+q8X2P6wxaGymn7uyDa49A+Yryn4WXgfPTwKBgQCxHngYTu/g/H6tQXPi8Rkaj0AKuScDySoe2FTEh7eQe4yycfGEneNQG/e41wajSzTtwYwvaXS6O4R+30CjHmCxrPt5fulvMok1vrf1Al1ed5G49EqBTxUg0tAbzJydyApRrildsNALerTM/1sd/eWbT0xIPXYOytxRwnaHsoallQKBgQCApXyMbFDQXH7p/dvEwMMxnfT8gPTk/L5h1FPr7lb0843eFzvENJ0r4xiOcTa6BPwqXKgaR6wK+hoFC3SzCWB1xaoq+jt4zHomCxfHSxxr4sE6K4wzHa7YJqvdSm0eiNk1twUgYYmPQS1s7sXiQj3nPmS+b5zF1amPVbmmJG4pCwKBgApRwM11r4/dzQPEmLL7JfQiKeR7IeHSMoCZmg52a3JQ7oTbgskT/+LCdvU4HhELSLaWqsVuM4elA8r95qYfbxvN5GvEYjAuvn01DrMbCIhPyf8yzFGJfaKEiEL7s9tNf8LqBZHdFRy4jftHqj/b/3a5qTerEVGAo2jpvM34D6gf" />
         <!-- endregion -->
-
 
         <!-- region 百度推送 -->
         <receiver android:name="com.huyingbao.rxflux2.util.push.BaiduPushReceiver">
@@ -164,7 +153,7 @@
         <!-- region 蒲公英 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.huyingbao.rxflux2.pugongying"
+            android:authorities="com.huyingbao.simple.pugongying"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -178,7 +167,7 @@
             android:name="com.huyingbao.rxflux2.receiver.AlarmReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.huyingbao.simple.receiver.AlarmReceiver" />
+                <action android:name="com.huyingbao.rxflux2.receiver.AlarmReceiver" />
             </intent-filter>
         </receiver>
         <receiver
@@ -192,28 +181,25 @@
 
         <!-- region Activity -->
         <activity
-            android:name=".react.ReactMainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name="com.facebook.react.devsupport.DevSettingsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
             android:name=".main.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_main"
-            android:screenOrientation="portrait">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar.Loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".react.ReactMainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
         <!-- endregion -->
     </application>
+
 </manifest>

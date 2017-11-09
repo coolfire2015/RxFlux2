@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.huyingbao.simple.R;
-import com.huyingbao.simple.main.store.MainStore;
+import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
+import com.huyingbao.rxflux2.constant.Actions;
+import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
+import com.huyingbao.simple.R;
+import com.huyingbao.simple.main.store.MainStore;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,14 +36,21 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        getFragmentTransaction(R.id.fl_content)
-                .add(R.id.fl_content, MainFragment.newInstance())
-                .commit();
+        toMain();
     }
+
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange rxStoreChange) {
-
+        RxAction rxAction = rxStoreChange.getRxAction();
+        switch (rxAction.getType()) {
+            case Actions.TO_GIT_REPO_LIST:
+                toGitRepoList();
+                break;
+            case Actions.TO_GIT_USER:
+                toGitUser(rxAction.get(ActionsKeys.USER_ID));
+                break;
+        }
     }
 
     @Nullable
@@ -53,5 +63,23 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {
         return Collections.singletonList(mStore);
+    }
+
+    private void toMain() {
+        getFragmentTransaction(R.id.fl_content)
+                .add(R.id.fl_content, MainFragment.newInstance())
+                .commit();
+    }
+
+    private void toGitRepoList() {
+        getFragmentTransaction(R.id.fl_content)
+                .add(R.id.fl_content, GitRepoListFragment.newInstance())
+                .commit();
+    }
+
+    private void toGitUser(int userId) {
+        getFragmentTransaction(R.id.fl_content)
+                .add(R.id.fl_content, GitUserFragment.newInstance(userId))
+                .commit();
     }
 }

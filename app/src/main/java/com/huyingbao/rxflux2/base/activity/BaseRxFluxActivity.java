@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.huyingbao.rxflux2.action.ActionCreator;
 import com.huyingbao.rxflux2.action.RxError;
-import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.huyingbao.rxflux2.inject.component.ActivityComponent;
 import com.huyingbao.rxflux2.inject.component.DaggerActivityComponent;
@@ -47,8 +46,6 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     protected ActionCreator mActionCreator;
     @Inject
     protected LocalStorageUtils mLocalStorageUtils;
-    @Inject
-    protected HttpApi mHttpApi;
     @Inject
     protected AppStore mAppStore;
 

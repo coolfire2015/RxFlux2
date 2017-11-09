@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.huyingbao.rxflux2.action.ActionCreator;
-import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxActivity;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
 import com.huyingbao.rxflux2.inject.component.FragmentComponent;
@@ -31,21 +30,18 @@ public abstract class BaseFragment extends RxFragment {
     @Inject
     @ContextLife("Activity")
     protected Context mContext;
-
     @Inject
     protected ActionCreator mActionCreator;
     @Inject
     protected LocalStorageUtils mLocalStorageUtils;
     @Inject
-    protected HttpApi mHttpApi;
-    @Inject
     protected AppStore mAppStore;
 
     protected FragmentComponent mFragmentComponent;
-
-    private String mTitle;
     private Unbinder mUnbinder;
+
     private boolean isVisibleToUser;
+    private String mTitle;
 
     @Override
     public void onAttach(Context context) {

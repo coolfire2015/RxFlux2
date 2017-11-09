@@ -28,14 +28,12 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
     @BindView(R.id.srl_content)
     protected SwipeRefreshLayout mSrlContent;
 
-    protected BaseQuickAdapter mAdapter;
     protected List<T> mDataList = new ArrayList();
-
     protected LinearLayoutManager mLinearLayoutManager;
+    protected BaseQuickAdapter mAdapter;
 
     protected int mFirstIndex = 0;//初始索引,用于第一次获取数据和刷新获取数据
     protected int mNextIndex;//加载更多数据索引
-
 
     protected int mLimit = 20;//每页数据个数
     protected int mLastVisiblePosition = -1;
@@ -43,7 +41,6 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
     protected boolean isRefresh;
     protected boolean isLoadingMore = false;//是否需要加载更多,true:需要加载更多,false:加载完成
     protected boolean scrollState;//true上拉,false下拉
-
 
     @Override
     public int getLayoutId() {

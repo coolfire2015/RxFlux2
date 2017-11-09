@@ -19,13 +19,10 @@ import butterknife.BindView;
  * Created by liujunfeng on 2017/1/1.
  */
 public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
-
     @BindView(R.id.tv_top_title)
     protected TextView mTvTopTitle;
-
     @BindView(R.id.tlb_top)
     protected Toolbar mToolbarTop;
-
     @BindView(R.id.abl_top)
     protected AppBarLayout mAppBarLayoutTop;
 

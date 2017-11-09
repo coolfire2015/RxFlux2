@@ -28,13 +28,14 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
 
 
     @Override
-    public void getPublicRepositories() {
-        RxAction action = newRxAction(GET_PUBLIC_REPOS);
+    public void getGitRepoList() {
+        RxAction action = newRxAction(GET_GIT_REPO_LIST);
         postHttpAction(action, mHttpApi.getRepositories());
     }
 
     @Override
-    public void getUserDetails(String userId) {
-
+    public void getGitUser(int userId) {
+        RxAction action = newRxAction(GET_GIT_USER);
+        postHttpAction(action, mHttpApi.getUser(userId));
     }
 }

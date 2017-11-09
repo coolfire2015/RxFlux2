@@ -5,7 +5,10 @@ package com.huyingbao.rxflux2.constant;
  * Created by liujunfeng on 2017/1/1.
  */
 public interface ActionsKeys {
-    String CHANNEL_ID = "channel_id";
     String RESPONSE = "response";
+
     String IS_LOGIN = "is_login";//是否已经登录
+
+    String CHANNEL_ID = "channel_id";
+    String USER_ID = "userId";
 }

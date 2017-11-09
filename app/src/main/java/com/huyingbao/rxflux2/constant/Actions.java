@@ -14,21 +14,24 @@ import com.huyingbao.rxflux2.action.RxAction;
  * Created by liujunfeng on 2017/1/1.
  */
 public interface Actions {
-    //region 本地
+    //region 本地-action
     String NET_DISCONNECTED = "net_disconnected";
     String NET_CONNECTED = "net_connected";
+
+    String TO_GIT_REPO_LIST = "to_git_repo_list";
+    String TO_GIT_USER = "to_git_user";
     //endregion
 
-    //region 网络
-    String GET_PUBLIC_REPOS = "get_public_repos";
-    String GET_USER = "get_user";
+    //region 网络-action
+    String GET_GIT_REPO_LIST = "get_git_repo_list";
+    String GET_GIT_USER = "get_git_user";
     //endregion
 
     //region 网络
     boolean retry(RxAction action);
 
-    void getPublicRepositories();
+    void getGitRepoList();
 
-    void getUserDetails(String userId);
+    void getGitUser(int userId);
     //endregion
 }
