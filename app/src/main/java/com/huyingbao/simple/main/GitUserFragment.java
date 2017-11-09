@@ -53,7 +53,7 @@ public class GitUserFragment extends BaseRxFluxFragment {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
         initActionBar("用户信息");
-        mActionCreator.getGitUser(getArguments().getInt(ActionsKeys.USER_ID));
+        mActionCreator.getGitUser(mContext, getArguments().getInt(ActionsKeys.USER_ID));
     }
 
     @Override

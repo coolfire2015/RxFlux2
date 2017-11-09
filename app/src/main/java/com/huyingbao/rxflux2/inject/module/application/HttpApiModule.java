@@ -57,7 +57,9 @@ public class HttpApiModule {
     @Singleton // 添加@Singleton标明该方法产生只产生一个实例
     public OkHttpClient provideClient(CookieJar cookieJar, HttpInterceptor interceptor) {
         return new OkHttpClient.Builder()
-                .connectTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(1, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
                 .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(interceptor)
                 .cookieJar(cookieJar)

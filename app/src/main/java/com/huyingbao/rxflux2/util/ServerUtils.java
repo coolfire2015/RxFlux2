@@ -12,7 +12,7 @@ public class ServerUtils {
     private static String BASE_URL = "https://api.github.com/";
 
     public static String getBaseUrl() {
-        return BuildConfig.DEBUG ? BASE_URL : BASE_URL;
+        return BuildConfig.DEBUG ? DEBUG_BASE_URL : BASE_URL;
     }
 
     public static void setBaseUrl(boolean serverState) {

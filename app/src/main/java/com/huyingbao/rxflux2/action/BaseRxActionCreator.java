@@ -145,12 +145,13 @@ class BaseRxActionCreator extends RxActionCreator {
                 .observeOn(AndroidSchedulers.mainThread())// 2:指定主线程
                 .subscribe(// 2:指定主线程
                         richHttpResponse -> {
-                            dismissLoading();
                             rxAction.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
                             postRxAction(rxAction);
                         },
                         throwable -> {
-                            Logger.e(rxAction.getType() + "\n" + throwable.getMessage());
+                            Logger.e("Action Type = " + rxAction.getType()
+                                    + "\nError Class = " + throwable.getClass().getSimpleName()
+                                    + "\nError Message = " + throwable.getMessage());
                             postError(rxAction, throwable);
                         }
                 );
@@ -178,7 +179,9 @@ class BaseRxActionCreator extends RxActionCreator {
                             postRxAction(rxAction);
                         },
                         throwable -> {
-                            Logger.e(rxAction.getType() + "\n" + throwable.getMessage());
+                            Logger.e("Action Type = " + rxAction.getType()
+                                    + "\nError Class = " + throwable.getClass().getSimpleName()
+                                    + "\nError Message = " + throwable.getMessage());
                             dismissLoading();
                             postError(rxAction, throwable);
                         }
@@ -211,7 +214,8 @@ class BaseRxActionCreator extends RxActionCreator {
     @NonNull
     private Function<Observable<? extends Throwable>, Observable<?>> retryLogin() {
         return observable -> observable
-//                .flatMap(throwable -> {
+                .flatMap(throwable -> {
+                    return Observable.error(throwable);
 //                    //不是自定义异常,直接返回异常信息,UI会展示
 //                    if (!(throwable instanceof RxHttpException))
 //                        return Observable.error(throwable);
@@ -231,7 +235,7 @@ class BaseRxActionCreator extends RxActionCreator {
 //                            ActionsKeys.CHANNEL_TYPE, 3,
 //                            ActionsKeys.CHANNEL_ID, mLocalStorageUtils.getString(ActionsKeys.CHANNEL_ID, ""));
 //                    return mHttpApi.login(rxAction.getData());
-//                })
+                })
                 .zipWith(Observable.range(1, 3), (throwable, i) -> i)
                 .flatMap(retryCount -> Observable.timer((long) Math.pow(1, retryCount), TimeUnit.SECONDS));
     }

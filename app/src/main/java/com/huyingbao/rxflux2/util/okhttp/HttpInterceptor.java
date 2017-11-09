@@ -50,6 +50,19 @@ public class HttpInterceptor implements Interceptor {
         }
         //创建Request
         Request request = builder.build();
+
+//        //发起请求时间Logger.e(String.format("发送请求 %s", response.request().url()));
+//        long t1 = System.nanoTime();
+//        //调用接口,返回数据
+//        Response response = chain.proceed(request);
+//        // 不打印日志并且数据正常直接返回
+//        if (!BuildConfig.DEBUG) return response;
+//        String content = response.body().string();
+//        long t2 = System.nanoTime();
+//        Logger.e(String.format("接收 for %s in %.1fms", response.request().url(), (t2 - t1) / 1e6d));
+//        Logger.json(content);
+//        return response.newBuilder().body(ResponseBody.create(response.body().contentType(), content)).build();
+
         //创建打点数据
         MANNetworkPerformanceHitBuilder networkPerformanceHitBuilder = new MANNetworkPerformanceHitBuilder(request.url().host(), request.method());
         try {

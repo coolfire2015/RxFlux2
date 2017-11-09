@@ -21,9 +21,9 @@ import retrofit2.http.Path;
  * Created by liujunfeng on 2017/1/1.
  */
 public interface HttpApi {
-    @GET("/repositories")
+    @GET("repositories")
     Observable<ArrayList<GitRepo>> getRepositories();
 
-    @GET("/users/{id}")
+    @GET("users/{id}")
     Observable<GitUser> getUser(@Path("id") int userId);
 }

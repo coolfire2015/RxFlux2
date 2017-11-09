@@ -1,5 +1,7 @@
 package com.huyingbao.rxflux2.constant;
 
+import android.content.Context;
+
 import com.huyingbao.rxflux2.action.RxAction;
 
 /**
@@ -32,6 +34,6 @@ public interface Actions {
 
     void getGitRepoList();
 
-    void getGitUser(int userId);
+    void getGitUser(Context context, int userId);
     //endregion
 }

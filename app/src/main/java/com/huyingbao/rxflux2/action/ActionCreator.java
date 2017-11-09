@@ -1,5 +1,7 @@
 package com.huyingbao.rxflux2.action;
 
+import android.content.Context;
+
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
@@ -34,8 +36,8 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
     }
 
     @Override
-    public void getGitUser(int userId) {
+    public void getGitUser(Context context, int userId) {
         RxAction action = newRxAction(GET_GIT_USER);
-        postHttpAction(action, mHttpApi.getUser(userId));
+        postLoadingHttpAction(context,action, mHttpApi.getUser(userId));
     }
 }
