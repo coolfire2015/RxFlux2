@@ -1,16 +1,14 @@
-package ${packageName};
+package com.huyingbao.simple.main;
 
 import android.os.Bundle;
 
-<#if applicationPackage??>
-import ${applicationPackage}.R;
-</#if>
+import com.huyingbao.simple.R;
 import com.huyingbao.rxflux2.base.fragment.BaseFragment;
 
-public class ${fragmentClass} extends BaseFragment {
+public class MainFragment extends BaseFragment {
 
-    public static ${fragmentClass} newInstance() {
-        ${fragmentClass} fragment = new ${fragmentClass}();
+    public static MainFragment newInstance() {
+        MainFragment fragment = new MainFragment();
         return fragment;
     }
 
@@ -21,7 +19,7 @@ public class ${fragmentClass} extends BaseFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.${layoutName};
+        return R.layout.fragment_main;
     }
 
     @Override

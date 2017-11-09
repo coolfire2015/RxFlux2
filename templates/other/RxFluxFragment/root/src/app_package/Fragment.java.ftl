@@ -5,7 +5,7 @@ import android.os.Bundle;
 <#if applicationPackage??>
 import ${applicationPackage}.R;
 </#if>
-import com.huyingbao.rxflux2.base.base.fragment.BaseFragment;
+import com.huyingbao.rxflux2.base.fragment.BaseFragment;
 
 public class ${fragmentClass} extends BaseFragment {
 

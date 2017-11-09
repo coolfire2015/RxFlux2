@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RxFluxDemo</string>
+    <string name="title_activity_main">主页面</string>
 </resources>
