@@ -8,5 +8,4 @@ public interface ActionsKeys {
     String CHANNEL_ID = "channel_id";
     String RESPONSE = "response";
     String IS_LOGIN = "is_login";//是否已经登录
-    String SERVER_STATE = "server_state";
 }

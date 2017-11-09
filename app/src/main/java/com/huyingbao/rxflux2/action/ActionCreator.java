@@ -28,10 +28,6 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
         return false;
     }
 
-    @Override
-    public void postBaseAction(@NonNull String actionId, @NonNull Object... data) {
-        postRxAction(newRxAction(actionId, data));
-    }
 
     @Override
     public void getPublicRepositories() {

@@ -11,6 +11,8 @@ import com.huyingbao.simple.ui.main.store.MainStore;
 import com.huyingbao.simple.ui.templete.store.RxFluxStore;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.lang.ref.WeakReference;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -37,13 +39,15 @@ public class ActivityModule {
     @PerActivity
     @ContextLife("Activity")
     public Context provideContext() {
-        return mActivity;
+        //使用弱引用,消除内存泄漏
+        return new WeakReference<>(mActivity).get();
     }
 
     @Provides
     @PerActivity
     public Activity provideActivity() {
-        return mActivity;
+        //使用弱引用,消除内存泄漏
+        return new WeakReference<>(mActivity).get();
     }
 
     @Provides

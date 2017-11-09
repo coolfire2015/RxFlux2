@@ -34,7 +34,6 @@ public class NotificationUtils {
 
         // 构建一个Intent
         Intent resultIntent = new Intent(context, clazz);
-//        resultIntent.putExtra(ActionsKeys.NOTICE, notice);
         // 封装一个Intent
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         // 设置通知主题的意图

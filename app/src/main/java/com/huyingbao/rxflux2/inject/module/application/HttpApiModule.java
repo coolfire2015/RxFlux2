@@ -4,7 +4,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.GsonBuilder;
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.util.ServerUtils;
-import com.huyingbao.rxflux2.util.okhttp.HostSelectionInterceptor;
+import com.huyingbao.rxflux2.util.okhttp.HttpInterceptor;
 import com.huyingbao.rxflux2.util.okhttp.PersistentCookieStore;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class HttpApiModule {
     @Singleton // 添加@Singleton标明该方法产生只产生一个实例
     public HttpApi provideClientApi(OkHttpClient client) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ServerUtils.getServerApi())
+                .baseUrl(ServerUtils.getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
@@ -55,7 +55,7 @@ public class HttpApiModule {
      */
     @Provides
     @Singleton // 添加@Singleton标明该方法产生只产生一个实例
-    public OkHttpClient provideClient(CookieJar cookieJar, HostSelectionInterceptor interceptor) {
+    public OkHttpClient provideClient(CookieJar cookieJar, HttpInterceptor interceptor) {
         return new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .addNetworkInterceptor(new StethoInterceptor())
@@ -66,8 +66,8 @@ public class HttpApiModule {
 
     @Provides
     @Singleton // 添加@Singleton标明该方法产生只产生一个实例
-    public HostSelectionInterceptor provideHostSelectionInterceptor() {
-        return new HostSelectionInterceptor();
+    public HttpInterceptor provideHttpInterceptor() {
+        return new HttpInterceptor();
     }
 
     /**

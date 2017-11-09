@@ -12,7 +12,10 @@ import com.bumptech.glide.request.RequestListener;
  * @param <ResourceType>
  */
 public class ImageLoader<ResourceType> {
+    private float rotate;//旋转角度
+	
     private ResourceType resource;
+
     private ImageView imgView;
 
     @DrawableRes
@@ -47,6 +50,7 @@ public class ImageLoader<ResourceType> {
         this.requestListener = builder.requestListener;
         this.width = builder.width;
         this.height = builder.height;
+        this.rotate = builder.rotate;
     }
 
     public ResourceType getResource() {
@@ -89,6 +93,10 @@ public class ImageLoader<ResourceType> {
         return isCircle;
     }
 
+    public float getRotate() {
+        return rotate;
+    }
+
     public RequestListener getRequestListener() {
         return requestListener;
     }
@@ -107,6 +115,7 @@ public class ImageLoader<ResourceType> {
         public RequestListener requestListener;
         public int width;
         public int height;
+        public float rotate;
 
         public Builder() {
             this.fitCenter = true;
@@ -116,6 +125,7 @@ public class ImageLoader<ResourceType> {
             this.placeHolder = 0;
             this.width = 0;
             this.height = 0;
+            this.rotate = 0f;
         }
 
         public ImageLoader build() {

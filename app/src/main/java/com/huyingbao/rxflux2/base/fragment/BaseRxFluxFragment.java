@@ -65,6 +65,12 @@ public abstract class BaseRxFluxFragment extends BaseFragment implements RxViewD
     public void onRxError(@NonNull RxError error) {
     }
 
+    /**
+     * 需要解除注册RxStore list 在fragment创建的时候调用该方法,
+     * 从 dispatcher 解除注册RxStore list
+     *
+     * @return
+     */
     @Nullable
     @Override
     public List<RxStore> getRxStoreListToUnRegister() {

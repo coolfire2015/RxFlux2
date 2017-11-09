@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
 import com.huyingbao.rxflux2.util.imageloader.GlideCircleTransform;
 import com.huyingbao.rxflux2.util.imageloader.ImageLoader;
+import com.huyingbao.rxflux2.util.imageloader.RotateTransformation;
 
 public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
     private Context mContext;
@@ -64,8 +65,12 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy {
             //直接修改version，相当于修改版本号了，版本号一改，那么glide就会去重新加载现在的图片！
             requestOptions.signature(new ObjectKey(System.currentTimeMillis() + ""));
         }
-        if (imageLoader.isCircle())
+        if (imageLoader.isCircle())//圆形
             requestOptions.transform(new GlideCircleTransform());
+
+        if (imageLoader.getRotate() != 0f)//旋转
+            requestOptions.transform(new RotateTransformation(mContext, imageLoader.getRotate()));
+
         requestBuilder.apply(requestOptions);
 
         if (imageLoader.getSizeMultiplier() != 0)

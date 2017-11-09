@@ -13,7 +13,7 @@ import com.huyingbao.rxflux2.receiver.AlarmReceiver;
 import java.util.ArrayList;
 
 /**
- * Created by liujunfeng on 2017/11/21.
+ * Created by liujunfeng on 2017/1/1.
  */
 
 public class ServiceUtils {

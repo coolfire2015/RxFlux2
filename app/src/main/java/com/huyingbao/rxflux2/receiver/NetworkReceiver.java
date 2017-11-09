@@ -73,11 +73,11 @@ public class NetworkReceiver extends BroadcastReceiver {
             if (NetworkInfo.State.CONNECTED == info.getState() && info.isAvailable()) {
                 if (info.getType() == ConnectivityManager.TYPE_WIFI || info.getType() == ConnectivityManager.TYPE_MOBILE) {
                     Logger.v(getConnectionType(info.getType()) + "连上");
-                    AppUtils.getApplicationComponent().getActionCreator().postBaseAction(Actions.NET_CONNECTED);
+                    AppUtils.getApplicationComponent().getActionCreator().postLocalAction(Actions.NET_CONNECTED);
                 }
             } else {
                 Logger.v(getConnectionType(info.getType()) + "断开");
-                AppUtils.getApplicationComponent().getActionCreator().postBaseAction(Actions.NET_DISCONNECTED);
+                AppUtils.getApplicationComponent().getActionCreator().postLocalAction(Actions.NET_DISCONNECTED);
             }
         }
     }

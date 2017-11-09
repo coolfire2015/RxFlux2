@@ -40,8 +40,9 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
     protected int mNextIndex;//加载更多数据索引
 
 
-    protected int lastVisiablePosition = -1;
-    protected int firstVisiablePosition = -1;
+    protected int mLimit = 20;//每页数据个数
+    protected int mLastVisiblePosition = -1;
+    protected int mFirstVisiblePosition = -1;
     protected boolean isRefresh;
     protected boolean isLoadingMore = false;//是否需要加载更多,true:需要加载更多,false:加载完成
     protected boolean scrollState;//true上拉,false下拉
@@ -81,9 +82,9 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
                 super.onScrolled(recyclerView, dx, dy);
                 scrollState = dy > 0;
                 if (scrollState) {//上拉
-                    lastVisiablePosition = mLinearLayoutManager.findLastVisibleItemPosition();
+                    mLastVisiblePosition = mLinearLayoutManager.findLastVisibleItemPosition();
                 } else {//下拉
-                    firstVisiablePosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
+                    mFirstVisiblePosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
                 }
             }
 
@@ -93,13 +94,13 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
                 //滑动未停止
                 if (newState != RecyclerView.SCROLL_STATE_IDLE) return;
                 if (scrollState) {//上拉
-                    if (lastVisiablePosition + 1 == mAdapter.getItemCount() && isLoadingMore) { //当前显示的数据是最后一条且页面有数据需要加载
+                    if (mLastVisiblePosition + 1 == mAdapter.getItemCount() && isLoadingMore) { //当前显示的数据是最后一条且页面有数据需要加载
                         if (mSrlContent != null) mSrlContent.setRefreshing(true);
                         isLoadingMore = false;
                         getDataList(mNextIndex);
                     }
                 } else {//下拉
-                    if (firstVisiablePosition == 0)
+                    if (mFirstVisiblePosition == 0)
                         refresh();//第一条数据,刷新
                 }
             }
@@ -166,6 +167,7 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
      * 更新加载索引
      */
     protected void updateLoadingIndex() {
+		//mNextIndex = mNextIndex + mLimit;
         mNextIndex = mNextIndex + 1;
     }
 

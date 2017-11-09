@@ -76,31 +76,30 @@ public class BaseApplication extends Application implements ReactApplication {
         MultiDex.install(this);// multidex分包
     }
 
-
     @Override
     public void onCreate() {
         super.onCreate();
-        //初始化hotfix
+        // 初始化hotfix
         initHotfix();
-        //初始化analytics
+        // 初始化analytics
         initAnalytics();
         // 保存application实例对象
         AppUtils.setApplication(this);
-        //初始化蒲公英异常捕获
+        // 初始化蒲公英异常捕获
         PgyCrashManager.register(this);
         //初始化debug
         initDebug();
-        //初始化dagger
+        // 初始化dagger
         initDagger();
         // 依赖注入
         AppUtils.getApplicationComponent().inject(this);
         // 注册全局store
         mAppStore.register();
-        //stetho调试
+        // Stetho调试
         Stetho.initializeWithDefaults(this);
-        //初始化数据库
+        // 初始化数据库
         FlowManager.init(this);
-        //初始化flowup
+        // 初始化flowup
         initFlowUp();
     }
 
@@ -113,7 +112,7 @@ public class BaseApplication extends Application implements ReactApplication {
                 .setAesKey(null)
                 .setEnableDebug(BuildConfig.LOG_DEBUG)
                 .setPatchLoadStatusStub((mode, code, info, handlePatchVersion) -> {
-                    //补丁加载回调通知
+                    // 补丁加载回调通知
                     switch (code) {
                         case PatchStatus.CODE_LOAD_SUCCESS://表明补丁加载成功
                             Logger.d("表明补丁加载成功");
@@ -171,7 +170,7 @@ public class BaseApplication extends Application implements ReactApplication {
     }
 
     /**
-     * 重置依赖注入.
+     * 初始化dagger
      */
     private void initDagger() {
         // Module实例的创建

@@ -25,11 +25,11 @@ import okhttp3.ResponseBody;
 /**
  * Created by liujunfeng on 2017/8/9.
  */
-public class HostSelectionInterceptor implements Interceptor {
-    private volatile String mHostUrl;
+public class HttpInterceptor implements Interceptor {
+    private volatile String mBaseUrl;
 
-    public void setHostUrl(String hostUrl) {
-        mHostUrl = hostUrl;
+    public void setBaseUrl(String baseUrl) {
+        mBaseUrl = baseUrl;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class HostSelectionInterceptor implements Interceptor {
                 .addHeader("Accept", "application/json;charset=UTF-8")
                 .addHeader("X-Requested-With", "XMLHttpRequest");
         //设置hostUrl地址
-        if (!TextUtils.isEmpty(mHostUrl)) {
-            HttpUrl newHttpUrl = HttpUrl.parse("http://" + mHostUrl + ":10000");
+        if (!TextUtils.isEmpty(mBaseUrl)) {
+            HttpUrl newHttpUrl = HttpUrl.parse(mBaseUrl);
             builder.url(oldRequest.url().newBuilder()
                     .scheme(newHttpUrl.scheme())
                     .host(newHttpUrl.host())

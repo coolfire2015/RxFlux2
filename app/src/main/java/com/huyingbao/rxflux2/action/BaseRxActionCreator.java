@@ -21,7 +21,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * action创建发送管理类
+ * rxAction创建发送管理类
  * Created by liujunfeng on 2017/1/1.
  */
 class BaseRxActionCreator extends RxActionCreator {
@@ -75,47 +75,57 @@ class BaseRxActionCreator extends RxActionCreator {
     // region 发送action
 
     /**
+     * 发送LocalAction
+     *
+     * @param actionId
+     * @param data
+     */
+    public void postLocalAction(@NonNull String actionId, @NonNull Object... data) {
+        postRxAction(newRxAction(actionId, data));
+    }
+
+    /**
      * 发送网络action 不显示进度框,验证返回数据session是否过期(大部分接口调用)
      *
-     * @param action
+     * @param rxAction
      * @param httpObservable
      */
-    protected <T> void postHttpAction(RxAction action, Observable<T> httpObservable) {
-        this.postHttpActionNoCheck(action, httpObservable.flatMap(verifyResponse()).retryWhen(retryLogin()));
+    protected <T> void postHttpAction(RxAction rxAction, Observable<T> httpObservable) {
+        this.postHttpActionNoCheck(rxAction, httpObservable.flatMap(verifyResponse()).retryWhen(retryLogin()));
     }
 
     /**
      * 发送网络action 不显示进度框,不验证返回数据session是否过期
      *
-     * @param action
+     * @param rxAction
      * @param httpObservable
      */
-    protected <T> void postHttpActionNoCheck(RxAction action, Observable<T> httpObservable) {
-        if (hasRxAction(action)) return;
-        addRxAction(action, getDisposable(action, httpObservable));
+    protected <T> void postHttpActionNoCheck(RxAction rxAction, Observable<T> httpObservable) {
+        if (hasRxAction(rxAction)) return;
+        addRxAction(rxAction, getDisposable(rxAction, httpObservable));
     }
 
     /**
      * 发送action 显示进度框,验证返回数据是否正确
      *
      * @param context
-     * @param action
+     * @param rxAction
      * @param httpObservable
      */
-    protected <T> void postLoadingHttpAction(Context context, RxAction action, Observable<T> httpObservable) {
-        this.postLoadingHttpActionNoCheck(context, action, httpObservable.flatMap(verifyResponse()).retryWhen(retryLogin()));
+    protected <T> void postLoadingHttpAction(Context context, RxAction rxAction, Observable<T> httpObservable) {
+        this.postLoadingHttpActionNoCheck(context, rxAction, httpObservable.flatMap(verifyResponse()).retryWhen(retryLogin()));
     }
 
     /**
      * 发送action 显示进度框,不验证返回数据是否正确
      *
      * @param context
-     * @param action
+     * @param rxAction
      * @param httpObservable
      */
-    protected <T> void postLoadingHttpActionNoCheck(Context context, RxAction action, Observable<T> httpObservable) {
-        if (hasRxAction(action)) return;
-        addRxAction(action, getLoadingDisposable(context, false, action, httpObservable));
+    protected <T> void postLoadingHttpActionNoCheck(Context context, RxAction rxAction, Observable<T> httpObservable) {
+        if (hasRxAction(rxAction)) return;
+        addRxAction(rxAction, getLoadingDisposable(context, false, rxAction, httpObservable));
     }
     // endregion
 
@@ -124,21 +134,24 @@ class BaseRxActionCreator extends RxActionCreator {
     /**
      * 调用网络接口,传入接口自己的回调(非RxFlux模式接口,无法发送接口数据,eg:新闻模块获取新闻列表接口)调用接口,发送接口返回数据
      *
-     * @param action
+     * @param rxAction
      * @param httpObservable
      * @return
      */
-    private <T> Disposable getDisposable(RxAction action, Observable<T> httpObservable) {
+    private <T> Disposable getDisposable(RxAction rxAction, Observable<T> httpObservable) {
         return httpObservable// 1:指定IO线程
                 .subscribeOn(Schedulers.io())// 1:指定IO线程
                 .observeOn(AndroidSchedulers.mainThread())// 2:指定主线程
                 .subscribe(// 2:指定主线程
                         richHttpResponse -> {
                             dismissLoading();
-                            action.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
-                            postRxAction(action);
+                            rxAction.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
+                            postRxAction(rxAction);
                         },
-                        throwable -> postError(action, throwable)
+                        throwable -> {
+                            Logger.e(rxAction.getType() + "\n" + throwable.getMessage());
+                            postError(rxAction, throwable);
+                        }
                 );
     }
 
@@ -147,11 +160,11 @@ class BaseRxActionCreator extends RxActionCreator {
      *
      * @param context
      * @param cancelAble
-     * @param action
+     * @param rxAction
      * @param httpObservable 被观察者,一般是获取网络数据
      * @return
      */
-    private <T> Disposable getLoadingDisposable(Context context, boolean cancelAble, RxAction action, Observable<T> httpObservable) {
+    private <T> Disposable getLoadingDisposable(Context context, boolean cancelAble, RxAction rxAction, Observable<T> httpObservable) {
         return httpObservable// 1:指定IO线程
                 .subscribeOn(Schedulers.io())// 1:指定IO线程
                 .doOnSubscribe(subscription -> showLoading(context, cancelAble))// 2:指定主线程
@@ -160,12 +173,13 @@ class BaseRxActionCreator extends RxActionCreator {
                 .subscribe(// 3:指定主线程
                         richHttpResponse -> {
                             dismissLoading();
-                            action.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
-                            postRxAction(action);
+                            rxAction.getData().put(ActionsKeys.RESPONSE, richHttpResponse);
+                            postRxAction(rxAction);
                         },
                         throwable -> {
+                            Logger.e(rxAction.getType() + "\n" + throwable.getMessage());
                             dismissLoading();
-                            postError(action, throwable);
+                            postError(rxAction, throwable);
                         }
                 );
     }
@@ -196,34 +210,27 @@ class BaseRxActionCreator extends RxActionCreator {
     @NonNull
     private Function<Observable<? extends Throwable>, Observable<?>> retryLogin() {
         return observable -> observable
-//                .flatMap(throwable -> {
-//                    //网络连接失败，切换网络
-//                    if (throwable instanceof SocketException || throwable instanceof SocketTimeoutException) {
-//                        //切换另一个网络，并重试!
-//                        ServerUtils.setServerState(!ServerUtils.getServerState());
-//                        return mHttpApi.connectServer();
-//                    }
-//                    //不是自定义异常,直接返回异常信息,UI会展示
-//                    if (!(throwable instanceof RxHttpException))
-//                        return Observable.error(throwable);
-//                    //不是自定义异常中的session过期,直接返回异常信息,UI会展示
-//                    if (((RxHttpException) throwable).code() != Constants.ERROR_SESSION_TIMEOUT)
-//                        return Observable.error(throwable);
-//                    String name = mLocalStorageUtils.getString(ActionsKeys.NAME, null);
-//                    String pwd = mLocalStorageUtils.getString(ActionsKeys.PWD, null);
-//                    //没有登录账号或者密码无法重新登录,直接返回异常信息,UI会展示
-//                    if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd))
-//                        return Observable.error(throwable);
-//                    //重新登录
-//                    RxAction rxAction = newRxAction(Actions.LOGIN,
-//                            ActionsKeys.NAME, name,
-//                            ActionsKeys.PWD, pwd,
-//                            ActionsKeys.CHANNEL_ID, mLocalStorageUtils.getString(ActionsKeys.CHANNEL_ID, ""));
-//                    return mHttpApi.login(rxAction.getData()).flatMap(loginHttpResponse -> {
-//                        if (TextUtils.equals(loginHttpResponse.getReturnCode(), Constants.SUCCESS_CODE))
-//                            return Observable.just(loginHttpResponse);
-//                        return Observable.error(throwable);
-//                })
+                .flatMap(throwable -> {
+                    //不是自定义异常,直接返回异常信息,UI会展示
+                    if (!(throwable instanceof RxHttpException))
+                        return Observable.error(throwable);
+                    //不是自定义异常中的session过期,直接返回异常信息,UI会展示
+                    if (((RxHttpException) throwable).code() != Constants.ERROR_SESSION_TIMEOUT)
+                        return Observable.error(throwable);
+                    //Session失效，进行重新登录
+                    String phone = mLocalStorageUtils.getString(ActionsKeys.PHONE, null);
+                    String password = mLocalStorageUtils.getString(ActionsKeys.PASSWORD, null);
+                    //没有登录账号或者密码无法重新登录,直接返回异常信息,UI会展示
+                    if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(password))
+                        return Observable.error(throwable);
+                    //重新登录
+                    RxAction rxAction = newRxAction(Actions.LOGIN,
+                            ActionsKeys.PHONE, phone,
+                            ActionsKeys.PASSWORD, password,
+                            ActionsKeys.CHANNEL_TYPE, 3,
+                            ActionsKeys.CHANNEL_ID, mLocalStorageUtils.getString(ActionsKeys.CHANNEL_ID, ""));
+                    return mHttpApi.login(rxAction.getData());
+                })
                 .zipWith(Observable.range(1, 3), (throwable, i) -> i)
                 .flatMap(retryCount -> Observable.timer((long) Math.pow(1, retryCount), TimeUnit.SECONDS));
     }

@@ -9,7 +9,7 @@ import com.huyingbao.rxflux2.inject.component.ApplicationComponent;
 
 
 /**
- * Created by liujunfeng on 2017/6/27.
+ * Created by liujunfeng on 2017/1/1.
  */
 public class AppUtils {
     private static ApplicationComponent sApplicationComponent;
