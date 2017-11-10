@@ -8,6 +8,9 @@ import com.huyingbao.simple.R;
 
 import butterknife.OnClick;
 
+/**
+ * 主页面
+ */
 public class MainFragment extends BaseFragment {
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -29,6 +32,9 @@ public class MainFragment extends BaseFragment {
         initActionBar();
     }
 
+    /**
+     * 到用户信息页面
+     */
     @OnClick(R.id.btn_main_to_list)
     public void toGitRepoList() {
         mActionCreator.postLocalAction(Actions.TO_GIT_REPO_LIST);

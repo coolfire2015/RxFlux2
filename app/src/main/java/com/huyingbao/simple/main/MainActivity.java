@@ -39,7 +39,6 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
         toMain();
     }
 
-
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange rxStoreChange) {
         RxAction rxAction = rxStoreChange.getRxAction();
@@ -65,18 +64,29 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
         return Collections.singletonList(mStore);
     }
 
+    /**
+     * 到主页面
+     */
     private void toMain() {
         getFragmentTransaction(R.id.fl_content)
                 .add(R.id.fl_content, MainFragment.newInstance())
                 .commit();
     }
 
+    /**
+     * 到列表页面
+     */
     private void toGitRepoList() {
         getFragmentTransaction(R.id.fl_content)
                 .add(R.id.fl_content, GitRepoListFragment.newInstance())
                 .commit();
     }
 
+    /**
+     * 到用户信息页面
+     *
+     * @param userId
+     */
     private void toGitUser(int userId) {
         getFragmentTransaction(R.id.fl_content)
                 .add(R.id.fl_content, GitUserFragment.newInstance(userId))

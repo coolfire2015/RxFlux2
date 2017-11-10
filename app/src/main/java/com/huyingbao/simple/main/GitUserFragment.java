@@ -21,6 +21,10 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
+/**
+ * 用户信息
+ * Created by liujunfeng on 2017/11/9.
+ */
 public class GitUserFragment extends BaseRxFluxFragment {
     @Inject
     MainStore mStore;
@@ -71,6 +75,11 @@ public class GitUserFragment extends BaseRxFluxFragment {
         return Collections.singletonList(mStore);
     }
 
+    /**
+     * 显示用户信息
+     *
+     * @param gitUser
+     */
     private void showGitUserInfo(GitUser gitUser) {
         mTvGitUserLogin.setText(gitUser.getLogin());
         mTvGitUserName.setText(gitUser.getName());

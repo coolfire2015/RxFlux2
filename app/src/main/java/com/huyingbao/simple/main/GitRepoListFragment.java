@@ -22,6 +22,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
+ * 列表展示
  * Created by liujunfeng on 2017/11/9.
  */
 public class GitRepoListFragment extends BaseRxFluxListFragment<GitRepo> {
