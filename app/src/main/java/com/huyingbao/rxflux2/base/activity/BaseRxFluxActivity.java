@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.MalformedJsonException;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.gson.stream.MalformedJsonException;
 import com.huyingbao.rxflux2.action.ActionCreator;
 import com.huyingbao.rxflux2.action.RxError;
 import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;

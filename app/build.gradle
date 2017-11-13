@@ -220,7 +220,7 @@ android {
         jumboMode = true
         javaMaxHeapSize "4g"//增加java堆内存大小
     }
-    //RetroLambda表达式需要
+    //Lambda表达式需要
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
