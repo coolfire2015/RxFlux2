@@ -1,6 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-//apply plugin: 'me.tatarka.retrolambda'
 
 /**
  * release apk name
@@ -238,11 +236,27 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
+    //Junit
     testImplementation "junit:junit:${TEST_VERSION}"
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
+    //Mockito
+    testImplementation "org.mockito:mockito-core:${MOCKITO}"
+
+    //Robolectric
+    testImplementation "org.robolectric:robolectric:${ROBOLECTRIC}"
+    testImplementation "org.robolectric:shadows-multidex:${ROBOLECTRIC}"
+    testImplementation "org.robolectric:shadows-support-v4:${ROBOLECTRIC}"
+
+    //Test_Runner
+    androidTestImplementation("com.android.support.test:runner:${TEST_RUNNER}", {
         exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //Espresso core
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
+        exclude group: 'com.android.support', module: 'support-annotations';
         exclude group: 'com.google.code.findbugs'
     })
+    //Mockito-android
+    androidTestImplementation "org.mockito:mockito-android:${MOCKITO}"
 
     //Support Libs
     implementation "com.android.support:support-v4:${SUPPORT_VERSION}"

@@ -1,6 +1,9 @@
 package com.huyingbao.rxflux2;
 
 import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,6 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
+        Mockito.mock(List.class);
         assertEquals(4, 2 + 2);
     }
 }

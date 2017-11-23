@@ -8,9 +8,6 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:${BUILD_GRADLE}"
         classpath "com.github.dcendents:android-maven-gradle-plugin:${ANDROID_MAVEN_GRADLE_PLUGIN}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${KOTLIN_VERSION}"
-        //classpath "me.tatarka:gradle-retrolambda:${GRADLE_RETRO_LAMBDA}"
-        //classpath "net.orfjackal.retrolambda:retrolambda:${RETRO_LAMBDA}"
     }
 }
 
@@ -21,7 +18,6 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         maven { url "$rootDir/node_modules/react-native/android" }
-        //maven { url "https://raw.githubusercontent.com/Pgyer/mvn_repo_pgyer/master" }
     }
 }
 

@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.huyingbao.simple", appContext.getPackageName());
+        assertEquals("misa.android.htsc.com.htscmisa", appContext.getPackageName());
     }
 }
