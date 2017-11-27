@@ -2,7 +2,6 @@ package com.huyingbao.rxflux2.inject.component;
 
 import com.huyingbao.rxflux2.action.TestActionCreator;
 import com.huyingbao.rxflux2.inject.module.TestApplicationModule;
-import com.huyingbao.simple.login.TestLogin;
 
 import javax.inject.Singleton;
 
@@ -15,7 +14,5 @@ import dagger.Component;
 @Singleton
 @Component(modules = TestApplicationModule.class) // 指明Component从ApplicationModule中找依赖
 public interface TestApplicationComponent extends ApplicationComponent {
-    void inject(TestLogin loginActivityTest);
-
     void inject(TestActionCreator testActionCreator);
 }
