@@ -1,9 +1,8 @@
 package com.huyingbao.rxflux2.inject.component;
 
-import com.huyingbao.rxflux2.inject.component.ApplicationComponent;
-import com.huyingbao.rxflux2.test.action.TestActionCreatorImpl;
-import com.huyingbao.rxflux2.test.inject.module.TestApplicationModule;
-import com.huyingbao.rxflux2.test.login.TestLogin;
+import com.huyingbao.rxflux2.action.TestActionCreator;
+import com.huyingbao.rxflux2.inject.module.TestApplicationModule;
+import com.huyingbao.simple.login.TestLogin;
 
 import javax.inject.Singleton;
 
@@ -18,5 +17,5 @@ import dagger.Component;
 public interface TestApplicationComponent extends ApplicationComponent {
     void inject(TestLogin loginActivityTest);
 
-    void inject(TestActionCreatorImpl testActionCreator);
+    void inject(TestActionCreator testActionCreator);
 }

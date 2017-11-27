@@ -4,17 +4,13 @@ import android.app.Application;
 import android.content.Context;
 
 import com.huyingbao.rxflux2.RxFlux;
-import com.huyingbao.rxflux2.util.LogLevel;
-import com.huyingbao.rxflux2.BuildConfig;
-import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.action.ActionCreator;
-import com.huyingbao.rxflux2.net.HttpApi;
-import com.huyingbao.rxflux2.stores.BaseHttpStore;
-import com.huyingbao.rxflux2.stores.BaseStore;
-import com.huyingbao.rxflux2.test.action.TestActionCreatorImpl;
-import com.huyingbao.rxflux2.test.api.TestHttpApi;
-import com.huyingbao.rxflux2.utils.AppUtils;
-import com.huyingbao.rxflux2.utils.SharedPrefUtils;
+import com.huyingbao.rxflux2.action.TestActionCreator;
+import com.huyingbao.rxflux2.api.HttpApi;
+import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
+import com.huyingbao.rxflux2.store.AppStore;
+import com.huyingbao.rxflux2.util.AppUtils;
+import com.huyingbao.rxflux2.util.LocalStorageUtils;
 
 import org.mockito.Mockito;
 
@@ -49,20 +45,14 @@ public class TestApplicationModule {
 
     @Provides
     @Singleton
-    public SharedPrefUtils provideLocalStorageUtils() {
-        return SharedPrefUtils.getCommonSP();
+    public LocalStorageUtils provideLocalStorageUtils() {
+        return LocalStorageUtils.getInstance();
     }
 
     @Provides
     @Singleton
-    public BaseStore provideBaseStore(RxFlux rxFlux) {
-        return new BaseStore(rxFlux.getDispatcher());
-    }
-
-    @Provides
-    @Singleton
-    public BaseHttpStore provideBaseHttpStore(RxFlux rxFlux) {
-        return new BaseHttpStore(rxFlux.getDispatcher());
+    public AppStore provideAppStore(RxFlux rxFlux) {
+        return AppStore.getInstance(rxFlux.getDispatcher());
     }
 
     /**
@@ -73,13 +63,12 @@ public class TestApplicationModule {
     @Provides
     @Singleton // 添加@Singleton标明该方法产生只产生一个实例
     public HttpApi provideHttpApi() {
-        return Mockito.mock(TestHttpApi.class);
+        return Mockito.mock(HttpApi.class);
     }
 
     @Provides
     @Singleton
     public RxFlux provideRxFlux() {
-        RxFlux.LOG_LEVEL = BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE;
         return RxFlux.init(AppUtils.getApplication());
     }
 
@@ -89,6 +78,6 @@ public class TestApplicationModule {
     @Provides
     @Singleton
     public ActionCreator provideActionCreator() {
-        return Mockito.mock(TestActionCreatorImpl.class);
+        return Mockito.mock(TestActionCreator.class);
     }
 }

@@ -195,7 +195,7 @@ class BaseRxActionCreator extends RxActionCreator {
      * 验证接口返回数据是正常
      */
     @NonNull
-    private <T> Function<T, Observable<T>> verifyResponse() {
+    protected <T> Function<T, Observable<T>> verifyResponse() {
         return response -> {
             //没有数据,返回服务器异常
 //            if (response == null || !(response instanceof HttpResponse))

@@ -223,6 +223,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    //单元测试
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 //仓库
@@ -236,27 +243,15 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    //Junit
-    testImplementation "junit:junit:${TEST_VERSION}"
-    //Mockito
-    testImplementation "org.mockito:mockito-core:${MOCKITO}"
+    testImplementation "junit:junit:${TEST_JUNIT}"
+    testImplementation "org.mockito:mockito-core:${TEST_MOCKITO}"
+    testImplementation "org.robolectric:robolectric:${TEST_ROBOLECTRIC}"
+    testImplementation "org.robolectric:shadows-multidex:${TEST_ROBOLECTRIC}"
+    testImplementation "org.robolectric:shadows-supportv4:${TEST_ROBOLECTRIC}"
 
-    //Robolectric
-    testImplementation "org.robolectric:robolectric:${ROBOLECTRIC}"
-    testImplementation "org.robolectric:shadows-multidex:${ROBOLECTRIC}"
-    testImplementation "org.robolectric:shadows-support-v4:${ROBOLECTRIC}"
-
-    //Test_Runner
-    androidTestImplementation("com.android.support.test:runner:${TEST_RUNNER}", {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    //Espresso core
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:${ESPRESSO}", {
-        exclude group: 'com.android.support', module: 'support-annotations';
-        exclude group: 'com.google.code.findbugs'
-    })
-    //Mockito-android
-    androidTestImplementation "org.mockito:mockito-android:${MOCKITO}"
+    androidTestImplementation "org.mockito:mockito-android:${TEST_MOCKITO}"
+    androidTestImplementation "com.android.support.test:runner:${TEST_RUNNER}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:${TEST_ESPRESSO}"
 
     //Support Libs
     implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
@@ -359,9 +354,6 @@ dependencies {
     //React-native
     implementation "com.facebook.react:react-native:${REACT_NATIVE}"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
-
-    //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:${KOTLIN_VERSION}"
 
     //RxFlux2
     implementation project(':rxflux2')
