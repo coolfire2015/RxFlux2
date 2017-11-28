@@ -12,8 +12,8 @@ import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.simple.main.adapter.GitRepoAdapter;
-import com.huyingbao.simple.main.model.GitRepo;
+import com.huyingbao.simple.main.adapter.ProductAdapter;
+import com.huyingbao.simple.main.model.Product;
 import com.huyingbao.simple.main.store.MainStore;
 
 import java.util.Collections;
@@ -25,12 +25,12 @@ import javax.inject.Inject;
  * 列表展示
  * Created by liujunfeng on 2017/11/9.
  */
-public class GitRepoListFragment extends BaseRxFluxListFragment<GitRepo> {
+public class ProductListFragment extends BaseRxFluxListFragment<Product> {
     @Inject
     MainStore mStore;
 
-    public static GitRepoListFragment newInstance() {
-        GitRepoListFragment fragment = new GitRepoListFragment();
+    public static ProductListFragment newInstance() {
+        ProductListFragment fragment = new ProductListFragment();
         return fragment;
     }
 
@@ -49,7 +49,7 @@ public class GitRepoListFragment extends BaseRxFluxListFragment<GitRepo> {
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getRxAction().getType()) {
             case Actions.GET_GIT_REPO_LIST:
-                showDataList(mStore.getGitRepoList());
+                showDataList(mStore.getProductList());
                 break;
         }
     }
@@ -62,7 +62,7 @@ public class GitRepoListFragment extends BaseRxFluxListFragment<GitRepo> {
 
     @Override
     protected void initAdapter() {
-        mAdapter = new GitRepoAdapter(mDataList);
+        mAdapter = new ProductAdapter(mDataList);
     }
 
     @Override
@@ -72,13 +72,13 @@ public class GitRepoListFragment extends BaseRxFluxListFragment<GitRepo> {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 mActionCreator.postLocalAction(Actions.TO_GIT_USER, ActionsKeys.USER_ID,
-                        mDataList.get(position).getOwner().getId());
+                        mDataList.get(position).getShopId().getShopId());
             }
         });
     }
 
     @Override
     protected void getDataList(int index) {
-        mActionCreator.getGitRepoList();
+        mActionCreator.getProductList();
     }
 }

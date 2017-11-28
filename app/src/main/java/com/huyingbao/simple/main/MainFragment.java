@@ -33,10 +33,10 @@ public class MainFragment extends BaseFragment {
     }
 
     /**
-     * 到用户信息页面
+     * 到店铺信息页面
      */
     @OnClick(R.id.btn_main_to_list)
-    public void toGitRepoList() {
+    public void toProductList() {
         mActionCreator.postLocalAction(Actions.TO_GIT_REPO_LIST);
     }
 }

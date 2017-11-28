@@ -32,6 +32,11 @@ public class MainActivityTest {
     private ActivityController<MainActivity> controller;
     private BaseRxFluxActivity activity;
     private Lifecycle lifecycle;
+    @Rule
+    public final DaggerMockRule<ActivityComponent> rule =
+            new DaggerMockRule<>(ActivityComponent.class, new TestActivityModule(getActivity()))
+                    .addComponentDependency(ApplicationComponent.class, new TestApplicationModule(RuntimeEnvironment.application))
+                    .set(component -> getActivity().setActivityComponent(component));
 
     public BaseRxFluxActivity getActivity() {
         // 创建Activity控制器
@@ -45,12 +50,6 @@ public class MainActivityTest {
             lifecycle = activity.getLifecycle();
         return activity;
     }
-
-    @Rule
-    public final DaggerMockRule<ActivityComponent> rule =
-            new DaggerMockRule<>(ActivityComponent.class, new TestActivityModule(getActivity()))
-                    .addComponentDependency(ApplicationComponent.class, new TestApplicationModule(RuntimeEnvironment.application))
-                    .set(component -> getActivity().setActivityComponent(component));
 
     @Test
     public void testActivity() throws Exception {
@@ -92,5 +91,4 @@ public class MainActivityTest {
         controller.destroy();
         assertEquals(Lifecycle.State.DESTROYED, lifecycle.getCurrentState());
     }
-
 }

@@ -6,10 +6,10 @@
     android:background="@color/primary_background"
     android:orientation="vertical"
     android:padding="@dimen/dp_16"
-    tools:context="com.huyingbao.simple.main.GitUserFragment">
+    tools:context="com.huyingbao.simple.main.ShopFragment">
 
     <TextView
-        android:id="@+id/tv_git_user_name"
+        android:id="@+id/tv_shop_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_18"
@@ -17,7 +17,7 @@
         tools:text="User name" />
 
     <TextView
-        android:id="@+id/tv_git_user_login"
+        android:id="@+id/tv_shop_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/sp_16"
@@ -31,7 +31,7 @@
         android:background="@color/accent" />
 
     <TextView
-        android:id="@+id/tv_git_user_statistics"
+        android:id="@+id/tv_shop_statistics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="@dimen/dp_4"

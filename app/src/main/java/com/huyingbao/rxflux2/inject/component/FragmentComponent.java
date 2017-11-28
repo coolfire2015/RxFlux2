@@ -2,8 +2,8 @@ package com.huyingbao.rxflux2.inject.component;
 
 import com.huyingbao.rxflux2.inject.module.FragmentModule;
 import com.huyingbao.rxflux2.inject.scope.PerFragment;
-import com.huyingbao.simple.main.GitRepoListFragment;
-import com.huyingbao.simple.main.GitUserFragment;
+import com.huyingbao.simple.main.ProductListFragment;
+import com.huyingbao.simple.main.ShopFragment;
 import com.huyingbao.simple.main.MainFragment;
 
 import dagger.Subcomponent;
@@ -20,7 +20,7 @@ public interface FragmentComponent {
 
     void inject(MainFragment mainFragment);
 
-    void inject(GitRepoListFragment gitRepoListFragment);
+    void inject(ProductListFragment productListFragment);
 
-    void inject(GitUserFragment gitUserFragment);
+    void inject(ShopFragment shopFragment);
 }

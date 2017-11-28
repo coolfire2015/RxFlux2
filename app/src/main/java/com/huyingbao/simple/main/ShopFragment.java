@@ -11,7 +11,7 @@ import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.simple.R;
-import com.huyingbao.simple.main.model.GitUser;
+import com.huyingbao.simple.main.model.Shop;
 import com.huyingbao.simple.main.store.MainStore;
 
 import java.util.Collections;
@@ -22,24 +22,24 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * 用户信息
+ * 店铺信息
  * Created by liujunfeng on 2017/11/9.
  */
-public class GitUserFragment extends BaseRxFluxFragment {
+public class ShopFragment extends BaseRxFluxFragment {
     @Inject
     MainStore mStore;
 
-    @BindView(R.id.tv_git_user_name)
-    TextView mTvGitUserName;
-    @BindView(R.id.tv_git_user_login)
-    TextView mTvGitUserLogin;
-    @BindView(R.id.tv_git_user_statistics)
-    TextView mTvGitUserStatistics;
+    @BindView(R.id.tv_shop_name)
+    TextView mTvShopName;
+    @BindView(R.id.tv_shop_login)
+    TextView mTvShopLogin;
+    @BindView(R.id.tv_shop_statistics)
+    TextView mTvShopStatistics;
 
-    public static GitUserFragment newInstance(int userId) {
+    public static ShopFragment newInstance(int userId) {
         Bundle bundle = new Bundle();
         bundle.putInt(ActionsKeys.USER_ID, userId);
-        GitUserFragment fragment = new GitUserFragment();
+        ShopFragment fragment = new ShopFragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -51,20 +51,20 @@ public class GitUserFragment extends BaseRxFluxFragment {
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_git_user;
+        return R.layout.fragment_shop;
     }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        initActionBar("用户信息");
-        mActionCreator.getGitUser(mContext, getArguments().getInt(ActionsKeys.USER_ID));
+        initActionBar("店铺信息");
+        mActionCreator.getShop(mContext, getArguments().getInt(ActionsKeys.USER_ID));
     }
 
     @Override
     public void onRxStoreChanged(@NonNull RxStoreChange rxStoreChange) {
         switch (rxStoreChange.getRxAction().getType()) {
             case Actions.GET_GIT_USER:
-                showGitUserInfo(mStore.getGitUser());
+                showShopInfo(mStore.getShop());
                 break;
         }
     }
@@ -76,13 +76,13 @@ public class GitUserFragment extends BaseRxFluxFragment {
     }
 
     /**
-     * 显示用户信息
+     * 显示店铺信息
      *
      * @param gitUser
      */
-    private void showGitUserInfo(GitUser gitUser) {
-        mTvGitUserLogin.setText(gitUser.getLogin());
-        mTvGitUserName.setText(gitUser.getName());
-        mTvGitUserStatistics.setText(gitUser.getName());
+    private void showShopInfo(Shop gitUser) {
+        mTvShopLogin.setText(gitUser.getCode() + "");
+        mTvShopName.setText(gitUser.getShopName());
+        mTvShopStatistics.setText(gitUser.getShopType() + "");
     }
 }

@@ -20,20 +20,20 @@ public interface Actions {
     String NET_DISCONNECTED = "net_disconnected";
     String NET_CONNECTED = "net_connected";
 
-    String TO_GIT_REPO_LIST = "to_git_repo_list";
-    String TO_GIT_USER = "to_git_user";
+    String TO_GIT_REPO_LIST = "to_product_list";
+    String TO_GIT_USER = "to_shop";
     //endregion
 
     //region 网络-action
-    String GET_GIT_REPO_LIST = "get_git_repo_list";
-    String GET_GIT_USER = "get_git_user";
+    String GET_GIT_REPO_LIST = "get_product_list";
+    String GET_GIT_USER = "get_shop";
     //endregion
 
     //region 网络
     boolean retry(RxAction action);
 
-    void getGitRepoList();
+    void getProductList();
 
-    void getGitUser(Context context, int userId);
+    void getShop(Context context, int userId);
     //endregion
 }

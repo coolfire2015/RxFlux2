@@ -6,14 +6,14 @@ import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.simple.main.model.GitRepo;
-import com.huyingbao.simple.main.model.GitUser;
+import com.huyingbao.simple.main.model.Product;
+import com.huyingbao.simple.main.model.Shop;
 
 import java.util.List;
 
 public class MainStore extends RxStore {
-    private List<GitRepo> mGitRepoList;
-    private GitUser mGitUser;
+    private List<Product> mProductList;
+    private Shop mShop;
 
     public MainStore(Dispatcher dispatcher) {
         super(dispatcher);
@@ -23,10 +23,10 @@ public class MainStore extends RxStore {
     public void onRxAction(RxAction rxAction) {
         switch (rxAction.getType()) {
             case Actions.GET_GIT_REPO_LIST:
-                mGitRepoList = rxAction.get(ActionsKeys.RESPONSE);
+                mProductList = rxAction.get(ActionsKeys.RESPONSE);
                 break;
             case Actions.GET_GIT_USER:
-                mGitUser = rxAction.get(ActionsKeys.RESPONSE);
+                mShop = rxAction.get(ActionsKeys.RESPONSE);
                 break;
             case Actions.TO_GIT_REPO_LIST:
             case Actions.TO_GIT_USER:
@@ -37,11 +37,11 @@ public class MainStore extends RxStore {
         postChange(new RxStoreChange(getClass().getSimpleName(), rxAction));
     }
 
-    public List<GitRepo> getGitRepoList() {
-        return mGitRepoList;
+    public List<Product> getProductList() {
+        return mProductList;
     }
 
-    public GitUser getGitUser() {
-        return mGitUser;
+    public Shop getShop() {
+        return mShop;
     }
 }

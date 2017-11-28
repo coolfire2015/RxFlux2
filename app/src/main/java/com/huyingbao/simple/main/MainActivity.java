@@ -44,10 +44,10 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
         RxAction rxAction = rxStoreChange.getRxAction();
         switch (rxAction.getType()) {
             case Actions.TO_GIT_REPO_LIST:
-                toGitRepoList();
+                toProductList();
                 break;
             case Actions.TO_GIT_USER:
-                toGitUser(rxAction.get(ActionsKeys.USER_ID));
+                toShop(rxAction.get(ActionsKeys.USER_ID));
                 break;
         }
     }
@@ -76,20 +76,20 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
     /**
      * 到列表页面
      */
-    private void toGitRepoList() {
+    private void toProductList() {
         getFragmentTransaction(R.id.fl_content)
-                .add(R.id.fl_content, GitRepoListFragment.newInstance())
+                .add(R.id.fl_content, ProductListFragment.newInstance())
                 .commit();
     }
 
     /**
-     * 到用户信息页面
+     * 到店铺信息页面
      *
      * @param userId
      */
-    private void toGitUser(int userId) {
+    private void toShop(int userId) {
         getFragmentTransaction(R.id.fl_content)
-                .add(R.id.fl_content, GitUserFragment.newInstance(userId))
+                .add(R.id.fl_content, ShopFragment.newInstance(userId))
                 .commit();
     }
 }

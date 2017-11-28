@@ -10,7 +10,7 @@ import dagger.Module;
  * Created by liujunfeng on 2017/11/28.
  */
 @Module
-public class TestActivityModule extends ActivityModule{
+public class TestActivityModule extends ActivityModule {
     public TestActivityModule(Activity activity) {
         super(activity);
     }

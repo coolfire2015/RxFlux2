@@ -26,10 +26,8 @@ public class MainFragmentTest {
     }
 
 
-
-
     @Test
-    public void toGitRepoList() throws Exception {
+    public void toProductList() throws Exception {
         SupportFragmentTestUtil.startFragment(fragment, MainActivity.class);
         fragment.getActivity().findViewById(R.id.btn_main_to_list).performClick();
     }
