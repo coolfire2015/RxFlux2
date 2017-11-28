@@ -173,12 +173,10 @@ public class BaseApplication extends Application implements ReactApplication {
      * 初始化dagger
      */
     protected void initDagger() {
-        // Module实例的创建
-        // 如果Module只有有参构造器,则必须显式传入Module实例,
-        // 单例的有效范围随着其依附的Component,
-        // 为了使得@Singleton的作用范围是整个Application,需要添加以下代码
+        // Module实例的创建， 如果Module只有有参构造器,则必须显式传入Module实例,
         ApplicationComponent applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this)).build();
+        // 单例的有效范围随着其依附的Component, 为了使得@Singleton的作用范围是整个Application,需要添加以下代码
         AppUtils.setApplicationComponent(applicationComponent);
     }
 

@@ -14,7 +14,9 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Module是一个依赖的制造工厂
+ * Module是一个依赖的制造工厂，
+ * 通过Singleton创建出来的单例并不保持在静态域上，
+ * 而是保留在Component实例中。
  * Created by liujunfeng on 2017/1/1.
  */
 @Module(includes = {HttpApiModule.class, FluxActionModule.class})

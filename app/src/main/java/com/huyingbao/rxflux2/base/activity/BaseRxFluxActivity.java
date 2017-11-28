@@ -49,6 +49,7 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     @Inject
     protected AppStore mAppStore;
 
+    //非静态，除了针对整个App的Component可以静态，其他一般都不能是静态的。
     protected ActivityComponent mActivityComponent;
     //endregion
 

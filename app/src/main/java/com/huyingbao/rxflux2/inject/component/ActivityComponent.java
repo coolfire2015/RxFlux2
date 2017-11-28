@@ -12,7 +12,9 @@ import dagger.Component;
 
 /**
  * activity注入器
- * 两个Component间有依赖关系，那么它们不能使用相同的Scope
+ * 不同的Component持有不同的对象，
+ * 两个Component间有依赖关系，
+ * 那么它们不能使用相同的Scope
  * Created by liujunfeng on 2017/1/1.
  */
 @PerActivity
