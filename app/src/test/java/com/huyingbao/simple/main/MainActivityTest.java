@@ -2,11 +2,23 @@ package com.huyingbao.simple.main;
 
 import android.arch.lifecycle.Lifecycle;
 
+import com.huyingbao.rxflux2.base.TestBaseApplication;
+import com.huyingbao.rxflux2.base.activity.BaseRxFluxActivity;
+import com.huyingbao.rxflux2.inject.component.ActivityComponent;
+import com.huyingbao.rxflux2.inject.component.ApplicationComponent;
+import com.huyingbao.rxflux2.module.TestActivityModule;
+import com.huyingbao.rxflux2.module.TestApplicationModule;
+
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.android.controller.ActivityController;
+import org.robolectric.annotation.Config;
+
+import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
@@ -15,25 +27,42 @@ import static junit.framework.Assert.assertNotNull;
  * Created by liujunfeng on 2017/11/27.
  */
 @RunWith(RobolectricTestRunner.class)
+@Config(application = TestBaseApplication.class)
 public class MainActivityTest {
+    private ActivityController<MainActivity> controller;
+    private BaseRxFluxActivity activity;
+    private Lifecycle lifecycle;
+
+    public BaseRxFluxActivity getActivity() {
+        // 创建Activity控制器
+        if (controller == null)
+            controller = Robolectric.buildActivity(MainActivity.class);
+        // 从控制器获取Activity
+        if (activity == null)
+            activity = controller.get();
+        // 获取Activity的生命周期对象
+        if (lifecycle == null)
+            lifecycle = activity.getLifecycle();
+        return activity;
+    }
+
+    @Rule
+    public final DaggerMockRule<ActivityComponent> rule =
+            new DaggerMockRule<>(ActivityComponent.class, new TestActivityModule(getActivity()))
+                    .addComponentDependency(ApplicationComponent.class, new TestApplicationModule(RuntimeEnvironment.application))
+                    .set(component -> getActivity().setActivityComponent(component));
+
     @Test
     public void testActivity() throws Exception {
-        MainActivity sampleActivity = Robolectric.setupActivity(MainActivity.class);
-        assertNotNull(sampleActivity);
-        assertEquals(sampleActivity.getTitle(), "RxFluxDemo");
+        controller.create().start().resume();
+        assertNotNull(activity);
+        assertEquals(activity.getTitle(), "RxFluxDemo");
     }
 
     @Test
     public void testLifecycle() throws Exception {
-        // 创建Activity控制器
-        ActivityController<MainActivity> controller = Robolectric.buildActivity(MainActivity.class);
-        // 从控制器获取Activity
-        MainActivity activity = controller.get();
-        // 获取Activity的生命周期对象
-        Lifecycle lifecycle = activity.getLifecycle();
         // 生命周期对象判空
         assertNotNull(lifecycle);
-
         // 调用Activity的performCreate方法
         controller.create();
         assertEquals(Lifecycle.State.CREATED, lifecycle.getCurrentState());

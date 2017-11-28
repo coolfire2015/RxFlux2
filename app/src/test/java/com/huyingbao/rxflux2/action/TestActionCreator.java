@@ -1,7 +1,6 @@
 package com.huyingbao.rxflux2.action;
 
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
-import com.huyingbao.rxflux2.inject.component.TestApplicationComponent;
 import com.huyingbao.rxflux2.util.AppUtils;
 import com.huyingbao.rxflux2.util.DisposableManager;
 
@@ -15,6 +14,6 @@ public class TestActionCreator extends ActionCreator {
      */
     public TestActionCreator(Dispatcher dispatcher, DisposableManager manager) {
         super(dispatcher, manager);
-        ((TestApplicationComponent) AppUtils.getApplicationComponent()).inject(this);
+        AppUtils.getApplicationComponent().inject(this);
     }
 }

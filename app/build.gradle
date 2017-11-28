@@ -248,6 +248,7 @@ dependencies {
     testImplementation "org.robolectric:robolectric:${TEST_ROBOLECTRIC}"
     testImplementation "org.robolectric:shadows-multidex:${TEST_ROBOLECTRIC}"
     testImplementation "org.robolectric:shadows-supportv4:${TEST_ROBOLECTRIC}"
+    testImplementation "com.github.fabioCollini.daggermock:daggermock:${TEST_DEAAGE_MOCK}"
 
     androidTestImplementation "org.mockito:mockito-android:${TEST_MOCKITO}"
     androidTestImplementation "com.android.support.test:runner:${TEST_RUNNER}"

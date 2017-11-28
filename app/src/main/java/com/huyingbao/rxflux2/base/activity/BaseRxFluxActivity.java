@@ -111,6 +111,15 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     }
 
     /**
+     * 设置对应的activityComponent
+     *
+     * @param activityComponent
+     */
+    public void setActivityComponent(ActivityComponent activityComponent) {
+        mActivityComponent = activityComponent;
+    }
+
+    /**
      * 显示短暂的Toast
      *
      * @param text

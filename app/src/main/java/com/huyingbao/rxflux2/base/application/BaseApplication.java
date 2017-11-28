@@ -10,6 +10,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
+import com.facebook.stetho.Stetho;
 import com.huyingbao.rxflux2.inject.component.ApplicationComponent;
 import com.huyingbao.rxflux2.inject.component.DaggerApplicationComponent;
 import com.huyingbao.rxflux2.inject.module.application.ApplicationModule;
@@ -22,6 +23,8 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import com.pgyersdk.crash.PgyCrashManager;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
@@ -60,7 +63,7 @@ public class BaseApplication extends Application implements ReactApplication {
         }
     };
     @Inject
-    AppStore mAppStore;
+    protected AppStore mAppStore;
 
     @Override
     public ReactNativeHost getReactNativeHost() {
@@ -77,13 +80,13 @@ public class BaseApplication extends Application implements ReactApplication {
     public void onCreate() {
         super.onCreate();
         // 初始化hotfix
-        //initHotfix();
+        initHotfix();
         // 初始化analytics
-        //initAnalytics();
+        initAnalytics();
         // 保存application实例对象
         AppUtils.setApplication(this);
         // 初始化蒲公英异常捕获
-        //PgyCrashManager.register(this);
+        PgyCrashManager.register(this);
         //初始化debug
         initDebug();
         // 初始化dagger
@@ -93,11 +96,11 @@ public class BaseApplication extends Application implements ReactApplication {
         // 注册全局store
         mAppStore.register();
         // Stetho调试
-        //Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this);
         // 初始化数据库
-        //FlowManager.init(this);
+        FlowManager.init(this);
         // 初始化flowup
-        //initFlowUp();
+        initFlowUp();
     }
 
     /**
@@ -169,7 +172,7 @@ public class BaseApplication extends Application implements ReactApplication {
     /**
      * 初始化dagger
      */
-    private void initDagger() {
+    protected void initDagger() {
         // Module实例的创建
         // 如果Module只有有参构造器,则必须显式传入Module实例,
         // 单例的有效范围随着其依附的Component,

@@ -151,6 +151,15 @@ public abstract class BaseFragment extends RxFragment {
     }
 
     /**
+     * 设置依赖的component
+     *
+     * @param fragmentComponent
+     */
+    public void setFragmentComponent(FragmentComponent fragmentComponent) {
+        mFragmentComponent = fragmentComponent;
+    }
+
+    /**
      * 注入Injector
      */
     public abstract void initInjector();
