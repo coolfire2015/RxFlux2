@@ -353,8 +353,8 @@ dependencies {
     implementation "com.journeyapps:zxing-android-embedded:${ZXING_ANDROID_EMBEDDED}"
 
     //React-native
-    implementation "com.facebook.react:react-native:${REACT_NATIVE}"
-    implementation "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
+//    implementation "com.facebook.react:react-native:${REACT_NATIVE}"
+//    implementation "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
 
     //RxFlux2
     implementation project(':rxflux2')

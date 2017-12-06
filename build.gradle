@@ -4,9 +4,11 @@ buildscript {
         jcenter()
         mavenCentral()
         maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:${BUILD_GRADLE}"
+        classpath "com.jakewharton:butterknife-gradle-plugin:${BUTTER_KNIFE}"
         classpath "com.github.dcendents:android-maven-gradle-plugin:${ANDROID_MAVEN_GRADLE_PLUGIN}"
     }
 }
@@ -19,6 +21,7 @@ allprojects {
         maven { url 'https://jitpack.io' }
         maven { url "$rootDir/node_modules/react-native/android" }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 }
 
