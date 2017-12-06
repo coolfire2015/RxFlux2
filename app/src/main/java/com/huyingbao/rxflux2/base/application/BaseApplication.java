@@ -6,10 +6,6 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.sdk.android.man.MANService;
 import com.alibaba.sdk.android.man.MANServiceProvider;
-import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactNativeHost;
-import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
 import com.facebook.stetho.Stetho;
 import com.huyingbao.rxflux2.inject.component.ApplicationComponent;
 import com.huyingbao.rxflux2.inject.component.DaggerApplicationComponent;
@@ -29,9 +25,6 @@ import com.squareup.leakcanary.LeakCanary;
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixManager;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.inject.Inject;
 
 import io.flowup.FlowUp;
@@ -40,35 +33,9 @@ import io.flowup.FlowUp;
  * Application multidex分包 依赖注入 初始化注释
  * Created by liujunfeng on 2017/1/1.
  */
-public class BaseApplication extends Application implements ReactApplication {
-    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-        /**
-         * 表示是否启动开发者模式。
-         * @return
-         */
-        @Override
-        public boolean getUseDeveloperSupport() {
-            return BuildConfig.DEBUG;
-        }
-
-        /**
-         * 是引用的模块列表，默认需要添加 MainReactPackage，
-         * 如果需要在 js 里调用原生 Java 模块，
-         * 需要添加自定义的模块（如 OtherReactPackage）。
-         * @return
-         */
-        @Override
-        protected List<ReactPackage> getPackages() {
-            return Arrays.asList(new MainReactPackage());
-        }
-    };
+public class BaseApplication extends Application {
     @Inject
     protected AppStore mAppStore;
-
-    @Override
-    public ReactNativeHost getReactNativeHost() {
-        return mReactNativeHost;
-    }
 
     @Override
     protected void attachBaseContext(Context base) {
