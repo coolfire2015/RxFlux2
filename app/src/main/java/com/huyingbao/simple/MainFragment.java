@@ -1,10 +1,9 @@
-package com.huyingbao.simple.main;
+package com.huyingbao.simple;
 
 import android.os.Bundle;
 
 import com.huyingbao.rxflux2.base.fragment.BaseFragment;
 import com.huyingbao.rxflux2.constant.Actions;
-import com.huyingbao.simple.R;
 
 import butterknife.OnClick;
 

@@ -1,4 +1,4 @@
-package com.huyingbao.simple.main.store;
+package com.huyingbao.simple.store;
 
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.constant.Actions;
@@ -6,8 +6,8 @@ import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.simple.main.model.Product;
-import com.huyingbao.simple.main.model.Shop;
+import com.huyingbao.simple.model.Product;
+import com.huyingbao.simple.model.Shop;
 
 import java.util.List;
 

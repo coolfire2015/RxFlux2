@@ -51,15 +51,6 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- endregion -->
 
-    <!-- region 百度推送 -->
-    <!-- 百度推送适配Android N系统必需的ContentProvider写权限声明，写权限包含应用包名 -->
-    <uses-permission android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.simple" />
-
-    <permission
-        android:name="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.simple"
-        android:protectionLevel="normal" />
-    <!-- endregion -->
-
     <application
         android:name="com.huyingbao.rxflux2.base.application.BaseApplication"
         android:allowBackup="true"
@@ -70,96 +61,10 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <!-- region meta-data -->
-        <!-- 蒲公英 -->
-        <meta-data
-            android:name="PGYER_APPID"
-            android:value="94776bfa0373d1028996a614872433a9" />
-        <!-- 百度key -->
-        <meta-data
-            android:name="com.baidu.lbsapi.API_KEY"
-            android:value="qj06uzGwzhigefqCMXQyuIoWEa0QB6Fn" />
         <!-- Glide使用okhttp3加载 -->
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
-        <!-- 阿里百川hotfix -->
-        <meta-data
-            android:name="com.taobao.android.hotfix.IDSECRET"
-            android:value="23826609-1" />
-        <meta-data
-            android:name="com.taobao.android.hotfix.APPSECRET"
-            android:value="c48fc6ffb69341dada6c93ae3836fcff" />
-        <meta-data
-            android:name="com.taobao.android.hotfix.RSASECRET"
-            android:value="MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCL+o2+Bsd0duIJMWD/+UhQx5QINflyi+G4LZ20IjUZD0soA/uLNSlwd09/VK8+uEBS0upLh6zreD2wlrB4fTNXta13HUNX+qZARDd2vfX8Tp+ZS2p5xginEadc2BONSOz3HYAbsWVxlWHzpm3rCDRzFgjEUYVArBGGlwK7UxIZfMgCBgAUeZh+dh5l3UDoXlNdLZPUb9TPeeHMibscxhCzVKVT2CNMlL7S56+xlLGnLjMq/6BRsOyNOXtYUBp5OaApuDt9qILLqTVtEx1jZr8rCc0UfGQW3klt5NtnDE6ifkciWvV7YRHy++wMci106XYvDiFgYVzy6EPm3tE+WI1NAgMBAAECggEAYY5WuQhqe+3a7QNAEkY/MyVVMz/CwSViRAVusrtgfD2faJ0V89gyMFLG0fxIQpMRKWgbqFY/msBrZiYviVngrZFN+wUnCSsEMSgZ66TKynRVYPYhmAr/vshb9yYUwlP/6t3hiethwv6UjMYCN1q5izfhFkmmcAM8F6wpWDq2E5JDzN3KRHXs7p2fYJQpXYxDVg8uMcjwYW5fh1jvKYhwIpNlimq/H6xYVAj7SaARff7qsV84K8Zk6HvjFojZkHJixJuFCoboP2KW0ApcKZFpnpBEW2jA13k/8Nn8xylNlg7prNN6sgVLs+wIP5zQM14IlhAWJ+DiSU/LbGgNmeyXdQKBgQD8YKGsN03jrrw//J9Mq7iCVYeWE1tdV4S0CdxWliW8+yoIspPYgDHFSVMmB9swSgzwy+cGf8AUN4TOOlnCKwM3qFqa5wDB8Ido6uof0+5TwvQrcqTwXlhdSO4gJyRb4uEpwiVbmBrI8iRxs7PjPahD4yTVNSUxa2gZBIhELXQSowKBgQCN/OjemqsinMOSHgFqr2RAhOKYPW7qkSiKoNPFiAvp0Pna2Z2xC3Gb4mjDJ18VCJWmj8HyhZ3pkI63m11jkc0huk2u/hv54LRB2Ov1X0hVtHH1wEffPgjzE7T7wS+w+VRPRucbvMT+q8X2P6wxaGymn7uyDa49A+Yryn4WXgfPTwKBgQCxHngYTu/g/H6tQXPi8Rkaj0AKuScDySoe2FTEh7eQe4yycfGEneNQG/e41wajSzTtwYwvaXS6O4R+30CjHmCxrPt5fulvMok1vrf1Al1ed5G49EqBTxUg0tAbzJydyApRrildsNALerTM/1sd/eWbT0xIPXYOytxRwnaHsoallQKBgQCApXyMbFDQXH7p/dvEwMMxnfT8gPTk/L5h1FPr7lb0843eFzvENJ0r4xiOcTa6BPwqXKgaR6wK+hoFC3SzCWB1xaoq+jt4zHomCxfHSxxr4sE6K4wzHa7YJqvdSm0eiNk1twUgYYmPQS1s7sXiQj3nPmS+b5zF1amPVbmmJG4pCwKBgApRwM11r4/dzQPEmLL7JfQiKeR7IeHSMoCZmg52a3JQ7oTbgskT/+LCdvU4HhELSLaWqsVuM4elA8r95qYfbxvN5GvEYjAuvn01DrMbCIhPyf8yzFGJfaKEiEL7s9tNf8LqBZHdFRy4jftHqj/b/3a5qTerEVGAo2jpvM34D6gf" />
-        <!-- endregion -->
-
-        <!-- region 百度推送 -->
-        <receiver android:name="com.huyingbao.rxflux2.util.push.BaiduPushReceiver">
-            <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
-                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.baidu.android.pushservice.PushServiceReceiver"
-            android:process=":bdservice_v1">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
-                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
-                <action android:name="android.intent.action.MEDIA_MOUNTED" />
-                <action android:name="android.intent.action.USER_PRESENT" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.baidu.android.pushservice.RegistrationReceiver"
-            android:process=":bdservice_v1">
-            <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.METHOD" />
-                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name="com.baidu.android.pushservice.PushService"
-            android:exported="true"
-            android:process=":bdservice_v1">
-            <intent-filter>
-                <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="com.baidu.android.pushservice.CommandService"
-            android:exported="true" />
-
-        <provider
-            android:name="com.baidu.android.pushservice.PushInfoProvider"
-            android:authorities="com.huyingbao.simple.bdpush"
-            android:exported="true"
-            android:protectionLevel="signature"
-            android:writePermission="baidu.push.permission.WRITE_PUSHINFOPROVIDER.com.huyingbao.simple" />
-        <!-- endregion -->
-
-        <!-- region 蒲公英 -->
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.huyingbao.simple.pugongying"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
         <!-- endregion -->
 
         <!-- region Receiver -->
@@ -181,7 +86,7 @@
 
         <!-- region Activity -->
         <activity
-            android:name=".main.MainActivity"
+            android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

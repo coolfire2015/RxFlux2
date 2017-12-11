@@ -8,6 +8,7 @@ import com.huyingbao.rxflux2.inject.component.ActivityComponent;
 import com.huyingbao.rxflux2.inject.component.ApplicationComponent;
 import com.huyingbao.rxflux2.module.TestActivityModule;
 import com.huyingbao.rxflux2.module.TestApplicationModule;
+import com.huyingbao.simple.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

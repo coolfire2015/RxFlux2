@@ -3,32 +3,6 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = "com.github.coolfire2015"
 
-/**
- * 读取Git commit number，作为Version Code
- * @return
- */
-def gitGitVersionCode() {
-    return 'git rev-list HEAD --first-parent --count'.execute().text.trim().toInteger()
-}
-
-/**
- * 读取Git Tag，作为Version Name
- * @return
- */
-def getGitVersionName() {
-    try {
-        def stdout = new ByteArrayOutputStream()
-        exec {
-            commandLine 'git', 'describe', '--tags'
-            standardOutput = stdout
-        }
-        return stdout.toString().trim()
-    }
-    catch (ignored) {
-        return "1.0.0"
-    }
-}
-
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
@@ -36,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode gitGitVersionCode()
-        versionName getGitVersionName()
+        versionCode rootProject.gitGitVersionCode()
+        versionName rootProject.getGitVersionName()
     }
 
     buildTypes {

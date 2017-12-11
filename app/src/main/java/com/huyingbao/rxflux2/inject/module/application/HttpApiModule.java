@@ -1,6 +1,5 @@
 package com.huyingbao.rxflux2.inject.module.application;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.GsonBuilder;
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.util.ServerUtils;
@@ -60,7 +59,6 @@ public class HttpApiModule {
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
-                .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(interceptor)
                 .cookieJar(cookieJar)
                 .build();

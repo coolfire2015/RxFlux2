@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.huyingbao.simple.main.MainFragment">
+    tools:context="com.huyingbao.simple.com.huyingbao.MainFragment">
 
     <Button
         android:id="@+id/btn_main_to_list"

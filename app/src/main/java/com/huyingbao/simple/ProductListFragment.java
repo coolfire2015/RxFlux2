@@ -1,4 +1,4 @@
-package com.huyingbao.simple.main;
+package com.huyingbao.simple;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,9 +12,9 @@ import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.simple.main.adapter.ProductAdapter;
-import com.huyingbao.simple.main.model.Product;
-import com.huyingbao.simple.main.store.MainStore;
+import com.huyingbao.simple.adapter.ProductAdapter;
+import com.huyingbao.simple.model.Product;
+import com.huyingbao.simple.store.MainStore;
 
 import java.util.Collections;
 import java.util.List;

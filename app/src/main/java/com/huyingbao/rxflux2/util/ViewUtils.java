@@ -3,25 +3,15 @@ package com.huyingbao.rxflux2.util;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
-import android.content.Context;
-import android.graphics.DashPathEffect;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.huyingbao.simple.R;
-import com.yqritc.recyclerviewflexibledivider.FlexibleDividerDecoration;
-import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 /**
  * Created by liujunfeng on 2017/1/1.
@@ -55,32 +45,6 @@ public class ViewUtils {
         // 将菊花添加到FrameLayout中
         rootContainer.addView(progressBar);
         return progressBar;
-    }
-
-    /**
-     * 初始化emptyview
-     *
-     * @param emptyView
-     * @param icEmpty
-     */
-    public static void initEmptyView(View emptyView, int icEmpty) {
-        ImageView ivEmpty = emptyView.findViewById(R.id.icon_only);
-        ivEmpty.setImageResource(icEmpty);
-    }
-
-    /**
-     * 初始化emptyview
-     *
-     * @param emptyView
-     * @param icEmpty
-     * @param infoEmpty
-     */
-    public static void initEmptyView(View emptyView, int icEmpty, String infoEmpty) {
-        TextView tvEmpty = emptyView.findViewById(R.id.iv_tab_icon);
-        ImageView ivEmpty = emptyView.findViewById(R.id.iv_tab_icon);
-        tvEmpty.setVisibility(View.VISIBLE);
-        tvEmpty.setText(infoEmpty);
-        ivEmpty.setImageResource(icEmpty);
     }
 
     /**
@@ -135,83 +99,6 @@ public class ViewUtils {
         size[0] = width == 0 ? 300 : width;
         size[1] = height == 0 ? 300 : height;
         return size;
-    }
-
-    /**
-     * 获取recyclerview 分割线
-     *
-     * @param mContext
-     * @return
-     */
-    public static RecyclerView.ItemDecoration getItemDecoration(Context mContext) {
-        int margin = mContext.getResources().getDimensionPixelOffset(R.dimen.dp_10);
-        return new HorizontalDividerItemDecoration.Builder(mContext)
-                .color(mContext.getResources().getColor(R.color.divider))
-                .showLastDivider()
-                .margin(margin, margin)
-                .sizeResId(R.dimen.dp_04)
-                .build();
-    }
-
-    /**
-     * 获取recyclerview 分割线
-     *
-     * @param mContext
-     * @return
-     */
-    public static RecyclerView.ItemDecoration getItemDecorationNoMargin(Context mContext) {
-        return new HorizontalDividerItemDecoration.Builder(mContext)
-                .color(mContext.getResources().getColor(R.color.divider))
-                .showLastDivider()
-                .sizeResId(R.dimen.dp_04)
-                .build();
-    }
-
-    /**
-     * 获取recyclerview 分割线
-     *
-     * @param mContext
-     * @return
-     */
-    public static RecyclerView.ItemDecoration getItemDecorationNoMarginNoLast(Context mContext) {
-        return new HorizontalDividerItemDecoration.Builder(mContext)
-                .color(mContext.getResources().getColor(R.color.divider))
-                .sizeResId(R.dimen.dp_04)
-                .build();
-    }
-
-    /**
-     * 获取recyclerview 分割线
-     *
-     * @param mContext
-     * @return
-     */
-    public static RecyclerView.ItemDecoration getItemDecoration(Context mContext, FlexibleDividerDecoration.VisibilityProvider visibilityProvider) {
-        return new HorizontalDividerItemDecoration.Builder(mContext)
-                .visibilityProvider(visibilityProvider)
-                .color(mContext.getResources().getColor(R.color.divider))
-                .sizeResId(R.dimen.dp_04)
-                .build();
-    }
-
-    /**
-     * 获取recyclerview 点分割线
-     *
-     * @param mContext
-     * @return
-     */
-    public static RecyclerView.ItemDecoration getItemDotDecoration(Context mContext, int margin, FlexibleDividerDecoration.VisibilityProvider visibilityProvider) {
-        Paint paint = new Paint();
-        paint.setStrokeWidth(mContext.getResources().getDimension(R.dimen.dp_2));
-        paint.setColor(mContext.getResources().getColor(R.color.cardview_dark_background));
-        paint.setAntiAlias(true);
-        paint.setPathEffect(new DashPathEffect(new float[]{mContext.getResources().getDimension(R.dimen.dp_2), mContext.getResources().getDimension(R.dimen.dp_4)}, 0));
-        return new HorizontalDividerItemDecoration.Builder(mContext)
-                .visibilityProvider(visibilityProvider)
-                .showLastDivider()
-                .margin(margin)
-                .paint(paint)
-                .build();
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.huyingbao.rxflux2.api;
 
-import com.huyingbao.simple.main.model.Product;
-import com.huyingbao.simple.main.model.Shop;
+import com.huyingbao.simple.model.Product;
+import com.huyingbao.simple.model.Shop;
 
 import java.util.ArrayList;
 

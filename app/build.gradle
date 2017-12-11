@@ -1,108 +1,5 @@
 apply plugin: 'com.android.application'
 
-/**
- * release apk name
- */
-def releaseName = "demo_v" + getGitVersionName() + "_${releaseTime()}_release.apk"
-
-/**
- * debug apk name
- */
-def debugName = "demo_v" + getGitVersionName() + "_debug.apk"
-
-/**
- * 输出目录
- */
-def mOutputs = "$rootDir/outputs/build_" + getGitVersionName()
-
-/**
- * release时间
- * @return
- */
-def releaseTime() {
-    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
-}
-
-/**
- * 获取local本地配置文件
- * @return
- */
-def getlocalProperty() {
-    Properties buildProps = new Properties()
-    buildProps.load(new FileInputStream(file('../local.properties')))
-    return buildProps
-}
-
-/**
- * 读取Svn日志
- * @return
- */
-def getSvnVersionInfo() {
-    return 'svn log -r HEAD'.execute().text.trim()
-}
-
-/**
- * 读取Svn Revision Number
- * @return
- */
-def getSvnRevisionNumber() {
-    return 'svn info --show-item revision'.execute().text.trim()
-}
-
-/**
- * 读取Git commit number，作为Version Code
- * @return
- */
-def gitGitVersionCode() {
-    return 'git rev-list HEAD --first-parent --count'.execute().text.trim().toInteger()
-}
-
-/**
- * 读取Git Tag，作为Version Name
- * @return
- */
-def getGitVersionName() {
-    try {
-        def stdout = new ByteArrayOutputStream()
-        exec {
-            commandLine 'git', 'describe', '--tags'
-            standardOutput = stdout
-        }
-        return stdout.toString().trim()
-    }
-    catch (ignored) {
-        return "1.0.0"
-    }
-}
-
-/**
- * 读取Git日志
- * @return
- */
-def getGitVersionInfo() {
-    return 'git rev-parse --short HEAD'.execute().text.trim()
-}
-
-/**
- * 输出日志
- */
-def buildLog() {
-    File outputFile = new File("$rootDir/outputs/build_" + APP_VERSION_NAME)
-    if (!outputFile.exists()) outputFile.mkdirs()
-    FileWriter fw = new FileWriter("$rootDir/outputs/build_" + APP_VERSION_NAME + File.separator + "log.txt")
-    StringBuilder builder = new StringBuilder()
-    builder.append("[构建时间]=" + new Date().format("yyyy/MM/dd HH:mm", TimeZone.getTimeZone("GMT+08:00")))
-    builder.append("\r\n")
-    builder.append("[版本编号]=" + gitGitVersionCode())
-    builder.append("\r\n")
-    builder.append("[版本名称]=" + getGitVersionName())
-    builder.append("\r\n")
-    builder.append("[提交记录]=" + getGitVersionInfo())
-    fw.write(builder.toString())
-    fw.flush()
-    fw.close()
-}
-
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION
@@ -113,16 +10,14 @@ android {
         abortOnError false
         //打Release版本时,不进行检测
         checkReleaseBuilds false
-        //FlowUp
-        //disable 'InvalidPackage'
     }
     //签名配置,自定义,用在defaultConfig中
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
+            storeFile file(STORE_DEBUG_FILE)
         }
         release {
-            storeFile file(STORE_FILE)
+            storeFile file(STORE_RELEASE_FILE)
             storePassword STORE_PASSWORD
             keyAlias KEY_ALIAS
             keyPassword KEY_PASSWORD
@@ -134,15 +29,11 @@ android {
         multiDexEnabled true//支持Multidex分包
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode gitGitVersionCode()
-        versionName getGitVersionName()
+        versionCode rootProject.gitGitVersionCode()
+        versionName rootProject.getGitVersionName()
         signingConfig signingConfigs.debug
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true//使用vector图片
-        ndk { abiFilters "armeabi-v7a" }//配置ndk
-        packagingOptions { exclude "lib/arm64-v8a/librealm-jni.so" }//ReactNative配置
-//        ndk { abiFilters "arm64-v8a", "armeabi", "armeabi-v7a" }//配置ndk
-//        packagingOptions { exclude "lib/arm64-v8a/libimagepipeline.so" }
     }
     //构建过程
     buildTypes {
@@ -158,13 +49,6 @@ android {
             proguardFile 'proguard-rules.pro'
             //签名配置
             signingConfig signingConfigs.debug
-            //配置ndk
-            ndk {
-                abiFilters "arm64-v8a"
-                abiFilters "armeabi"
-                abiFilters "armeabi-v7a"
-                abiFilters "x86"
-            }
         }
         //自定义buildType.name
         release {
@@ -178,35 +62,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //签名配置
             signingConfig signingConfigs.release
-            //配置ndk
-            ndk {
-                abiFilters "arm64-v8a"
-                abiFilters "armeabi"
-                abiFilters "armeabi-v7a"
-            }
         }
     }
 
     //修改生成的apk名字
-    //gradle 4
     applicationVariants.all { variant ->
         variant.outputs.all {
             if ("release".equals(variant.buildType.name))
                 outputFileName = "dm_v_" + variant.buildType.name + "_" + getGitVersionName() + '.apk'
         }
     }
-    //修改生成的apk名字及输出目录
-    //gradle 3
-//    applicationVariants.all { variant ->
-//        variant.outputs.each { output ->
-//            def outDirectory = output.outputFile.parent
-//            if ("false".equals(IS_JENKINS) && "release".equals(variant.buildType.name)) {
-//                buildLog()
-//                outDirectory = "$rootDir/outputs/build_" + APP_VERSION_NAME
-//            }
-//            output.outputFile = new File(outDirectory, "dm_v" + APP_VERSION_NAME + "_" + variant.buildType.name + '.apk')
-//        }
-//    }
 
     //数据绑定
     dataBinding {
@@ -236,8 +101,6 @@ android {
 repositories {
     //本地仓库,添加aar支持
     flatDir { dirs 'libs' }
-    //hotfix 阿里云仓库
-    maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
 }
 
 dependencies {
@@ -263,8 +126,6 @@ dependencies {
     implementation "com.android.support:cardview-v7:${SUPPORT_VERSION}"
     implementation "com.android.support:support-annotations:${SUPPORT_VERSION}"
     implementation "com.android.support:support-vector-drawable:${SUPPORT_VERSION}"
-    //Constraint
-    implementation "com.android.support.constraint:constraint-layout:${CONSTRAINT}"
 
     //MultiDex分包
     implementation "com.android.support:multidex:${MULTIDEX}"
@@ -282,14 +143,6 @@ dependencies {
     implementation "com.squareup.okio:okio:${OKIO}"
     implementation "com.squareup.okhttp3:okhttp:${OKHTTP}"
 
-    //图片上传
-    implementation "com.qiniu:qiniu-android-sdk:${QINIU_SDK}"
-
-    //图片加载,加载使用OkHttp
-    implementation "com.github.bumptech.glide:glide:${GLIDE}"
-    implementation "com.github.bumptech.glide:okhttp3-integration:${GLIDE}"
-    annotationProcessor "com.github.bumptech.glide:compiler:${GLIDE}"
-
     //ButterKnife,view注解,string注解,drawable注解
     implementation "com.jakewharton:butterknife:${BUTTER_KNIFE}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE}"
@@ -300,21 +153,9 @@ dependencies {
     implementation "com.trello.rxlifecycle2:rxlifecycle:${RX_LIFE_CYCLE_2}"
     implementation "com.trello.rxlifecycle2:rxlifecycle-android:${RX_LIFE_CYCLE_2}"
     implementation "com.trello.rxlifecycle2:rxlifecycle-components:${RX_LIFE_CYCLE_2}"
-    //RxBinding
-    implementation "com.jakewharton.rxbinding2:rxbinding:${RX_BINDING_2}"
-    implementation "com.jakewharton.rxbinding2:rxbinding-support-v4:${RX_BINDING_2}"
-    implementation "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${RX_BINDING_2}"
-    implementation "com.jakewharton.rxbinding2:rxbinding-design:${RX_BINDING_2}"
-    implementation "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:${RX_BINDING_2}"
 
     //RecyclerView Adapter
     implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:${BASE_RECYCLERVIEW_ADAPTER_HELPER}"
-    //分割线
-    implementation "com.yqritc:recyclerview-flexibledivider:${FLEXIBLE_DIVIDER}"
-    //图片缩放
-    implementation "com.github.chrisbanes:PhotoView:${PHOTO_VIEW}"
-    //FlycoTabLayoutLib
-    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:${FLYCO_TAB_LAYOUT}"
 
     //Logger
     implementation "com.orhanobut:logger:${ORHANOBUT_LOGGER}"
@@ -323,38 +164,10 @@ dependencies {
     implementation "com.alibaba:fastjson:${FAST_JSON}"
     implementation "com.google.code.gson:gson:${GSON}"
 
-    //Common lang 常用工具类
-    implementation "org.apache.commons:commons-lang3:${COMMONS_LANG3}"
-
-    //数据库
-    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${DBFLOW}"
-    implementation "com.github.Raizlabs.DBFlow:dbflow-core:${DBFLOW}"
-    implementation "com.github.Raizlabs.DBFlow:dbflow:${DBFLOW}"
-
-    //Hotfix Analytics
-    implementation "com.aliyun.ams:alicloud-android-hotfix:${HOTFIX}"
-    implementation("com.aliyun.ams:alicloud-android-man:${ANALYTICS}") {
-        exclude(module: 'utdid4all')
-    }
-
-    //Stetho 调试
-    implementation "com.facebook.stetho:stetho-okhttp3:${STETHO}"
-
-    //FlowUp
-    implementation "io.flowup:android-sdk:${FLOW_UP}"
-    testImplementation "io.flowup:android-sdk-no-op:${FLOW_UP}"
-
     //内存溢出
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY}"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY}"
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY}"
-
-    //二维码扫描
-    implementation "com.journeyapps:zxing-android-embedded:${ZXING_ANDROID_EMBEDDED}"
-
-    //React-native
-//    implementation "com.facebook.react:react-native:${REACT_NATIVE}"
-//    implementation "com.squareup.okhttp3:okhttp-urlconnection:${OKHTTP}"
 
     //RxFlux2
     implementation project(':rxflux2')

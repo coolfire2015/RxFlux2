@@ -1,4 +1,4 @@
-package com.huyingbao.simple.main.model;
+package com.huyingbao.simple.model;
 
 /**
  * Created by liujunfeng on 2017/11/28.

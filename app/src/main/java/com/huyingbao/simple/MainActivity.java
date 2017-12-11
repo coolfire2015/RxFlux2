@@ -1,4 +1,4 @@
-package com.huyingbao.simple.main;
+package com.huyingbao.simple;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,7 @@ import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.simple.R;
-import com.huyingbao.simple.main.store.MainStore;
+import com.huyingbao.simple.store.MainStore;
 
 import java.util.Collections;
 import java.util.List;

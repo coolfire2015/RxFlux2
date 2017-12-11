@@ -1,6 +1,8 @@
 package com.huyingbao.simple.main;
 
 import com.huyingbao.rxflux2.base.fragment.BaseFragment;
+import com.huyingbao.simple.MainActivity;
+import com.huyingbao.simple.MainFragment;
 import com.huyingbao.simple.R;
 
 import org.junit.Before;

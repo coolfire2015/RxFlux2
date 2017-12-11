@@ -2,12 +2,8 @@
 .gradle
 /local.properties
 /.idea/workspace.xml
+/.idea/modules.xml
 /.idea/libraries
-.DS_Store
 /build
+.DS_Store
 /captures
-.externalNativeBuild
-/outputs
-# node.js
-node_modules/
-npm-debug.log
