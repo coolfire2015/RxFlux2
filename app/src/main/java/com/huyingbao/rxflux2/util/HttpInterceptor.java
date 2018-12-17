@@ -1,4 +1,4 @@
-package com.huyingbao.rxflux2.util.okhttp;
+package com.huyingbao.rxflux2.util;
 
 import android.text.TextUtils;
 

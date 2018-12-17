@@ -7,7 +7,6 @@ import android.support.multidex.MultiDex;
 import com.huyingbao.rxflux2.inject.component.ApplicationComponent;
 import com.huyingbao.rxflux2.inject.component.DaggerApplicationComponent;
 import com.huyingbao.rxflux2.inject.module.application.ApplicationModule;
-import com.huyingbao.rxflux2.store.AppStore;
 import com.huyingbao.rxflux2.util.AppUtils;
 import com.huyingbao.simple.BuildConfig;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -16,16 +15,11 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
 
-import javax.inject.Inject;
-
 /**
  * Application multidex分包 依赖注入 初始化注释
  * Created by liujunfeng on 2017/1/1.
  */
 public class BaseApplication extends Application {
-    @Inject
-    protected AppStore mAppStore;
-
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -43,8 +37,6 @@ public class BaseApplication extends Application {
         initDagger();
         // 依赖注入
         AppUtils.getApplicationComponent().inject(this);
-        // 注册全局store
-        mAppStore.register();
     }
 
 

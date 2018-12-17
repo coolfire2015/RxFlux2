@@ -3,6 +3,7 @@ package com.huyingbao.rxflux2.action;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.util.AppUtils;
 import com.huyingbao.rxflux2.util.DisposableManager;
+import com.huyingbao.simple.action.ActionCreator;
 
 /**
  * Created by liujunfeng on 2017/6/27.

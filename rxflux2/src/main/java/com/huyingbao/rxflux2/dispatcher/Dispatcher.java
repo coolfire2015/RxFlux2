@@ -63,7 +63,7 @@ public class Dispatcher {
      * @param action
      */
     public void postRxAction(final RxAction action) {
-        EventBus.getDefault().postSticky(action);
+        EventBus.getDefault().post(action);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.huyingbao.rxflux2.constant;
+package com.huyingbao.simple.action;
 
 /**
  * add:添加

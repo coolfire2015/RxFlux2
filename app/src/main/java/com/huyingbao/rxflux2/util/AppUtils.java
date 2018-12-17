@@ -1,8 +1,6 @@
 package com.huyingbao.rxflux2.util;
 
 import android.app.Application;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
 import com.huyingbao.rxflux2.inject.component.ApplicationComponent;
@@ -29,21 +27,5 @@ public class AppUtils {
 
     public static void setApplication(Application application) {
         sApplication = application;
-    }
-
-    /**
-     * 获取App包 信息版本号
-     *
-     * @return
-     */
-    public static PackageInfo getPackageInfo() {
-        PackageManager packageManager = sApplication.getPackageManager();
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = packageManager.getPackageInfo(sApplication.getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return packageInfo;
     }
 }

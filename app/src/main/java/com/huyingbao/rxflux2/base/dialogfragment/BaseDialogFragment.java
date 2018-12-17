@@ -9,12 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.huyingbao.rxflux2.action.ActionCreator;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxActivity;
 import com.huyingbao.rxflux2.inject.component.FragmentComponent;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
-import com.huyingbao.rxflux2.store.AppStore;
-import com.huyingbao.rxflux2.util.LocalStorageUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
 
 import javax.inject.Inject;
@@ -30,12 +27,6 @@ public abstract class BaseDialogFragment extends RxAppCompatDialogFragment {
     @Inject
     @ContextLife("Activity")
     public Context mContext;
-    @Inject
-    protected ActionCreator mActionCreator;
-    @Inject
-    protected LocalStorageUtils mLocalStorageUtils;
-    @Inject
-    protected AppStore mAppStore;
 
     //非静态，除了针对整个App的Component可以静态，其他一般都不能是静态的。
     protected FragmentComponent mFragmentComponent;
@@ -46,8 +37,6 @@ public abstract class BaseDialogFragment extends RxAppCompatDialogFragment {
         super.onAttach(context);
         // 依赖注入
         inject(context);
-        // 注册全局store
-        mAppStore.register();
     }
 
     @NonNull

@@ -1,7 +1,6 @@
 package com.huyingbao.rxflux2.inject.module.application;
 
 import com.huyingbao.rxflux2.RxFlux;
-import com.huyingbao.rxflux2.action.ActionCreator;
 import com.huyingbao.rxflux2.util.AppUtils;
 
 import javax.inject.Singleton;
@@ -20,15 +19,5 @@ public class FluxActionModule {
     @Singleton
     public RxFlux provideRxFlux() {
         return RxFlux.init(AppUtils.getApplication());
-    }
-
-    /**
-     * @param rxFlux 从当前module中调用返回值是RxFlux的方法
-     * @return
-     */
-    @Provides
-    @Singleton
-    public ActionCreator provideActionCreator(RxFlux rxFlux) {
-        return new ActionCreator(rxFlux.getDispatcher(), rxFlux.getDisposableManager());
     }
 }

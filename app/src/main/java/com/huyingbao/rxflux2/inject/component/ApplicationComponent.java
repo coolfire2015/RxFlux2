@@ -3,14 +3,12 @@ package com.huyingbao.rxflux2.inject.component;
 import android.content.Context;
 
 import com.huyingbao.rxflux2.RxFlux;
-import com.huyingbao.rxflux2.action.ActionCreator;
+import com.huyingbao.simple.action.ActionCreator;
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.base.application.BaseApplication;
 import com.huyingbao.rxflux2.inject.module.application.ApplicationModule;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
-import com.huyingbao.rxflux2.store.AppStore;
-import com.huyingbao.rxflux2.util.LocalStorageUtils;
-import com.huyingbao.rxflux2.util.okhttp.HttpInterceptor;
+import com.huyingbao.rxflux2.util.HttpInterceptor;
 
 import javax.inject.Singleton;
 
@@ -37,13 +35,7 @@ public interface ApplicationComponent {
 
     RxFlux getRxFlux();
 
-    ActionCreator getActionCreator();
-
-    LocalStorageUtils getLocalStorageUtils();
-
     HttpApi getHybApi();
-
-    AppStore getAppStore();
 
     HttpInterceptor getHttpInterceptor();
 

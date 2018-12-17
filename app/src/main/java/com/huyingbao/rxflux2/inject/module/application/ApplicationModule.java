@@ -3,10 +3,7 @@ package com.huyingbao.rxflux2.inject.module.application;
 import android.app.Application;
 import android.content.Context;
 
-import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
-import com.huyingbao.rxflux2.store.AppStore;
-import com.huyingbao.rxflux2.util.LocalStorageUtils;
 
 import javax.inject.Singleton;
 
@@ -37,17 +34,5 @@ public class ApplicationModule {
     @ContextLife("Application")
     public Context provideContext() {
         return mApplication.getApplicationContext();
-    }
-
-    @Provides
-    @Singleton
-    public LocalStorageUtils provideLocalStorageUtils() {
-        return LocalStorageUtils.getInstance();
-    }
-
-    @Provides
-    @Singleton
-    public AppStore provideAppStore(RxFlux rxFlux) {
-        return AppStore.getInstance(rxFlux.getDispatcher());
     }
 }

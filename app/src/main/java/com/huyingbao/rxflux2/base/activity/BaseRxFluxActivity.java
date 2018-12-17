@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.gson.stream.MalformedJsonException;
-import com.huyingbao.rxflux2.action.ActionCreator;
 import com.huyingbao.rxflux2.action.RxError;
 import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.huyingbao.rxflux2.inject.component.ActivityComponent;
@@ -16,9 +15,7 @@ import com.huyingbao.rxflux2.inject.component.DaggerActivityComponent;
 import com.huyingbao.rxflux2.inject.module.ActivityModule;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.model.RxHttpException;
-import com.huyingbao.rxflux2.store.AppStore;
 import com.huyingbao.rxflux2.util.AppUtils;
-import com.huyingbao.rxflux2.util.LocalStorageUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.net.SocketException;
@@ -42,12 +39,6 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
     @Inject
     @ContextLife("Activity")
     protected Context mContext;
-    @Inject
-    protected ActionCreator mActionCreator;
-    @Inject
-    protected LocalStorageUtils mLocalStorageUtils;
-    @Inject
-    protected AppStore mAppStore;
 
     //非静态，除了针对整个App的Component可以静态，其他一般都不能是静态的。
     protected ActivityComponent mActivityComponent;
@@ -64,8 +55,6 @@ public abstract class BaseRxFluxActivity extends RxAppCompatActivity implements 
         setContentView(getLayoutId());
         //绑定view
         ButterKnife.bind(this);
-        //注册全局store
-        mAppStore.register();
         //创建之后的操作
         afterCreate(savedInstanceState);
     }

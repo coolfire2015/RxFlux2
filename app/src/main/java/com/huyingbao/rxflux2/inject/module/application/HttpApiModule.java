@@ -2,21 +2,15 @@ package com.huyingbao.rxflux2.inject.module.application;
 
 import com.google.gson.GsonBuilder;
 import com.huyingbao.rxflux2.api.HttpApi;
+import com.huyingbao.rxflux2.util.HttpInterceptor;
 import com.huyingbao.rxflux2.util.ServerUtils;
-import com.huyingbao.rxflux2.util.okhttp.HttpInterceptor;
-import com.huyingbao.rxflux2.util.okhttp.PersistentCookieStore;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -49,18 +43,17 @@ public class HttpApiModule {
     /**
      * OkHttp客户端单例对象
      *
-     * @param cookieJar
+     * @param interceptor
      * @return OkHttpClient
      */
     @Provides
     @Singleton // 添加@Singleton标明该方法产生只产生一个实例
-    public OkHttpClient provideClient(CookieJar cookieJar, HttpInterceptor interceptor) {
+    public OkHttpClient provideClient(HttpInterceptor interceptor) {
         return new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
-                .cookieJar(cookieJar)
                 .build();
     }
 
@@ -68,30 +61,5 @@ public class HttpApiModule {
     @Singleton // 添加@Singleton标明该方法产生只产生一个实例
     public HttpInterceptor provideHttpInterceptor() {
         return new HttpInterceptor();
-    }
-
-    /**
-     * 本地cookie缓存单例对象
-     *
-     * @return
-     */
-    @Provides
-    @Singleton // 添加@Singleton标明该方法产生只产生一个实例
-    public CookieJar provideCookieJar(PersistentCookieStore cookieStore) {
-        CookieJar cookieJar = new CookieJar() {
-            @Override
-            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                if (cookies != null && cookies.size() > 0)
-                    for (Cookie item : cookies)
-                        cookieStore.add(url, item);
-            }
-
-            @Override
-            public List<Cookie> loadForRequest(HttpUrl url) {
-                List<Cookie> cookies = cookieStore.get(url);
-                return cookies != null ? cookies : new ArrayList<>();
-            }
-        };
-        return cookieJar;
     }
 }

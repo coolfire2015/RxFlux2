@@ -1,7 +1,7 @@
 package com.huyingbao.simple.store;
 
 import com.huyingbao.rxflux2.action.RxAction;
-import com.huyingbao.rxflux2.constant.Actions;
+import com.huyingbao.simple.action.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.store.RxStore;
