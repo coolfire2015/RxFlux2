@@ -108,18 +108,6 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
-    testImplementation "junit:junit:${TEST_JUNIT}"
-    testImplementation "org.mockito:mockito-core:${TEST_MOCKITO}"
-    testImplementation "org.robolectric:robolectric:${TEST_ROBOLECTRIC}"
-    testImplementation "org.robolectric:shadows-multidex:${TEST_ROBOLECTRIC}"
-    testImplementation "org.robolectric:shadows-supportv4:${TEST_ROBOLECTRIC}"
-    testImplementation "com.github.fabioCollini.daggermock:daggermock:${TEST_DEAAGE_MOCK}"
-
-    androidTestImplementation "org.mockito:mockito-android:${TEST_MOCKITO}"
-    androidTestImplementation "com.android.support.test:runner:${TEST_RUNNER}"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:${TEST_ESPRESSO}"
-
     //Support Libs
     implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
     implementation "com.android.support:support-v13:${SUPPORT_VERSION}"

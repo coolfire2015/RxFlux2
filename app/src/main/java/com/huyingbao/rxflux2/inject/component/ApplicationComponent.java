@@ -3,12 +3,12 @@ package com.huyingbao.rxflux2.inject.component;
 import android.content.Context;
 
 import com.huyingbao.rxflux2.RxFlux;
-import com.huyingbao.simple.action.ActionCreator;
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.base.application.BaseApplication;
 import com.huyingbao.rxflux2.inject.module.application.ApplicationModule;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.util.HttpInterceptor;
+import com.huyingbao.simple.action.MainActionCreator;
 
 import javax.inject.Singleton;
 
@@ -49,5 +49,5 @@ public interface ApplicationComponent {
      */
     void inject(BaseApplication application);
 
-    void inject(ActionCreator actionCreator);
+    void inject(MainActionCreator mainActionCreator);
 }

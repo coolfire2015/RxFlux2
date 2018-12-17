@@ -1,11 +1,11 @@
 package com.huyingbao.simple.store;
 
 import com.huyingbao.rxflux2.action.RxAction;
-import com.huyingbao.simple.action.Actions;
 import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
+import com.huyingbao.simple.action.Actions;
 import com.huyingbao.simple.model.GanResponse;
 import com.huyingbao.simple.model.Product;
 

@@ -52,7 +52,7 @@ public class BaseRxActionCreator extends RxActionCreator {
         addRxAction(rxAction, getDisposable(rxAction, httpObservable));
     }
 
-     /**
+    /**
      * 调用网络接口,传入接口自己的回调(非RxFlux模式接口,无法发送接口数据,eg:新闻模块获取新闻列表接口)调用接口,发送接口返回数据
      *
      * @param rxAction

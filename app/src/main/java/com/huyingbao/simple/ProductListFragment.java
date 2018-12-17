@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.simple.action.ActionCreator;
+import com.huyingbao.simple.action.MainActionCreator;
 import com.huyingbao.simple.action.Actions;
 import com.huyingbao.simple.adapter.ProductAdapter;
 import com.huyingbao.simple.model.Product;
@@ -28,7 +28,7 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
     @Inject
     MainStore mStore;
     @Inject
-    ActionCreator mActionCreator;
+    MainActionCreator mMainActionCreator;
 
     public static ProductListFragment newInstance() {
         ProductListFragment fragment = new ProductListFragment();
@@ -74,6 +74,6 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
 
     @Override
     protected void getDataList(int index) {
-        mActionCreator.getProductList();
+        mMainActionCreator.getProductList();
     }
 }

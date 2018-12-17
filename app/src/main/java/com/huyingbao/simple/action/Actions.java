@@ -13,5 +13,6 @@ package com.huyingbao.simple.action;
  */
 public interface Actions {
     String GET_GIT_REPO_LIST = "get_product_list";
+
     void getProductList();
 }

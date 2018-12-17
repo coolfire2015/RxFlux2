@@ -35,17 +35,6 @@ android {
 }
 
 dependencies {
-    testImplementation "junit:junit:${TEST_JUNIT}"
-    testImplementation "org.mockito:mockito-core:${TEST_MOCKITO}"
-    testImplementation "org.robolectric:robolectric:${TEST_ROBOLECTRIC}"
-    testImplementation "org.robolectric:shadows-multidex:${TEST_ROBOLECTRIC}"
-    testImplementation "org.robolectric:shadows-supportv4:${TEST_ROBOLECTRIC}"
-    testImplementation "com.github.fabioCollini.daggermock:daggermock:${TEST_DEAAGE_MOCK}"
-
-    androidTestImplementation "org.mockito:mockito-android:${TEST_MOCKITO}"
-    androidTestImplementation "com.android.support.test:runner:${TEST_RUNNER}"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:${TEST_ESPRESSO}"
-
     implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
     implementation "io.reactivex.rxjava2:rxjava:${RX_JAVA_2}"
     implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_2}"

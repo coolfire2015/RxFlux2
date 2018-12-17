@@ -15,12 +15,12 @@ import javax.inject.Inject;
  * Created by liujunfeng on 2017/1/1.
  */
 @PerActivity
-public class ActionCreator extends BaseRxActionCreator implements Actions {
+public class MainActionCreator extends BaseRxActionCreator implements Actions {
     @Inject
     HttpApi mHttpApi;
 
     @Inject
-    ActionCreator(RxFlux rxFlux) {
+    MainActionCreator(RxFlux rxFlux) {
         super(rxFlux.getDispatcher(), rxFlux.getDisposableManager());
     }
 
