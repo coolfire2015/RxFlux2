@@ -5,7 +5,6 @@ import android.app.Application;
 import android.os.Bundle;
 
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
-import com.huyingbao.rxflux2.dispatcher.RxBus;
 import com.huyingbao.rxflux2.dispatcher.RxViewDispatch;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.util.DisposableManager;
@@ -23,7 +22,6 @@ import java.util.Stack;
  */
 public class RxFlux implements Application.ActivityLifecycleCallbacks {
     private static RxFlux sInstance;
-    private final RxBus mRxBus;
     private final Dispatcher mDispatcher;
     private final DisposableManager mDisposableManager;
     private int mActivityCounter;
@@ -35,8 +33,7 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
      * @param application
      */
     private RxFlux(Application application) {
-        this.mRxBus = RxBus.getInstance();
-        this.mDispatcher = Dispatcher.getInstance(mRxBus);
+        this.mDispatcher = Dispatcher.getInstance();
         this.mDisposableManager = DisposableManager.getInstance();
         mActivityCounter = 0;
         mActivityStack = new Stack<>();
@@ -61,13 +58,6 @@ public class RxFlux implements Application.ActivityLifecycleCallbacks {
         if (sInstance == null) return;
         sInstance.mDisposableManager.clear();
         sInstance.mDispatcher.unsubscribeAll();
-    }
-
-    /**
-     * @return the sInstance of the RxBus in case you want to reused for something else
-     */
-    public RxBus getRxBus() {
-        return mRxBus;
     }
 
     /**

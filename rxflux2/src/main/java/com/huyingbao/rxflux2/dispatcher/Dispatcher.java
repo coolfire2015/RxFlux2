@@ -9,7 +9,7 @@ public class Dispatcher {
 
     private static Dispatcher sInstance;
 
-    public static synchronized Dispatcher getInstance(RxBus rxBus) {
+    public static synchronized Dispatcher getInstance() {
         if (sInstance == null) sInstance = new Dispatcher();
         return sInstance;
     }
