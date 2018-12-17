@@ -25,7 +25,7 @@ public class MainStore extends RxStore {
     }
 
     @Override
-    @Subscribe
+    @Subscribe()
     public void onRxAction(RxAction rxAction) {
         switch (rxAction.getType()) {
             case MainAction.GET_GIT_REPO_LIST:

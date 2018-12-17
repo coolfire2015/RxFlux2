@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
+import com.huyingbao.rxflux2.action.RxError;
+import com.huyingbao.rxflux2.base.activity.BaseRxFluxActivity;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.simple.action.MainStore;
@@ -18,7 +19,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseRxFluxToolbarActivity {
+public class MainActivity extends BaseRxFluxActivity {
     @Inject
     MainStore mStore;
 
@@ -33,6 +34,11 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
     }
 
     @Override
+    public int getLayoutId() {
+        return R.layout.activity_fragment_base;
+    }
+
+    @Override
     public void afterCreate(Bundle savedInstanceState) {
         toProductList();
     }
@@ -40,6 +46,11 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
     @Override
     @Subscribe
     public void onRxStoreChanged(@NonNull RxStoreChange rxStoreChange) {
+    }
+
+    @Override
+    public void onRxError(@NonNull RxError error) {
+
     }
 
     @Nullable
@@ -58,7 +69,7 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
      * 到列表页面
      */
     private void toProductList() {
-        getFragmentTransaction(R.id.fl_content)
+        getSupportFragmentManager().beginTransaction()
                 .add(R.id.fl_content, ProductListFragment.newInstance())
                 .commit();
     }

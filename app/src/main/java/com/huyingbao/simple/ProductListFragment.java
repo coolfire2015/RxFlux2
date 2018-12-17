@@ -43,7 +43,6 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
         super.afterCreate(savedInstanceState);
-        initActionBar("列表展示");
     }
 
     @Override

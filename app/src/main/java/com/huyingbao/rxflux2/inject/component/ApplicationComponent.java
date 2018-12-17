@@ -6,7 +6,6 @@ import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.base.application.BaseApplication;
 import com.huyingbao.rxflux2.inject.module.application.ApplicationModule;
-import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.util.HttpInterceptor;
 import com.huyingbao.simple.action.MainActionCreator;
 
@@ -30,7 +29,6 @@ public interface ApplicationComponent {
      *
      * @return
      */
-    @ContextLife("Application")
     Context getContext();
 
     RxFlux getRxFlux();

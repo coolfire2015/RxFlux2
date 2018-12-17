@@ -3,8 +3,6 @@ package com.huyingbao.rxflux2.inject.module.application;
 import android.app.Application;
 import android.content.Context;
 
-import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -31,7 +29,6 @@ public class ApplicationModule {
 
     @Provides//添加@Singleton标明该方法产生只产生一个实例
     @Singleton
-    @ContextLife("Application")
     public Context provideContext() {
         return mApplication.getApplicationContext();
     }

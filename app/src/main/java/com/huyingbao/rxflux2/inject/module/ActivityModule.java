@@ -1,9 +1,7 @@
 package com.huyingbao.rxflux2.inject.module;
 
 import android.app.Activity;
-import android.content.Context;
 
-import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
 
 import java.lang.ref.WeakReference;
@@ -23,19 +21,6 @@ public class ActivityModule {
 
     public ActivityModule(Activity activity) {
         mActivity = activity;
-    }
-
-    /**
-     * 通过自定义的@ContextLife区分返回类型相同的@Provides 方法
-     *
-     * @return
-     */
-    @Provides
-    @PerActivity
-    @ContextLife("Activity")
-    public Context provideContext() {
-        //使用弱引用,消除内存泄漏
-        return new WeakReference<>(mActivity).get();
     }
 
     @Provides

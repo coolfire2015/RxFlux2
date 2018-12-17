@@ -48,7 +48,7 @@ public abstract class BaseRxFluxListFragment<T> extends BaseRxFluxFragment {
      * 实例化RecyclerView,并设置adapter
      */
     protected void initRecyclerView() {
-        mLinearLayoutManager = new LinearLayoutManager(mContext);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mRvContent.setLayoutManager(mLinearLayoutManager);
         mRvContent.setHasFixedSize(true);
         mRvContent.setAdapter(mAdapter);

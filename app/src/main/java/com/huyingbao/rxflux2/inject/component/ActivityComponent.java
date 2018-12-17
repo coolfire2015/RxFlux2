@@ -1,10 +1,8 @@
 package com.huyingbao.rxflux2.inject.component;
 
 import android.app.Activity;
-import android.content.Context;
 
 import com.huyingbao.rxflux2.inject.module.ActivityModule;
-import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
 import com.huyingbao.simple.MainActivity;
 
@@ -20,22 +18,6 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class})
 public interface ActivityComponent {
-    /**
-     * 通过自定义的@ContextLife区分返回类型相同的@Provides 方法
-     *
-     * @return
-     */
-    @ContextLife("Activity")
-    Context getActivityContext();
-
-    /**
-     * 从对应的ActivityModule中找不到,从dependencies的ApplicationComponent中找得到
-     *
-     * @return
-     */
-    @ContextLife("Application")
-    Context getApplicationContext();
-
     Activity getActivity();
 
     /**
