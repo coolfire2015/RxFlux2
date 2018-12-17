@@ -3,6 +3,8 @@ package com.huyingbao.rxflux2.store;
 import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
 
+import org.greenrobot.eventbus.Subscribe;
+
 /**
  * 存在于 BaseApplication 的 mApplicationComponent 中 全局
  * Created by liujunfeng on 2017/1/1.
@@ -28,6 +30,7 @@ public class AppStore extends RxStore {
      * 所有的逻辑模型应该在这里,然后调用postChange请求新数据视图
      */
     @Override
+    @Subscribe
     public void onRxAction(RxAction rxAction) {
         switch (rxAction.getType()) {
             case "Debug":

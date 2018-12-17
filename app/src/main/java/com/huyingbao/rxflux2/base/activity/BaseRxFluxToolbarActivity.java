@@ -1,17 +1,10 @@
 package com.huyingbao.rxflux2.base.activity;
 
-import android.graphics.Color;
 import android.support.annotation.IdRes;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import com.huyingbao.simple.R;
-
-import butterknife.BindView;
 
 
 /**
@@ -19,12 +12,6 @@ import butterknife.BindView;
  * Created by liujunfeng on 2017/1/1.
  */
 public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
-    @BindView(R.id.tv_top_title)
-    protected TextView mTvTopTitle;
-    @BindView(R.id.tlb_top)
-    protected Toolbar mToolbarTop;
-    @BindView(R.id.abl_top)
-    protected AppBarLayout mAppBarLayoutTop;
 
     @Override
     public int getLayoutId() {
@@ -33,8 +20,6 @@ public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
 
     @Override
     public void setTitle(CharSequence title) {
-        // 设置标题
-        mTvTopTitle.setText(title == null ? getTitle() : title);
     }
 
     /**
@@ -56,38 +41,12 @@ public abstract class BaseRxFluxToolbarActivity extends BaseRxFluxActivity {
      * @param backAble 是否有回退按钮
      */
     private void setToolbar(boolean backAble) {
-        //取代原本的actionbar
-        setSupportActionBar(mToolbarTop);
-        //设置actionbar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) return;
-        //显示右侧返回图标
-        if (backAble) {
-            actionBar.setHomeAsUpIndicator(android.R.drawable.ic_menu_delete);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        //不显示home图标
-        actionBar.setDisplayShowHomeEnabled(false);
-        //不显示标题
-        actionBar.setDisplayShowTitleEnabled(false);
     }
 
     /**
      * 初始化Toolbar
      */
     private void initToolbar() {
-        //App Logo
-        mToolbarTop.setLogo(R.mipmap.ic_launcher);
-        //主标题,默认为app_label的名字
-        mToolbarTop.setTitle(null);
-        //设置颜色
-        mToolbarTop.setTitleTextColor(Color.YELLOW);
-        //副标题
-        mToolbarTop.setSubtitle(null);
-        //设置颜色
-        mToolbarTop.setSubtitleTextColor(Color.parseColor("#80FF0000"));
-        //侧边栏的按钮
-        mToolbarTop.setNavigationIcon(R.drawable.ic_action_refresh);
     }
 
     /**

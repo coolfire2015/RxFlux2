@@ -3,18 +3,16 @@ package com.huyingbao.simple;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.constant.Actions;
-import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.simple.adapter.ProductAdapter;
 import com.huyingbao.simple.model.Product;
 import com.huyingbao.simple.store.MainStore;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Collections;
 import java.util.List;
@@ -46,6 +44,7 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
     }
 
     @Override
+    @Subscribe
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getRxAction().getType()) {
             case Actions.GET_GIT_REPO_LIST:
@@ -68,13 +67,6 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
     @Override
     protected void initRecyclerView() {
         super.initRecyclerView();
-        mRvContent.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                mActionCreator.postLocalAction(Actions.TO_GIT_USER, ActionsKeys.USER_ID,
-                        mDataList.get(position).getShopId().getShopId());
-            }
-        });
     }
 
     @Override

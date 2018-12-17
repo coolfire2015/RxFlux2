@@ -2,9 +2,7 @@ package com.huyingbao.rxflux2.inject.component;
 
 import com.huyingbao.rxflux2.inject.module.FragmentModule;
 import com.huyingbao.rxflux2.inject.scope.PerFragment;
-import com.huyingbao.simple.MainFragment;
 import com.huyingbao.simple.ProductListFragment;
-import com.huyingbao.simple.ShopFragment;
 
 import dagger.Subcomponent;
 
@@ -32,10 +30,5 @@ import dagger.Subcomponent;
 @PerFragment
 @Subcomponent(modules = FragmentModule.class)
 public interface FragmentComponent {
-
-    void inject(MainFragment mainFragment);
-
     void inject(ProductListFragment productListFragment);
-
-    void inject(ShopFragment shopFragment);
 }

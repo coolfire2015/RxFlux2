@@ -1,13 +1,10 @@
 package com.huyingbao.rxflux2.api;
 
+import com.huyingbao.simple.model.GanResponse;
 import com.huyingbao.simple.model.Product;
-import com.huyingbao.simple.model.Shop;
-
-import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 /**
  * add:添加
@@ -21,9 +18,6 @@ import retrofit2.http.Path;
  * Created by liujunfeng on 2017/1/1.
  */
 public interface HttpApi {
-    @GET("test/getProductList")
-    Observable<ArrayList<Product>> getProductList();
-
-    @GET("test/getShop/{shopId}")
-    Observable<Shop> getShop(@Path("shopId") int shopId);
+    @GET("random/data/福利/2000 ")
+    Observable<GanResponse<Product>> getProductList();
 }

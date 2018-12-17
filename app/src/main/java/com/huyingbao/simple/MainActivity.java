@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.huyingbao.rxflux2.action.RxAction;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
-import com.huyingbao.rxflux2.constant.Actions;
-import com.huyingbao.rxflux2.constant.ActionsKeys;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
 import com.huyingbao.simple.store.MainStore;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,20 +34,12 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        toMain();
+        toProductList();
     }
 
     @Override
+    @Subscribe
     public void onRxStoreChanged(@NonNull RxStoreChange rxStoreChange) {
-        RxAction rxAction = rxStoreChange.getRxAction();
-        switch (rxAction.getType()) {
-            case Actions.TO_GIT_REPO_LIST:
-                toProductList();
-                break;
-            case Actions.TO_GIT_USER:
-                toShop(rxAction.get(ActionsKeys.USER_ID));
-                break;
-        }
     }
 
     @Nullable
@@ -64,31 +55,11 @@ public class MainActivity extends BaseRxFluxToolbarActivity {
     }
 
     /**
-     * 到主页面
-     */
-    private void toMain() {
-        getFragmentTransaction(R.id.fl_content)
-                .add(R.id.fl_content, MainFragment.newInstance())
-                .commit();
-    }
-
-    /**
      * 到列表页面
      */
     private void toProductList() {
         getFragmentTransaction(R.id.fl_content)
                 .add(R.id.fl_content, ProductListFragment.newInstance())
-                .commit();
-    }
-
-    /**
-     * 到店铺信息页面
-     *
-     * @param userId
-     */
-    private void toShop(int userId) {
-        getFragmentTransaction(R.id.fl_content)
-                .add(R.id.fl_content, ShopFragment.newInstance(userId))
                 .commit();
     }
 }

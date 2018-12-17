@@ -8,8 +8,8 @@ import com.huyingbao.rxflux2.BuildConfig;
  */
 
 public class ServerUtils {
-    private static String DEBUG_BASE_URL = "http://13.124.215.205:1337/";
-    private static String BASE_URL = "http://13.124.215.205:1337/";
+    private static String DEBUG_BASE_URL = "https://gank.io/api/";
+    private static String BASE_URL = "https://gank.io/api/";
 
     public static String getBaseUrl() {
         return BuildConfig.DEBUG ? DEBUG_BASE_URL : BASE_URL;

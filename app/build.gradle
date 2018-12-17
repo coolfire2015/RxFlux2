@@ -170,6 +170,9 @@ dependencies {
     implementation "com.alibaba:fastjson:${FAST_JSON}"
     implementation "com.google.code.gson:gson:${GSON}"
 
+    //EventBus
+    implementation "org.greenrobot:eventbus:${EVENTBUS}"
+
     //内存溢出
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${LEAK_CANARY}"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${LEAK_CANARY}"

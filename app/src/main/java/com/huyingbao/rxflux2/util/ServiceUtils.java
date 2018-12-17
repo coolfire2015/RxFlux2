@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.SystemClock;
 
 import com.huyingbao.rxflux2.constant.Constants;
-import com.huyingbao.rxflux2.receiver.AlarmReceiver;
 
 import java.util.ArrayList;
 
@@ -51,42 +50,6 @@ public class ServiceUtils {
     public static boolean isAlarmOn(Context context, Intent intent) {
         PendingIntent pi = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
         return pi != null;
-    }
-
-    /**
-     * 启动服务
-     * 启动定时器
-     *
-     * @param context
-     */
-    public static void startTimerCheck(Context context) {
-        //启动服务
-        startService(context);
-        //每隔三分钟发一次广播
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.setAction(Constants.RECEIVER_NAME);
-        //一个 PendingIntent 只能登记一个定时器
-        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-        long firstTime = SystemClock.elapsedRealtime();//第一次启动时间
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime, 60 * 1000, sender);
-    }
-
-    /**
-     * 停止定时器
-     * 停止服务
-     *
-     * @param context
-     */
-    public static void stopTimerCheck(Context context) {
-        //停止服务
-        stopService(context);
-        //停止定时器
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.setAction(Constants.RECEIVER_NAME);
-        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.cancel(sender);
     }
 
     /**

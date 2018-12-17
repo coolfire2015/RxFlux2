@@ -1,7 +1,5 @@
 package com.huyingbao.rxflux2.action;
 
-import android.content.Context;
-
 import com.huyingbao.rxflux2.api.HttpApi;
 import com.huyingbao.rxflux2.constant.Actions;
 import com.huyingbao.rxflux2.dispatcher.Dispatcher;
@@ -24,20 +22,8 @@ public class ActionCreator extends BaseRxActionCreator implements Actions {
     }
 
     @Override
-    public boolean retry(RxAction action) {
-        return false;
-    }
-
-
-    @Override
     public void getProductList() {
         RxAction action = newRxAction(GET_GIT_REPO_LIST);
         postHttpAction(action, mHttpApi.getProductList());
-    }
-
-    @Override
-    public void getShop(Context context, int userId) {
-        RxAction action = newRxAction(GET_GIT_USER);
-        postLoadingHttpAction(context, action, mHttpApi.getShop(userId));
     }
 }

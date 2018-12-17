@@ -20,8 +20,8 @@ public class ProductAdapter extends BaseQuickAdapter<Product, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Product item) {
-        helper.setText(R.id.tv_product_name, item.getProductName())
+        helper.setText(R.id.tv_product_name, item.getDesc())
                 .setText(R.id.tv_product_description, item.getCreatedAt())
-                .setText(R.id.tv_product_id, "ProductId:" + item.getProductId());
+                .setText(R.id.tv_product_id, "ProductId:" + item.getWho());
     }
 }

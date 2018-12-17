@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     app:navigationIcon="@drawable/ic_action_refresh">
 
-    <include layout="@layout/view_tool_bar" />
-
     <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
