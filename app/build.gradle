@@ -1,15 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
+    //编译版本
     compileSdkVersion COMPILE_SDK_VERSION as int
+    //Build Tool Version
     buildToolsVersion BUILD_TOOLS_VERSION
-
     //lint设置
     lintOptions {
         //lint 不被终止
         abortOnError false
         //打Release版本时,不进行检测
         checkReleaseBuilds false
+        //关闭检索的功能
+        disable 'GoogleAppIndexingWarning'
     }
     //签名配置,自定义,用在defaultConfig中
     signingConfigs {
@@ -46,7 +49,7 @@ android {
             //Zipalign优化
             zipAlignEnabled true
             //混淆文件
-            proguardFile 'proguard-rules.pro'
+            proguardFiles 'proguard-rules.pro'
             //签名配置
             signingConfig signingConfigs.debug
         }
@@ -119,6 +122,7 @@ dependencies {
 
     //Support Libs
     implementation "com.android.support:support-v4:${SUPPORT_VERSION}"
+    implementation "com.android.support:support-v13:${SUPPORT_VERSION}"
     implementation "com.android.support:appcompat-v7:${SUPPORT_VERSION}"
     implementation "com.android.support:design:${SUPPORT_VERSION}"
     implementation "com.android.support:recyclerview-v7:${SUPPORT_VERSION}"
@@ -148,7 +152,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTER_KNIFE}"
 
     //RxPermissions
-    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${RX_PERMISSIONS_2}"
+    implementation "com.github.tbruyelle:rxpermissions:${RX_PERMISSIONS_2}"
+    implementation "io.reactivex.rxjava2:rxjava:${RX_JAVA_2}"
+    implementation "io.reactivex.rxjava2:rxandroid:${RX_ANDROID_2}"
     //RxLifecycle
     implementation "com.trello.rxlifecycle2:rxlifecycle:${RX_LIFE_CYCLE_2}"
     implementation "com.trello.rxlifecycle2:rxlifecycle-android:${RX_LIFE_CYCLE_2}"

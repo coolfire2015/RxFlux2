@@ -6,6 +6,7 @@ import android.widget.RelativeLayout;
 
 /**
  * 正方形
+ * Created by liujunfeng on 2017/1/1.
  */
 public class SquareRelativeLayout extends RelativeLayout {
     public SquareRelativeLayout(Context context) {

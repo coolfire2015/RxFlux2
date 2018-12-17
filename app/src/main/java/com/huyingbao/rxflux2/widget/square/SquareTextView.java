@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 /**
  * 正方形
+ * Created by liujunfeng on 2017/1/1.
  */
 public class SquareTextView extends android.support.v7.widget.AppCompatTextView {
     public SquareTextView(Context context) {

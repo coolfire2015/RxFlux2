@@ -8,7 +8,10 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:${BUILD_GRADLE}"
+        classpath "com.jakewharton:butterknife-gradle-plugin:${BUTTER_KNIFE}"
         classpath "com.github.dcendents:android-maven-gradle-plugin:${ANDROID_MAVEN_GRADLE_PLUGIN}"
+        //dagger性能测试
+        classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.6'
     }
 }
 
@@ -18,6 +21,7 @@ allprojects {
         jcenter()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
     }
 }
