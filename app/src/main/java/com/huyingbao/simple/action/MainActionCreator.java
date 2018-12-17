@@ -15,7 +15,7 @@ import javax.inject.Inject;
  * Created by liujunfeng on 2017/1/1.
  */
 @PerActivity
-public class MainActionCreator extends BaseRxActionCreator implements Actions {
+public class MainActionCreator extends BaseRxActionCreator implements MainAction {
     @Inject
     HttpApi mHttpApi;
 

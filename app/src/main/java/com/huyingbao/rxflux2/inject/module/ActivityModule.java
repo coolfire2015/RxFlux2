@@ -3,10 +3,8 @@ package com.huyingbao.rxflux2.inject.module;
 import android.app.Activity;
 import android.content.Context;
 
-import com.huyingbao.rxflux2.RxFlux;
 import com.huyingbao.rxflux2.inject.qualifier.ContextLife;
 import com.huyingbao.rxflux2.inject.scope.PerActivity;
-import com.huyingbao.simple.store.MainStore;
 
 import java.lang.ref.WeakReference;
 
@@ -51,11 +49,5 @@ public class ActivityModule {
     @PerActivity
     public FragmentModule provideFragmentModule() {
         return new FragmentModule();
-    }
-
-    @Provides
-    @PerActivity
-    public MainStore provideMainStore(RxFlux rxFlux) {
-        return new MainStore(rxFlux.getDispatcher());
     }
 }

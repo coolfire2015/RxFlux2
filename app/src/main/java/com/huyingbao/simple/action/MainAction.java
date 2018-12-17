@@ -11,7 +11,7 @@ package com.huyingbao.simple.action;
  * check:检查
  * Created by liujunfeng on 2017/1/1.
  */
-public interface Actions {
+public interface MainAction {
     String GET_GIT_REPO_LIST = "get_product_list";
 
     void getProductList();

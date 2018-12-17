@@ -7,11 +7,11 @@ import android.support.annotation.Nullable;
 import com.huyingbao.rxflux2.base.fragment.BaseRxFluxListFragment;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
+import com.huyingbao.simple.action.MainAction;
 import com.huyingbao.simple.action.MainActionCreator;
-import com.huyingbao.simple.action.Actions;
 import com.huyingbao.simple.adapter.ProductAdapter;
 import com.huyingbao.simple.model.Product;
-import com.huyingbao.simple.store.MainStore;
+import com.huyingbao.simple.action.MainStore;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -50,7 +50,7 @@ public class ProductListFragment extends BaseRxFluxListFragment<Product> {
     @Subscribe(sticky = true)
     public void onRxStoreChanged(@NonNull RxStoreChange change) {
         switch (change.getRxAction().getType()) {
-            case Actions.GET_GIT_REPO_LIST:
+            case MainAction.GET_GIT_REPO_LIST:
                 showDataList(mStore.getProductList());
                 break;
         }

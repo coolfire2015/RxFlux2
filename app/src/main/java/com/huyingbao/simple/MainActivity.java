@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import com.huyingbao.rxflux2.base.activity.BaseRxFluxToolbarActivity;
 import com.huyingbao.rxflux2.store.RxStore;
 import com.huyingbao.rxflux2.store.RxStoreChange;
-import com.huyingbao.simple.store.MainStore;
+import com.huyingbao.simple.action.MainStore;
 
 import org.greenrobot.eventbus.Subscribe;
 
