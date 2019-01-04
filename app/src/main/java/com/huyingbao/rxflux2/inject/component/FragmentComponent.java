@@ -25,6 +25,12 @@ import dagger.Subcomponent;
  * SubComponent 完全继承Component中的全部依赖，
  * 两个拥有依赖关系的 Component 是不能有相同 @Scope 注解的，
  * 使用@SubComponent 则可以使用相同的@Scope注解。
+ * <p>
+ * Component dependencies 能单独使用
+ * Subcomponent必须由Component调用方法获取。
+ * <p>
+ * Component dependencies 可以很清楚的得知他依赖哪个Component，
+ * 而Subcomponent不知道它自己的谁的孩子
  * Created by liujunfeng on 2017/1/1.
  */
 @PerFragment

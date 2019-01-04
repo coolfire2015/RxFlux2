@@ -11,8 +11,8 @@ import dagger.Component;
 /**
  * activity注入器
  * 不同的Component持有不同的对象，
- * 两个Component间有依赖关系，
- * 那么它们不能使用相同的Scope
+ * 两个Component间有依赖关系， 那么它们不能使用相同的Scope
+ * 单例依赖单例是不符合设计原则
  * Created by liujunfeng on 2017/1/1.
  */
 @PerActivity
@@ -22,6 +22,7 @@ public interface ActivityComponent {
 
     /**
      * 需要在父Component(ActivityComponent)添加返回子Component(FragmentComponent)的方法
+     * Subcomponent必须由Component调用方法获取。
      *
      * @return
      */
